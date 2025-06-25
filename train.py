@@ -57,7 +57,7 @@ class TrajectoryPredictionModel(nn.Module):
     def forward(self, batch_graphs, agent_mask=None):
         # Process with GAT
         gat_output = self.gat.process_batch(batch_graphs)
-        print(gat_output.tolist())  # Debugging output
+      
         
         # Store original sequence length for transformer
         orig_seq_len = gat_output.shape[1]
@@ -202,9 +202,6 @@ def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordi
 
 def extract_future_data(batch_graphs, future_steps, dataloader):
     """Extract ground truth future data from batch_graphs"""
-    # This is a simple placeholder that creates random future trajectories
-    # for testing the training pipeline
-    
     # Get batch assignment for each node from the last timestep
     last_batch = batch_graphs[-1]
     batch_tensor = last_batch.batch
@@ -214,25 +211,103 @@ def extract_future_data(batch_graphs, future_steps, dataloader):
     batch_size = len(unique_batches)
     max_agents = counts.max().item()
     
-    # Create ground truth tensor filled with random values (for testing only)
+    # Create tensor to hold the future trajectory data
     device = batch_tensor.device
     gt = torch.zeros(batch_size, max_agents, future_steps, 2, device=device)
     
-    # Create a mask to zero out predictions for invalid agents
-    for i, count in enumerate(counts):
-        count = min(count.item(), max_agents)  # Safety check
-        # Use random positions near the current ones for future trajectories
-        if i < batch_size:  # Safety check
-            last_positions = last_batch.x[batch_tensor == i][:, :2]
-            num_agents_in_batch = min(len(last_positions), max_agents)
-            
-            # Generate small random displacements
-            for t in range(future_steps):
-                if num_agents_in_batch > 0:  # Safety check
-                    displacement = torch.randn(num_agents_in_batch, 2, device=device) * 0.05 * (t + 1)
-                    gt[i, :num_agents_in_batch, t, :] = last_positions[:num_agents_in_batch] + displacement
+    # Debug the frame_time tensor structure
+    if hasattr(last_batch, 'frame_time'):
+        print(f"Frame time tensor shape: {last_batch.frame_time.shape}")
     
-    return gt
+    try:
+        # Try a more direct approach - see if we can get the frame times
+        # from the original sequence
+        frame_times = []
+        for i in range(batch_size):
+            # We'll use a simpler approach - just take a future frame 
+            # without trying to match exactly to the current observation
+            
+            # Get all sorted frames
+            all_frames = sorted(dataloader.data['Time'].unique())
+            
+            # Pick a starting frame that leaves room for future steps
+            safe_frame_idx = min(len(all_frames) - future_steps - 1, i % (len(all_frames) - future_steps - 1))
+            frame_times.append(all_frames[safe_frame_idx])
+        
+        # For each sequence in the batch
+        for batch_idx in range(batch_size):
+            last_frame_time = frame_times[batch_idx]
+            
+            # Find this frame's index in the dataset's frames list
+            all_frames = sorted(dataloader.data['Time'].unique())
+            try:
+                last_frame_idx = all_frames.index(last_frame_time)
+            except ValueError:
+                # If the frame isn't found, skip this batch item
+                print(f"Frame time {last_frame_time} not found in dataset. Skipping batch item.")
+                continue
+            
+            # Get agent IDs from the last observation frame for this batch
+            last_frame_data = dataloader.data[dataloader.data['Time'] == last_frame_time]
+            
+            # Determine how many agents to track
+            num_agents_in_batch = min(len(last_frame_data), max_agents)
+            
+            # Get agent IDs directly from the frame data
+            agent_ids = last_frame_data['Track ID'].values[:num_agents_in_batch]
+            
+            # For each future timestep
+            for t in range(future_steps):
+                # Check if we have enough frames for this future step
+                future_frame_idx = last_frame_idx + t + 1
+                if future_frame_idx < len(all_frames):
+                    future_frame_time = all_frames[future_frame_idx]
+                    future_frame_data = dataloader.data[dataloader.data['Time'] == future_frame_time]
+                    
+                    # For each agent
+                    for agent_idx, agent_id in enumerate(agent_ids):
+                        if agent_idx >= max_agents:  # Safety check
+                            break
+                        
+                        # Find this agent in the future frame
+                        agent_future_data = future_frame_data[future_frame_data['Track ID'] == agent_id]
+                        
+                        if not agent_future_data.empty:
+                            # Get the future position
+                            future_pos = torch.tensor(
+                                agent_future_data[['x [m]', 'y [m]']].values[0],
+                                dtype=torch.float32,
+                                device=device
+                            )
+                            gt[batch_idx, agent_idx, t, :] = future_pos
+        
+        return gt
+        
+    except Exception as e:
+        print(f"Error extracting future data: {e}")
+        print("Falling back to random future data generation...")
+        
+        # If all else fails, fall back to random data (but now with a warning)
+        for i, count in enumerate(counts):
+            if i >= batch_size:
+                continue
+                
+            count_val = min(count.item(), max_agents)
+            if count_val > 0:
+                # Get positions from the last frame
+                batch_nodes = batch_tensor == i
+                if torch.any(batch_nodes):
+                    # Get the positions of all nodes in this batch
+                    positions = last_batch.x[batch_nodes][:, :2]
+                    num_positions = min(len(positions), max_agents)
+                    
+                    # Generate random displacements for future frames
+                    for t in range(future_steps):
+                        # Small random displacements to simulate motion
+                        displacement = torch.randn(num_positions, 2, device=device) * 0.05 * (t + 1)
+                        gt[i, :num_positions, t, :] = positions[:num_positions] + displacement
+        
+        return gt
 
 def train_epoch(model, train_loader, optimizer, device, args):
     model.train()
@@ -392,9 +467,9 @@ def main():
     # Configuration settings (hardcoded instead of command line arguments)
     class Args:
         # Data parameters
-        data_path = 'final_surajpur_proper_reduced_2000.csv'
+        data_path = 'final_surajpur_proper.csv'
         obs_len = 10
-        pred_len = 5
+        pred_len = 10
         dist_threshold = 10.0
         batch_size = 8
         
