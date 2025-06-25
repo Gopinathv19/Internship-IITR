@@ -115,108 +115,49 @@ class TrajectoryTransformer(nn.Module):
         mask = (torch.triu(torch.ones(sz, sz)) == 1)  # Changed to match batch_first format
         mask = mask.float().masked_fill(mask == 0, float('-inf')).masked_fill(mask == 1, float(0.0))
         return mask
-        
+    
     def forward(self, src, src_mask=None, src_padding_mask=None):
         """
-        Forward pass of transformer
+        Forward pass of transformer (scene-by-scene or batch-first processing)
         
         Args:
             src: Output from TCN [batch_size, num_agents, seq_len, input_dim]
-            src_mask: Mask for source sequence [seq_len, seq_len]
-            src_padding_mask: Mask for padding [batch_size, num_agents, seq_len]
+            src_mask: Optional mask for source sequence
+            src_padding_mask: Optional mask for padding in source sequence
             
         Returns:
             Predicted trajectories [batch_size, num_agents, pred_len, output_dim]
         """
+        # Get dimensions
         batch_size, num_agents, seq_len, _ = src.shape
         device = src.device
         
-        print(f"TRNS forward - Input shape: {src.shape}")
-        
-        # Reshape to process all agents in batch dimension
-        src = src.reshape(batch_size * num_agents, seq_len, self.input_dim)
-        print(f"TRNS forward - After reshape: {src.shape}")
-        
-        # Project input to d_model dimension
+        # Project input to transformer dimension
+        # First reshape to combine batch and agents: [batch_size*num_agents, seq_len, input_dim]
+        src = src.reshape(-1, seq_len, self.input_dim)
         src = self.input_projection(src)  # [batch_size*num_agents, seq_len, d_model]
         
-        # No need to transpose with batch_first=True
-        # Add positional encoding
+        # Apply positional encoding
         src = self.pos_encoder(src)
         
-        # Process padding mask if provided
-        if src_padding_mask is not None:
-            print(f"TRNS forward - Padding mask original shape: {src_padding_mask.shape}")
-            if src_padding_mask.size(1) * seq_len != src.size(0) * seq_len:
-                print(f"TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.")
-                # Create a default mask that doesn't mask anything
-                src_padding_mask = torch.zeros(batch_size * num_agents, seq_len, dtype=torch.bool, device=device)
-            else:
-                src_padding_mask = src_padding_mask.reshape(batch_size * num_agents, seq_len)
-            print(f"TRNS forward - Padding mask adjusted shape: {src_padding_mask.shape}")
-        
-        # Transformer encoder
+        # Apply transformer encoder
         memory = self.transformer_encoder(src, mask=src_mask, src_key_padding_mask=src_padding_mask)
-        print(f"TRNS forward - After encoder: {memory.shape}")
         
-        # Prepare query embeddings for decoder - adjust for batch_first
+        # Prepare query embeddings for decoder
         query = self.query_embed.unsqueeze(0).repeat(batch_size * num_agents, 1, 1)
-        print(f"TRNS forward - Query shape: {query.shape}")
         
         # Generate causal mask for decoder
         tgt_mask = self._generate_square_subsequent_mask(self.pred_len).to(device)
         
-        # Transformer decoder
+        # Apply transformer decoder
         output = self.transformer_decoder(
             query, memory, tgt_mask=tgt_mask
         )
-        print(f"TRNS forward - After decoder: {output.shape}")
         
         # Project to output dimension
         output = self.output_projection(output)  # [batch_size*num_agents, pred_len, output_dim]
         
         # Reshape back to [batch_size, num_agents, pred_len, output_dim]
         output = output.reshape(batch_size, num_agents, self.pred_len, self.output_dim)
-        print(f"TRNS forward - Final output: {output.shape}")
         
         return output
-    
-    def forward_with_agent_mask(self, src, agent_mask=None):
-        """
-        Alternative forward method with explicit agent masking
-        
-        Args:
-            src: Output from TCN [batch_size, num_agents, seq_len, input_dim]
-            agent_mask: Boolean mask indicating valid agents [batch_size, num_agents]
-            
-        Returns:
-            Predicted trajectories [batch_size, num_agents, pred_len, output_dim]
-        """
-        batch_size, num_agents, seq_len, _ = src.shape
-        device = src.device
-        
-        print(f"TRNS forward_with_agent_mask - Input shape: {src.shape}")
-        print(f"TRNS forward_with_agent_mask - Agent mask shape: {agent_mask.shape if agent_mask is not None else None}")
-        
-        # Create padding mask from agent mask
-        if agent_mask is not None:
-            # Check if the agent_mask matches the number of agents in src
-            if agent_mask.size(1) != num_agents:
-                print(f"TRNS WARNING: Agent mask size ({agent_mask.size(1)}) doesn't match number of agents ({num_agents}). Adjusting mask.")
-                # Create a new mask of the correct size
-                new_agent_mask = torch.ones(batch_size, num_agents, dtype=torch.bool, device=device)
-                # Copy over the values from the original mask for the agents that exist
-                min_agents = min(agent_mask.size(1), num_agents)
-                new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
-                agent_mask = new_agent_mask
-                print(f"TRNS - Adjusted agent mask shape: {agent_mask.shape}")
-            
-            # Convert to padding mask format
-            src_padding_mask = ~agent_mask.unsqueeze(-1).repeat(1, 1, seq_len)
-            src_padding_mask = src_padding_mask.reshape(batch_size * num_agents, seq_len)
-            print(f"TRNS forward_with_agent_mask - Created padding mask: {src_padding_mask.shape}")
-        else:
-            src_padding_mask = None
-        
-        # Forward pass with padding mask
-        return self.forward(src, src_padding_mask=src_padding_mask)

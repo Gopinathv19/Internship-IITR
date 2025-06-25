@@ -34,53 +34,43 @@ class TCNBlock(nn.Module):
     
     def forward(self, x):
         """
-        Forward pass through TCN block
+        Forward pass through TCN block with proper residual connection handling
         
         Args:
-            x: Input tensor [batch_size, in_channels, seq_len]
-            
+            x: Input tensor of shape [N, C, L]
         Returns:
-            Output tensor [batch_size, out_channels, seq_len]
+            Output tensor of shape [N, C', L']
         """
+        # Save original for residual connection
         residual = x
         
-        # First convolutional layer
+        # First convolution block
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
         out = self.dropout1(out)
         
-        # Second convolutional layer
+        # Second convolution block
         out = self.conv2(out)
         out = self.bn2(out)
         out = self.dropout2(out)
         
-        # Residual connection
+        # Downsample if needed
         if self.downsample is not None:
             residual = self.downsample(residual)
         
-        # Debug prints
-        print(f"DEBUG - Before size check: residual shape = {residual.shape}, out shape = {out.shape}")
-        
-        # Handle size mismatch for causal convolution
+        # Handle residual connection size mismatch (due to dilation)
         if residual.size(2) != out.size(2):
-            if residual.size(2) < out.size(2):
-                # Pad residual if it's smaller than the output
-                print(f"DEBUG - Size mismatch detected! Padding residual from {residual.shape} to match {out.shape}")
-                padding_size = out.size(2) - residual.size(2)
-                residual = F.pad(residual, (0, padding_size))
+            # Pad residual to match output size
+            padding_size = out.size(2) - residual.size(2)
+            if padding_size > 0:
+                # Zero pad the residual from the right
+                residual = F.pad(residual, (0, padding_size), "constant", 0)
             else:
-                # Crop residual if it's larger than the output
-                print(f"DEBUG - Size mismatch detected! Cropping residual from {residual.shape} to match {out.shape}")
+                # Crop the residual from the right
                 residual = residual[:, :, :out.size(2)]
-            print(f"DEBUG - After adjustment: residual shape = {residual.shape}")
-        else:
-            print(f"DEBUG - Sizes match, no adjustment needed")
             
-        # Another debug check
-        if residual.size(2) != out.size(2):
-            print(f"ERROR - Sizes still don't match after adjustment: residual {residual.shape}, out {out.shape}")
-            
+        # Add residual connection
         out += residual
         out = self.relu(out)
         
@@ -151,16 +141,11 @@ class TCN(nn.Module):
             Processed tensor [batch_size, seq_len, output_dim]
             Ready to be used as input to a transformer or other modules
         """
-        # Print input shape
-        print(f"TCN input shape: {x.shape}")
-        
         # Convert from [batch, seq_len, features] to [batch, features, seq_len]
         x = x.transpose(1, 2)
-        print(f"After transpose: {x.shape}")
         
         # Apply TCN blocks
         x = self.network(x)
-        print(f"After TCN network: {x.shape}")
         
         # Apply output layer if needed
         if self.output_layer is not None:
@@ -168,7 +153,6 @@ class TCN(nn.Module):
             
         # Convert back to [batch, seq_len, features]
         x = x.transpose(1, 2)
-        print(f"Final TCN output shape: {x.shape}")
         
         # Apply layer normalization
         x = self.layer_norm(x)
