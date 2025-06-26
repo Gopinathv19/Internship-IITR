@@ -700,6 +700,106 @@ def compute_loss(predictions, targets, agent_mask=None):
     
     return loss
 
+def save_model(model, optimizer, scheduler, args, metrics, epoch, is_best=False, final=False):
+    """
+    Save model checkpoints with comprehensive information
+    
+    Args:
+        model: The model to save
+        optimizer: The optimizer used for training
+        scheduler: The learning rate scheduler
+        args: Training arguments with model configuration
+        metrics: Dictionary of metrics to save
+        epoch: Current epoch number
+        is_best: Whether this is the best model so far
+        final: Whether this is the final model after training
+    """
+    # Create a dictionary with all information needed to resume training or evaluate
+    save_dict = {
+        # Model configuration
+        'model_config': {
+            'num_types': args.num_types,
+            'type_embed_dim': args.type_embed_dim,
+            'gat_hidden_dim': args.gat_hidden_dim,
+            'gat_output_dim': args.gat_output_dim,
+            'gat_heads': args.gat_heads,
+            'tcn_hidden_dim': args.tcn_hidden_dim,
+            'tcn_output_dim': args.tcn_output_dim,
+            'tcn_layers': args.tcn_layers,
+            'tcn_kernel_size': args.tcn_kernel_size,
+            'transformer_dim': args.transformer_dim,
+            'transformer_heads': args.transformer_heads,
+            'transformer_encoder_layers': args.transformer_encoder_layers,
+            'transformer_decoder_layers': args.transformer_decoder_layers,
+            'transformer_ffn_dim': args.transformer_ffn_dim,
+            'dropout': args.dropout,
+            'obs_len': args.obs_len,
+            'pred_len': args.pred_len,
+        },
+        # Training state
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'scheduler_state_dict': scheduler.state_dict() if scheduler else None,
+        # Performance metrics
+        'metrics': metrics,
+    }
+    
+    # Save the checkpoint
+    if final:
+        # Final model after training completed
+        save_path = os.path.join(args.save_dir, 'final_model.pt')
+        torch.save(save_dict, save_path)
+        print(f"Saved final model to {save_path}")
+    elif is_best:
+        # Best model based on validation metric
+        save_path = os.path.join(args.save_dir, 'best_model.pt')
+        torch.save(save_dict, save_path)
+        print(f"Saved best model with metrics: {metrics}")
+    
+    # Periodic checkpoint for resuming training
+    save_path = os.path.join(args.save_dir, f'checkpoint_epoch_{epoch}.pt')
+    torch.save(save_dict, save_path)
+    
+    # Also save just the model weights in PyTorch's standard format for easy loading
+    if is_best:
+        weights_path = os.path.join(args.save_dir, 'best_weights.pth')
+        torch.save(model.state_dict(), weights_path)
+    
+    if final:
+        weights_path = os.path.join(args.save_dir, 'final_weights.pth')
+        torch.save(model.state_dict(), weights_path)
+
+def load_model(model_path, device=None):
+    """
+    Load a saved model with all its configuration
+    
+    Args:
+        model_path: Path to the saved model
+        device: Device to load the model on
+        
+    Returns:
+        model: The loaded model
+        config: Model configuration
+        training_state: Dictionary with training state information
+    """
+    if device is None:
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    # Load the saved dictionary
+    checkpoint = torch.load(model_path, map_location=device)
+    
+    # Extract configuration
+    model_config = checkpoint.get('model_config', {})
+    
+    # Create model using saved configuration
+    model = TrajectoryPredictionModel(model_config)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.to(device)
+    
+    # Return model and other saved information
+    return model, model_config, checkpoint
+
 def validate(model, val_loader, device, args):
     """
     Validate the model
@@ -926,13 +1026,31 @@ def main():
         print(f"Train FDE: {train_metrics['FDE']:.4f}, Val FDE: {val_metrics['FDE']:.4f}")
         print(f"Time: {train_time:.2f}s")
         
-        # Save best model
-        if val_metrics['FDE'] < best_val_fde:
-            best_val_fde = val_metrics['FDE']
-            torch.save(model.state_dict(), os.path.join(args.save_dir, 'best_model.pth'))
-            print(f"Saved best model with Val FDE: {best_val_fde:.4f}")
+        # Combine metrics for saving
+        combined_metrics = {
+            'train': train_metrics,
+            'val': val_metrics,
+            'epoch': epoch,
+            'time': train_time
+        }
         
-        # Save checkpoint
+        # Check if this is the best model
+        is_best = val_metrics['FDE'] < best_val_fde
+        if is_best:
+            best_val_fde = val_metrics['FDE']
+            
+        # Save model using our comprehensive save function
+        save_model(
+            model=model,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            args=args,
+            metrics=combined_metrics,
+            epoch=epoch,
+            is_best=is_best
+        )
+        
+        # Save checkpoint for backward compatibility
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
@@ -943,11 +1061,29 @@ def main():
             'val_metrics': val_metrics,
         }, os.path.join(args.save_dir, 'checkpoint.pt'))
     
+    # Save final model with all components
+    save_model(
+        model=model,
+        optimizer=optimizer,
+        scheduler=scheduler,
+        args=args,
+        metrics={
+            'train': train_metrics,
+            'val': val_metrics,
+            'best_val_fde': best_val_fde,
+            'total_epochs': args.epochs
+        },
+        epoch=args.epochs,
+        final=True
+    )
+    
     # Close TensorBoard writer
     writer.close()
     
     print("Training completed!")
     print(f"Best validation FDE: {best_val_fde:.4f}")
+    print(f"Model saved at: {os.path.join(args.save_dir, 'final_model.pt')}")
+    print(f"Model weights saved at: {os.path.join(args.save_dir, 'final_weights.pth')}")
 
 if __name__ == "__main__":
     main()

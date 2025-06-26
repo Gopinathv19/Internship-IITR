@@ -1,993 +1,1235 @@
-Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
-Train Loss: 0.6458, ADE: 30.4088, FDE: 29.6526:   2%|█▏                                                           | 13/673 [03:40<3:10:14, 17.30s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([736, 10, 64])
-After transpose: torch.Size([736, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 10]), out shape = torch.Size([736, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 10]) to match torch.Size([736, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 14]), out shape = torch.Size([736, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 14]) to match torch.Size([736, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 22]), out shape = torch.Size([736, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 22]) to match torch.Size([736, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 38])
-After TCN network: torch.Size([736, 128, 38])
-Final TCN output shape: torch.Size([736, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 92, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 88])
-TRNS WARNING: Agent mask size (88) doesn't match number of agents (92). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 92])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([736, 10])
-TRNS forward - Input shape: torch.Size([8, 92, 10, 128])
-TRNS forward - After reshape: torch.Size([736, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([736, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([736, 10])
-TRNS forward - After encoder: torch.Size([736, 10, 256])
-TRNS forward - Query shape: torch.Size([736, 10, 256])
-TRNS forward - After decoder: torch.Size([736, 10, 256])
-TRNS forward - Final output: torch.Size([8, 92, 10, 2])
-Agent mask size (88) doesn't match predictions size (92). Adjusting mask.
-Ground truth size (88) doesn't match predictions size (92). Adjusting ground truth.
-Train Loss: 0.6285, ADE: 29.6248, FDE: 28.8964:   2%|█▎                                                           | 14/673 [03:59<3:13:41, 17.63s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([656, 10, 64])
-After transpose: torch.Size([656, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([656, 128, 10]), out shape = torch.Size([656, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([656, 128, 10]) to match torch.Size([656, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([656, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([656, 128, 14]), out shape = torch.Size([656, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([656, 128, 14]) to match torch.Size([656, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([656, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([656, 128, 22]), out shape = torch.Size([656, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([656, 128, 22]) to match torch.Size([656, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([656, 128, 38])
-After TCN network: torch.Size([656, 128, 38])
-Final TCN output shape: torch.Size([656, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 82, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 80])
-TRNS WARNING: Agent mask size (80) doesn't match number of agents (82). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 82])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([656, 10])
-TRNS forward - Input shape: torch.Size([8, 82, 10, 128])
-TRNS forward - After reshape: torch.Size([656, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([656, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([656, 10])
-TRNS forward - After encoder: torch.Size([656, 10, 256])
-TRNS forward - Query shape: torch.Size([656, 10, 256])
-TRNS forward - After decoder: torch.Size([656, 10, 256])
-TRNS forward - Final output: torch.Size([8, 82, 10, 2])
-Agent mask size (80) doesn't match predictions size (82). Adjusting mask.
-Ground truth size (80) doesn't match predictions size (82). Adjusting ground truth.
-Train Loss: 0.6417, ADE: 30.1650, FDE: 29.4249:   2%|█▎                                                           | 15/673 [04:20<3:25:44, 18.76s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([712, 10, 64])
-After transpose: torch.Size([712, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 10]), out shape = torch.Size([712, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 10]) to match torch.Size([712, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 14]), out shape = torch.Size([712, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 14]) to match torch.Size([712, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 22]), out shape = torch.Size([712, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 22]) to match torch.Size([712, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 38])
-After TCN network: torch.Size([712, 128, 38])
-Final TCN output shape: torch.Size([712, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 89, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 86])
-TRNS WARNING: Agent mask size (86) doesn't match number of agents (89). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 89])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([712, 10])
-TRNS forward - Input shape: torch.Size([8, 89, 10, 128])
-TRNS forward - After reshape: torch.Size([712, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([712, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([712, 10])
-TRNS forward - After encoder: torch.Size([712, 10, 256])
-TRNS forward - Query shape: torch.Size([712, 10, 256])
-TRNS forward - After decoder: torch.Size([712, 10, 256])
-TRNS forward - Final output: torch.Size([8, 89, 10, 2])
-Agent mask size (86) doesn't match predictions size (89). Adjusting mask.
-Ground truth size (86) doesn't match predictions size (89). Adjusting ground truth.
-Train Loss: 0.6922, ADE: 32.2801, FDE: 31.5017:   2%|█▍                                                           | 16/673 [04:54<4:14:19, 23.23s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([680, 10, 64])
-After transpose: torch.Size([680, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 10]), out shape = torch.Size([680, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 10]) to match torch.Size([680, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 14]), out shape = torch.Size([680, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 14]) to match torch.Size([680, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 22]), out shape = torch.Size([680, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 22]) to match torch.Size([680, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 38])
-After TCN network: torch.Size([680, 128, 38])
-Final TCN output shape: torch.Size([680, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 85, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 84])
-TRNS WARNING: Agent mask size (84) doesn't match number of agents (85). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 85])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([680, 10])
-TRNS forward - Input shape: torch.Size([8, 85, 10, 128])
-TRNS forward - After reshape: torch.Size([680, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([680, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([680, 10])
-TRNS forward - After encoder: torch.Size([680, 10, 256])
-TRNS forward - Query shape: torch.Size([680, 10, 256])
-TRNS forward - After decoder: torch.Size([680, 10, 256])
-TRNS forward - Final output: torch.Size([8, 85, 10, 2])
-Agent mask size (84) doesn't match predictions size (85). Adjusting mask.
-Ground truth size (84) doesn't match predictions size (85). Adjusting ground truth.
-Train Loss: 0.6394, ADE: 29.8815, FDE: 29.1577:   3%|█▌                                                           | 17/673 [05:20<4:23:40, 24.12s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([672, 10, 64])
-After transpose: torch.Size([672, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 10]), out shape = torch.Size([672, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 10]) to match torch.Size([672, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 14]), out shape = torch.Size([672, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 14]) to match torch.Size([672, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 22]), out shape = torch.Size([672, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 22]) to match torch.Size([672, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 38])
-After TCN network: torch.Size([672, 128, 38])
-Final TCN output shape: torch.Size([672, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 84, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 84])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([672, 10])
-TRNS forward - Input shape: torch.Size([8, 84, 10, 128])
-TRNS forward - After reshape: torch.Size([672, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([672, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([672, 10])
-TRNS forward - After encoder: torch.Size([672, 10, 256])
-TRNS forward - Query shape: torch.Size([672, 10, 256])
-TRNS forward - After decoder: torch.Size([672, 10, 256])
-TRNS forward - Final output: torch.Size([8, 84, 10, 2])
-Train Loss: 0.6745, ADE: 31.3762, FDE: 30.6074:   3%|█▋                                                           | 18/673 [06:05<5:33:43, 30.57s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([720, 10, 64])
-After transpose: torch.Size([720, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([720, 128, 10]), out shape = torch.Size([720, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([720, 128, 10]) to match torch.Size([720, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([720, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([720, 128, 14]), out shape = torch.Size([720, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([720, 128, 14]) to match torch.Size([720, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([720, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([720, 128, 22]), out shape = torch.Size([720, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([720, 128, 22]) to match torch.Size([720, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([720, 128, 38])
-After TCN network: torch.Size([720, 128, 38])
-Final TCN output shape: torch.Size([720, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 90, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 90])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([720, 10])
-TRNS forward - Input shape: torch.Size([8, 90, 10, 128])
-TRNS forward - After reshape: torch.Size([720, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([720, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([720, 10])
-TRNS forward - After encoder: torch.Size([720, 10, 256])
-TRNS forward - Query shape: torch.Size([720, 10, 256])
-TRNS forward - After decoder: torch.Size([720, 10, 256])
-TRNS forward - Final output: torch.Size([8, 90, 10, 2])
-Train Loss: 0.5987, ADE: 27.9844, FDE: 27.3269:   3%|█▋                                                           | 19/673 [06:32<5:18:54, 29.26s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([672, 10, 64])
-After transpose: torch.Size([672, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 10]), out shape = torch.Size([672, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 10]) to match torch.Size([672, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 14]), out shape = torch.Size([672, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 14]) to match torch.Size([672, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([672, 128, 22]), out shape = torch.Size([672, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([672, 128, 22]) to match torch.Size([672, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([672, 128, 38])
-After TCN network: torch.Size([672, 128, 38])
-Final TCN output shape: torch.Size([672, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 84, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 82])
-TRNS WARNING: Agent mask size (82) doesn't match number of agents (84). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 84])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([672, 10])
-TRNS forward - Input shape: torch.Size([8, 84, 10, 128])
-TRNS forward - After reshape: torch.Size([672, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([672, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([672, 10])
-TRNS forward - After encoder: torch.Size([672, 10, 256])
-TRNS forward - Query shape: torch.Size([672, 10, 256])
-TRNS forward - After decoder: torch.Size([672, 10, 256])
-TRNS forward - Final output: torch.Size([8, 84, 10, 2])
-Agent mask size (82) doesn't match predictions size (84). Adjusting mask.
-Ground truth size (82) doesn't match predictions size (84). Adjusting ground truth.
-Train Loss: 0.5974, ADE: 27.9204, FDE: 27.2651:   3%|█▊                                                           | 20/673 [06:59<5:13:34, 28.81s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([624, 10, 64])
-After transpose: torch.Size([624, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 10]), out shape = torch.Size([624, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 10]) to match torch.Size([624, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 14]), out shape = torch.Size([624, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 14]) to match torch.Size([624, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 22]), out shape = torch.Size([624, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 22]) to match torch.Size([624, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 38])
-After TCN network: torch.Size([624, 128, 38])
-Final TCN output shape: torch.Size([624, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 78, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 77])
-TRNS WARNING: Agent mask size (77) doesn't match number of agents (78). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 78])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([624, 10])
-TRNS forward - Input shape: torch.Size([8, 78, 10, 128])
-TRNS forward - After reshape: torch.Size([624, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([624, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([624, 10])
-TRNS forward - After encoder: torch.Size([624, 10, 256])
-TRNS forward - Query shape: torch.Size([624, 10, 256])
-TRNS forward - After decoder: torch.Size([624, 10, 256])
-TRNS forward - Final output: torch.Size([8, 78, 10, 2])
-Agent mask size (77) doesn't match predictions size (78). Adjusting mask.
-Ground truth size (77) doesn't match predictions size (78). Adjusting ground truth.
-Train Loss: 0.6045, ADE: 28.2669, FDE: 27.6020:   3%|█▉                                                           | 21/673 [07:29<5:14:56, 28.98s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([568, 10, 64])
-After transpose: torch.Size([568, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([568, 128, 10]), out shape = torch.Size([568, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([568, 128, 10]) to match torch.Size([568, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([568, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([568, 128, 14]), out shape = torch.Size([568, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([568, 128, 14]) to match torch.Size([568, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([568, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([568, 128, 22]), out shape = torch.Size([568, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([568, 128, 22]) to match torch.Size([568, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([568, 128, 38])
-After TCN network: torch.Size([568, 128, 38])
-Final TCN output shape: torch.Size([568, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 71, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 68])
-TRNS WARNING: Agent mask size (68) doesn't match number of agents (71). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 71])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([568, 10])
-TRNS forward - Input shape: torch.Size([8, 71, 10, 128])
-TRNS forward - After reshape: torch.Size([568, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([568, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([568, 10])
-TRNS forward - After encoder: torch.Size([568, 10, 256])
-TRNS forward - Query shape: torch.Size([568, 10, 256])
-TRNS forward - After decoder: torch.Size([568, 10, 256])
-TRNS forward - Final output: torch.Size([8, 71, 10, 2])
-Agent mask size (68) doesn't match predictions size (71). Adjusting mask.
-Ground truth size (68) doesn't match predictions size (71). Adjusting ground truth.
-Train Loss: 0.6723, ADE: 31.2902, FDE: 30.5391:   3%|█▉                                                           | 22/673 [07:44<4:28:49, 24.78s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([640, 10, 64])
-After transpose: torch.Size([640, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 10]), out shape = torch.Size([640, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 10]) to match torch.Size([640, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 14]), out shape = torch.Size([640, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 14]) to match torch.Size([640, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 22]), out shape = torch.Size([640, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 22]) to match torch.Size([640, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 38])
-After TCN network: torch.Size([640, 128, 38])
-Final TCN output shape: torch.Size([640, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 78])
-TRNS WARNING: Agent mask size (78) doesn't match number of agents (80). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 80])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([640, 10])
-TRNS forward - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward - After reshape: torch.Size([640, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([640, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([640, 10])
-TRNS forward - After encoder: torch.Size([640, 10, 256])
-TRNS forward - Query shape: torch.Size([640, 10, 256])
-TRNS forward - After decoder: torch.Size([640, 10, 256])
-TRNS forward - Final output: torch.Size([8, 80, 10, 2])
-Agent mask size (78) doesn't match predictions size (80). Adjusting mask.
-Ground truth size (78) doesn't match predictions size (80). Adjusting ground truth.
-Train Loss: 0.6608, ADE: 30.8291, FDE: 30.1120:   3%|██                                                           | 23/673 [07:59<3:57:20, 21.91s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([560, 10, 64])
-After transpose: torch.Size([560, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([560, 128, 10]), out shape = torch.Size([560, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([560, 128, 10]) to match torch.Size([560, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([560, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([560, 128, 14]), out shape = torch.Size([560, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([560, 128, 14]) to match torch.Size([560, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([560, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([560, 128, 22]), out shape = torch.Size([560, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([560, 128, 22]) to match torch.Size([560, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([560, 128, 38])
-After TCN network: torch.Size([560, 128, 38])
-Final TCN output shape: torch.Size([560, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 70, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 68])
-TRNS WARNING: Agent mask size (68) doesn't match number of agents (70). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 70])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([560, 10])
-TRNS forward - Input shape: torch.Size([8, 70, 10, 128])
-TRNS forward - After reshape: torch.Size([560, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([560, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([560, 10])
-TRNS forward - After encoder: torch.Size([560, 10, 256])
-TRNS forward - Query shape: torch.Size([560, 10, 256])
-TRNS forward - After decoder: torch.Size([560, 10, 256])
-TRNS forward - Final output: torch.Size([8, 70, 10, 2])
-Agent mask size (68) doesn't match predictions size (70). Adjusting mask.
-Ground truth size (68) doesn't match predictions size (70). Adjusting ground truth.
-Train Loss: 0.6763, ADE: 31.5892, FDE: 30.8261:   4%|██▏                                                          | 24/673 [08:14<3:33:48, 19.77s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([608, 10, 64])
-After transpose: torch.Size([608, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 10]), out shape = torch.Size([608, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 10]) to match torch.Size([608, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 14]), out shape = torch.Size([608, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 14]) to match torch.Size([608, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 22]), out shape = torch.Size([608, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 22]) to match torch.Size([608, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 38])
-After TCN network: torch.Size([608, 128, 38])
-Final TCN output shape: torch.Size([608, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 76])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([608, 10])
-TRNS forward - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward - After reshape: torch.Size([608, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([608, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([608, 10])
-TRNS forward - After encoder: torch.Size([608, 10, 256])
-TRNS forward - Query shape: torch.Size([608, 10, 256])
-TRNS forward - After decoder: torch.Size([608, 10, 256])
-TRNS forward - Final output: torch.Size([8, 76, 10, 2])
-Train Loss: 0.7035, ADE: 32.8298, FDE: 32.0490:   4%|██▎                                                          | 25/673 [08:29<3:17:27, 18.28s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([696, 10, 64])
-After transpose: torch.Size([696, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 10]), out shape = torch.Size([696, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 10]) to match torch.Size([696, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 14]), out shape = torch.Size([696, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 14]) to match torch.Size([696, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 22]), out shape = torch.Size([696, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 22]) to match torch.Size([696, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 38])
-After TCN network: torch.Size([696, 128, 38])
-Final TCN output shape: torch.Size([696, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 87, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 85])
-TRNS WARNING: Agent mask size (85) doesn't match number of agents (87). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 87])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([696, 10])
-TRNS forward - Input shape: torch.Size([8, 87, 10, 128])
-TRNS forward - After reshape: torch.Size([696, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([696, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([696, 10])
-TRNS forward - After encoder: torch.Size([696, 10, 256])
-TRNS forward - Query shape: torch.Size([696, 10, 256])
-TRNS forward - After decoder: torch.Size([696, 10, 256])
-TRNS forward - Final output: torch.Size([8, 87, 10, 2])
-Agent mask size (85) doesn't match predictions size (87). Adjusting mask.
-Ground truth size (85) doesn't match predictions size (87). Adjusting ground truth.
-Train Loss: 0.6082, ADE: 28.6635, FDE: 28.0194:   4%|██▎                                                          | 26/673 [09:16<4:52:02, 27.08s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([696, 10, 64])
-After transpose: torch.Size([696, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 10]), out shape = torch.Size([696, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 10]) to match torch.Size([696, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 14]), out shape = torch.Size([696, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 14]) to match torch.Size([696, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([696, 128, 22]), out shape = torch.Size([696, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([696, 128, 22]) to match torch.Size([696, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([696, 128, 38])
-After TCN network: torch.Size([696, 128, 38])
-Final TCN output shape: torch.Size([696, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 87, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 86])
-TRNS WARNING: Agent mask size (86) doesn't match number of agents (87). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 87])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([696, 10])
-TRNS forward - Input shape: torch.Size([8, 87, 10, 128])
-TRNS forward - After reshape: torch.Size([696, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([696, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([696, 10])
-TRNS forward - After encoder: torch.Size([696, 10, 256])
-TRNS forward - Query shape: torch.Size([696, 10, 256])
-TRNS forward - After decoder: torch.Size([696, 10, 256])
-TRNS forward - Final output: torch.Size([8, 87, 10, 2])
-Agent mask size (86) doesn't match predictions size (87). Adjusting mask.
-Ground truth size (86) doesn't match predictions size (87). Adjusting ground truth.
-Train Loss: 0.6421, ADE: 30.1772, FDE: 29.4801:   4%|██▍                                                          | 27/673 [09:39<4:38:21, 25.85s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([608, 10, 64])
-After transpose: torch.Size([608, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 10]), out shape = torch.Size([608, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 10]) to match torch.Size([608, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 14]), out shape = torch.Size([608, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 14]) to match torch.Size([608, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 22]), out shape = torch.Size([608, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 22]) to match torch.Size([608, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 38])
-After TCN network: torch.Size([608, 128, 38])
-Final TCN output shape: torch.Size([608, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 74])
-TRNS WARNING: Agent mask size (74) doesn't match number of agents (76). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 76])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([608, 10])
-TRNS forward - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward - After reshape: torch.Size([608, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([608, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([608, 10])
-TRNS forward - After encoder: torch.Size([608, 10, 256])
-TRNS forward - Query shape: torch.Size([608, 10, 256])
-TRNS forward - After decoder: torch.Size([608, 10, 256])
-TRNS forward - Final output: torch.Size([8, 76, 10, 2])
-Agent mask size (74) doesn't match predictions size (76). Adjusting mask.
+Using device: cuda
+Original distance threshold: 10.0 meters
+Standardized distance threshold: 0.29894503856273774
+/usr/local/lib/python3.11/dist-packages/torch/optim/lr_scheduler.py:62: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn(
+
+Epoch 1/50
+Training:   0%|          | 0/673 [00:00<?, ?it/s]Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5182, max=2.2000, mean=-0.0097, std=0.9367
+Predictions stats: mean=0.0011, std=0.0072, min=-0.0284, max=0.0319
+Targets stats: mean=-0.0097, std=0.9367, min=-2.5182, max=2.2000
+Average distance between predictions and targets: 1.1605
+Train Loss: 2.0901, ADE: 0.0221, FDE: 0.0224:   0%|          | 1/673 [00:14<2:39:55, 14.28s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0284, 0.0319]
+Predictions Y range: [-0.0270, 0.0294]
+Ground Truth X range: [-2.5182, 1.9789]
+Ground Truth Y range: [-1.7939, 2.2000]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0603, Y=0.0564
+Ground truth range: X=4.4971, Y=3.9940
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0284, 0.0319]
+Adjusted ground truth Y range: [-0.0270, 0.0294]
+
+Error statistics:
+ADE range: [0.0074, 0.0462], mean: 0.0221
+FDE range: [0.0019, 0.0553], mean: 0.0224
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4631, max=2.1199, mean=-0.0304, std=0.9494
 Ground truth size (74) doesn't match predictions size (76). Adjusting ground truth.
-Train Loss: 0.6675, ADE: 31.2212, FDE: 30.4966:   4%|██▌                                                          | 28/673 [09:54<4:03:27, 22.65s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([608, 10, 64])
-After transpose: torch.Size([608, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 10]), out shape = torch.Size([608, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 10]) to match torch.Size([608, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 14]), out shape = torch.Size([608, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 14]) to match torch.Size([608, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 22]), out shape = torch.Size([608, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 22]) to match torch.Size([608, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 38])
-After TCN network: torch.Size([608, 128, 38])
-Final TCN output shape: torch.Size([608, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 73])
-TRNS WARNING: Agent mask size (73) doesn't match number of agents (76). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 76])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([608, 10])
-TRNS forward - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward - After reshape: torch.Size([608, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([608, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([608, 10])
-TRNS forward - After encoder: torch.Size([608, 10, 256])
-TRNS forward - Query shape: torch.Size([608, 10, 256])
-TRNS forward - After decoder: torch.Size([608, 10, 256])
-TRNS forward - Final output: torch.Size([8, 76, 10, 2])
-Agent mask size (73) doesn't match predictions size (76). Adjusting mask.
-Ground truth size (73) doesn't match predictions size (76). Adjusting ground truth.
-Train Loss: 0.6920, ADE: 32.2357, FDE: 31.4816:   4%|██▋                                                          | 29/673 [10:09<3:36:31, 20.17s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([664, 10, 64])
-After transpose: torch.Size([664, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 10]), out shape = torch.Size([664, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 10]) to match torch.Size([664, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 14]), out shape = torch.Size([664, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 14]) to match torch.Size([664, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 22]), out shape = torch.Size([664, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 22]) to match torch.Size([664, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 38])
-After TCN network: torch.Size([664, 128, 38])
-Final TCN output shape: torch.Size([664, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 80])
-TRNS WARNING: Agent mask size (80) doesn't match number of agents (83). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 83])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([664, 10])
-TRNS forward - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward - After reshape: torch.Size([664, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([664, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([664, 10])
-TRNS forward - After encoder: torch.Size([664, 10, 256])
-TRNS forward - Query shape: torch.Size([664, 10, 256])
-TRNS forward - After decoder: torch.Size([664, 10, 256])
-TRNS forward - Final output: torch.Size([8, 83, 10, 2])
-Agent mask size (80) doesn't match predictions size (83). Adjusting mask.
-Ground truth size (80) doesn't match predictions size (83). Adjusting ground truth.
-Train Loss: 0.6150, ADE: 28.8320, FDE: 28.2022:   4%|██▋                                                          | 30/673 [10:50<4:44:27, 26.54s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([640, 10, 64])
-After transpose: torch.Size([640, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 10]), out shape = torch.Size([640, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 10]) to match torch.Size([640, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 14]), out shape = torch.Size([640, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 14]) to match torch.Size([640, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 22]), out shape = torch.Size([640, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 22]) to match torch.Size([640, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 38])
-After TCN network: torch.Size([640, 128, 38])
-Final TCN output shape: torch.Size([640, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 79])
-TRNS WARNING: Agent mask size (79) doesn't match number of agents (80). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 80])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([640, 10])
-TRNS forward - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward - After reshape: torch.Size([640, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([640, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([640, 10])
-TRNS forward - After encoder: torch.Size([640, 10, 256])
-TRNS forward - Query shape: torch.Size([640, 10, 256])
-TRNS forward - After decoder: torch.Size([640, 10, 256])
-TRNS forward - Final output: torch.Size([8, 80, 10, 2])
-Agent mask size (79) doesn't match predictions size (80). Adjusting mask.
-Ground truth size (79) doesn't match predictions size (80). Adjusting ground truth.
-Train Loss: 0.6939, ADE: 32.2936, FDE: 31.5503:   5%|██▊                                                          | 31/673 [11:11<4:25:32, 24.82s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([544, 10, 64])
-After transpose: torch.Size([544, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([544, 128, 10]), out shape = torch.Size([544, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([544, 128, 10]) to match torch.Size([544, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([544, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([544, 128, 14]), out shape = torch.Size([544, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([544, 128, 14]) to match torch.Size([544, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([544, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([544, 128, 22]), out shape = torch.Size([544, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([544, 128, 22]) to match torch.Size([544, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([544, 128, 38])
-After TCN network: torch.Size([544, 128, 38])
-Final TCN output shape: torch.Size([544, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 68, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 68])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([544, 10])
-TRNS forward - Input shape: torch.Size([8, 68, 10, 128])
-TRNS forward - After reshape: torch.Size([544, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([544, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([544, 10])
-TRNS forward - After encoder: torch.Size([544, 10, 256])
-TRNS forward - Query shape: torch.Size([544, 10, 256])
-TRNS forward - After decoder: torch.Size([544, 10, 256])
-TRNS forward - Final output: torch.Size([8, 68, 10, 2])
-Train Loss: 0.6901, ADE: 32.1794, FDE: 31.4523:   5%|██▉                                                          | 32/673 [11:54<5:22:40, 30.20s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([616, 10, 64])
-After transpose: torch.Size([616, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 10]), out shape = torch.Size([616, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 10]) to match torch.Size([616, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 14]), out shape = torch.Size([616, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 14]) to match torch.Size([616, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 22]), out shape = torch.Size([616, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 22]) to match torch.Size([616, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 38])
-After TCN network: torch.Size([616, 128, 38])
-Final TCN output shape: torch.Size([616, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 76])
-TRNS WARNING: Agent mask size (76) doesn't match number of agents (77). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 77])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([616, 10])
-TRNS forward - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward - After reshape: torch.Size([616, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([616, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([616, 10])
-TRNS forward - After encoder: torch.Size([616, 10, 256])
-TRNS forward - Query shape: torch.Size([616, 10, 256])
-TRNS forward - After decoder: torch.Size([616, 10, 256])
-TRNS forward - Final output: torch.Size([8, 77, 10, 2])
-Agent mask size (76) doesn't match predictions size (77). Adjusting mask.
-Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
-Train Loss: 0.6726, ADE: 31.4053, FDE: 30.6866:   5%|██▉                                                          | 33/673 [12:31<5:43:17, 32.18s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([608, 10, 64])
-After transpose: torch.Size([608, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 10]), out shape = torch.Size([608, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 10]) to match torch.Size([608, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 14]), out shape = torch.Size([608, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 14]) to match torch.Size([608, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 22]), out shape = torch.Size([608, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 22]) to match torch.Size([608, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 38])
-After TCN network: torch.Size([608, 128, 38])
-Final TCN output shape: torch.Size([608, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 75])
-TRNS WARNING: Agent mask size (75) doesn't match number of agents (76). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 76])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([608, 10])
-TRNS forward - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward - After reshape: torch.Size([608, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([608, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([608, 10])
-TRNS forward - After encoder: torch.Size([608, 10, 256])
-TRNS forward - Query shape: torch.Size([608, 10, 256])
-TRNS forward - After decoder: torch.Size([608, 10, 256])
-TRNS forward - Final output: torch.Size([8, 76, 10, 2])
-Agent mask size (75) doesn't match predictions size (76). Adjusting mask.
-Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
-Train Loss: 0.6896, ADE: 32.2005, FDE: 31.4595:   5%|███                                                          | 34/673 [12:46<4:48:27, 27.08s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([608, 10, 64])
-After transpose: torch.Size([608, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 10]), out shape = torch.Size([608, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 10]) to match torch.Size([608, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 14]), out shape = torch.Size([608, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 14]) to match torch.Size([608, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([608, 128, 22]), out shape = torch.Size([608, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([608, 128, 22]) to match torch.Size([608, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([608, 128, 38])
-After TCN network: torch.Size([608, 128, 38])
-Final TCN output shape: torch.Size([608, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 75])
-TRNS WARNING: Agent mask size (75) doesn't match number of agents (76). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 76])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([608, 10])
-TRNS forward - Input shape: torch.Size([8, 76, 10, 128])
-TRNS forward - After reshape: torch.Size([608, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([608, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([608, 10])
-TRNS forward - After encoder: torch.Size([608, 10, 256])
-TRNS forward - Query shape: torch.Size([608, 10, 256])
-TRNS forward - After decoder: torch.Size([608, 10, 256])
-TRNS forward - Final output: torch.Size([8, 76, 10, 2])
-Agent mask size (75) doesn't match predictions size (76). Adjusting mask.
-Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
-Train Loss: 0.6921, ADE: 32.3436, FDE: 31.6298:   5%|███▏                                                         | 35/673 [13:12<4:46:24, 26.93s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([616, 10, 64])
-After transpose: torch.Size([616, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 10]), out shape = torch.Size([616, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 10]) to match torch.Size([616, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 14]), out shape = torch.Size([616, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 14]) to match torch.Size([616, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 22]), out shape = torch.Size([616, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 22]) to match torch.Size([616, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 38])
-After TCN network: torch.Size([616, 128, 38])
-Final TCN output shape: torch.Size([616, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 75])
-TRNS WARNING: Agent mask size (75) doesn't match number of agents (77). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 77])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([616, 10])
-TRNS forward - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward - After reshape: torch.Size([616, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([616, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([616, 10])
-TRNS forward - After encoder: torch.Size([616, 10, 256])
-TRNS forward - Query shape: torch.Size([616, 10, 256])
-TRNS forward - After decoder: torch.Size([616, 10, 256])
-TRNS forward - Final output: torch.Size([8, 77, 10, 2])
-Agent mask size (75) doesn't match predictions size (77). Adjusting mask.
-Ground truth size (75) doesn't match predictions size (77). Adjusting ground truth.
-Train Loss: 0.6914, ADE: 32.3258, FDE: 31.6054:   5%|███▎                                                         | 36/673 [13:55<5:37:12, 31.76s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([664, 10, 64])
-After transpose: torch.Size([664, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 10]), out shape = torch.Size([664, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 10]) to match torch.Size([664, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 14]), out shape = torch.Size([664, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 14]) to match torch.Size([664, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 22]), out shape = torch.Size([664, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 22]) to match torch.Size([664, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 38])
-After TCN network: torch.Size([664, 128, 38])
-Final TCN output shape: torch.Size([664, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 83])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([664, 10])
-TRNS forward - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward - After reshape: torch.Size([664, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([664, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([664, 10])
-TRNS forward - After encoder: torch.Size([664, 10, 256])
-TRNS forward - Query shape: torch.Size([664, 10, 256])
-TRNS forward - After decoder: torch.Size([664, 10, 256])
-TRNS forward - Final output: torch.Size([8, 83, 10, 2])
-Train Loss: 0.6263, ADE: 29.5184, FDE: 28.9197:   5%|███▎                                                         | 37/673 [14:33<5:57:01, 33.68s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([664, 10, 64])
-After transpose: torch.Size([664, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 10]), out shape = torch.Size([664, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 10]) to match torch.Size([664, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 14]), out shape = torch.Size([664, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 14]) to match torch.Size([664, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 22]), out shape = torch.Size([664, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 22]) to match torch.Size([664, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 38])
-After TCN network: torch.Size([664, 128, 38])
-Final TCN output shape: torch.Size([664, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 83])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([664, 10])
-TRNS forward - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward - After reshape: torch.Size([664, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([664, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([664, 10])
-TRNS forward - After encoder: torch.Size([664, 10, 256])
-TRNS forward - Query shape: torch.Size([664, 10, 256])
-TRNS forward - After decoder: torch.Size([664, 10, 256])
-TRNS forward - Final output: torch.Size([8, 83, 10, 2])
-Train Loss: 0.6707, ADE: 31.4681, FDE: 30.8220:   6%|███▍                                                         | 38/673 [15:17<6:27:19, 36.60s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([712, 10, 64])
-After transpose: torch.Size([712, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 10]), out shape = torch.Size([712, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 10]) to match torch.Size([712, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 14]), out shape = torch.Size([712, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 14]) to match torch.Size([712, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([712, 128, 22]), out shape = torch.Size([712, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([712, 128, 22]) to match torch.Size([712, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([712, 128, 38])
-After TCN network: torch.Size([712, 128, 38])
-Final TCN output shape: torch.Size([712, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 89, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 87])
-TRNS WARNING: Agent mask size (87) doesn't match number of agents (89). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 89])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([712, 10])
-TRNS forward - Input shape: torch.Size([8, 89, 10, 128])
-TRNS forward - After reshape: torch.Size([712, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([712, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([712, 10])
-TRNS forward - After encoder: torch.Size([712, 10, 256])
-TRNS forward - Query shape: torch.Size([712, 10, 256])
-TRNS forward - After decoder: torch.Size([712, 10, 256])
-TRNS forward - Final output: torch.Size([8, 89, 10, 2])
-Agent mask size (87) doesn't match predictions size (89). Adjusting mask.
-Ground truth size (87) doesn't match predictions size (89). Adjusting ground truth.
-Train Loss: 0.6208, ADE: 29.2037, FDE: 28.6160:   6%|███▌                                                         | 39/673 [15:46<6:02:40, 34.32s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([736, 10, 64])
-After transpose: torch.Size([736, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 10]), out shape = torch.Size([736, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 10]) to match torch.Size([736, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 14]), out shape = torch.Size([736, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 14]) to match torch.Size([736, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([736, 128, 22]), out shape = torch.Size([736, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([736, 128, 22]) to match torch.Size([736, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([736, 128, 38])
-After TCN network: torch.Size([736, 128, 38])
-Final TCN output shape: torch.Size([736, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 92, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 89])
-TRNS WARNING: Agent mask size (89) doesn't match number of agents (92). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 92])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([736, 10])
-TRNS forward - Input shape: torch.Size([8, 92, 10, 128])
-TRNS forward - After reshape: torch.Size([736, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([736, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([736, 10])
-TRNS forward - After encoder: torch.Size([736, 10, 256])
-TRNS forward - Query shape: torch.Size([736, 10, 256])
-TRNS forward - After decoder: torch.Size([736, 10, 256])
-TRNS forward - Final output: torch.Size([8, 92, 10, 2])
-Agent mask size (89) doesn't match predictions size (92). Adjusting mask.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=-0.0062, std=0.0535, min=-0.0889, max=0.0781
+Targets stats: mean=-0.0296, std=0.9369, min=-2.4631, max=2.1199
+Average distance between predictions and targets: 1.1583
+Train Loss: 2.1074, ADE: 0.0320, FDE: 0.0313:   0%|          | 2/673 [00:26<2:29:21, 13.36s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0781]
+Predictions Y range: [-0.0889, 0.0000]
+Ground Truth X range: [-2.4631, 1.9945]
+Ground Truth Y range: [-1.7473, 2.1199]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0781, Y=0.0889
+Ground truth range: X=4.4576, Y=3.8672
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0781]
+Adjusted ground truth Y range: [-0.0889, -0.0000]
+
+  FDE: 36.9043:  13%|█▎        | 86/673 [18:26<2:06:42, 12.95s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.9951, 0.9769]
+Predictions Y range: [-0.5171, 0.5324]
+Ground Truth X range: [-3.1262, 1.9929]
+Ground Truth Y range: [-1.8118, 2.2082]
+
+Coordinate ranges after conversion:
+Predictions X range: [746776.9375, 746846.4375]
+Predictions Y range: [3150519.7500, 3150553.0000]
+Ground Truth X range: [746701.8750, 746882.2500]
+Ground Truth Y range: [3150478.7500, 3150606.0000]
+
+Error statistics:
+ADE range: [1.5408, 94.3977], mean: 36.5865
+FDE range: [0.7526, 94.3693], mean: 36.9043
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4800, max=2.0342, mean=0.0126, std=0.8795
 Ground truth size (89) doesn't match predictions size (92). Adjusting ground truth.
-Train Loss: 0.6253, ADE: 29.3159, FDE: 28.7066:   6%|███▋                                                         | 40/673 [16:36<6:52:56, 39.14s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([664, 10, 64])
-After transpose: torch.Size([664, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 10]), out shape = torch.Size([664, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 10]) to match torch.Size([664, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 14]), out shape = torch.Size([664, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 14]) to match torch.Size([664, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([664, 128, 22]), out shape = torch.Size([664, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([664, 128, 22]) to match torch.Size([664, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([664, 128, 38])
-After TCN network: torch.Size([664, 128, 38])
-Final TCN output shape: torch.Size([664, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 81])
-TRNS WARNING: Agent mask size (81) doesn't match number of agents (83). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 83])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([664, 10])
-TRNS forward - Input shape: torch.Size([8, 83, 10, 128])
-TRNS forward - After reshape: torch.Size([664, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([664, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([664, 10])
-TRNS forward - After encoder: torch.Size([664, 10, 256])
-TRNS forward - Query shape: torch.Size([664, 10, 256])
-TRNS forward - After decoder: torch.Size([664, 10, 256])
-TRNS forward - Final output: torch.Size([8, 83, 10, 2])
-Agent mask size (81) doesn't match predictions size (83). Adjusting mask.
-Ground truth size (81) doesn't match predictions size (83). Adjusting ground truth.
-Train Loss: 0.5984, ADE: 28.1490, FDE: 27.6364:   6%|███▋                                                         | 41/673 [17:27<7:28:56, 42.62s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([640, 10, 64])
-After transpose: torch.Size([640, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 10]), out shape = torch.Size([640, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 10]) to match torch.Size([640, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 14]), out shape = torch.Size([640, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 14]) to match torch.Size([640, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([640, 128, 22]), out shape = torch.Size([640, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([640, 128, 22]) to match torch.Size([640, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([640, 128, 38])
-After TCN network: torch.Size([640, 128, 38])
-Final TCN output shape: torch.Size([640, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 79])
-TRNS WARNING: Agent mask size (79) doesn't match number of agents (80). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 80])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([640, 10])
-TRNS forward - Input shape: torch.Size([8, 80, 10, 128])
-TRNS forward - After reshape: torch.Size([640, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([640, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([640, 10])
-TRNS forward - After encoder: torch.Size([640, 10, 256])
-TRNS forward - Query shape: torch.Size([640, 10, 256])
-TRNS forward - After decoder: torch.Size([640, 10, 256])
-TRNS forward - Final output: torch.Size([8, 80, 10, 2])
-Agent mask size (79) doesn't match predictions size (80). Adjusting mask.
-Ground truth size (79) doesn't match predictions size (80). Adjusting ground truth.
-Train Loss: 0.6807, ADE: 31.7723, FDE: 31.1099:   6%|███▊                                                         | 42/673 [17:43<6:02:57, 34.51s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([728, 10, 64])
-After transpose: torch.Size([728, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([728, 128, 10]), out shape = torch.Size([728, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([728, 128, 10]) to match torch.Size([728, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([728, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([728, 128, 14]), out shape = torch.Size([728, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([728, 128, 14]) to match torch.Size([728, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([728, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([728, 128, 22]), out shape = torch.Size([728, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([728, 128, 22]) to match torch.Size([728, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([728, 128, 38])
-After TCN network: torch.Size([728, 128, 38])
-Final TCN output shape: torch.Size([728, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 91, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 89])
-TRNS WARNING: Agent mask size (89) doesn't match number of agents (91). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 91])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([728, 10])
-TRNS forward - Input shape: torch.Size([8, 91, 10, 128])
-TRNS forward - After reshape: torch.Size([728, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([728, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([728, 10])
-TRNS forward - After encoder: torch.Size([728, 10, 256])
-TRNS forward - Query shape: torch.Size([728, 10, 256])
-TRNS forward - After decoder: torch.Size([728, 10, 256])
-TRNS forward - Final output: torch.Size([8, 91, 10, 2])
-Agent mask size (89) doesn't match predictions size (91). Adjusting mask.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0150, std=0.4984, min=-1.0050, max=0.9967
+Targets stats: mean=0.0122, std=0.8650, min=-2.4800, max=2.0342
+Average distance between predictions and targets: 0.7761
+Train Loss: 1.3368, ADE: 35.2265, FDE: 35.5388:  13%|█▎        | 87/673 [18:40<2:09:29, 13.26s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0050, 0.9967]
+Predictions Y range: [-0.5483, 0.5427]
+Ground Truth X range: [-2.4800, 2.0342]
+Ground Truth Y range: [-1.7199, 1.9735]
+
+Coordinate ranges after conversion:
+Predictions X range: [746776.6250, 746847.1250]
+Predictions Y range: [3150518.7500, 3150553.2500]
+Ground Truth X range: [746724.6250, 746883.6875]
+Ground Truth Y range: [3150481.7500, 3150598.7500]
+
+Error statistics:
+ADE range: [3.3771, 107.3843], mean: 35.2265
+FDE range: [3.0162, 106.6801], mean: 35.5388
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5434, max=2.0720, mean=0.0138, std=0.8494
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=0.0350, std=0.5029, min=-1.0104, max=1.0070
+Targets stats: mean=0.0137, std=0.8444, min=-2.5434, max=2.0720
+Average distance between predictions and targets: 0.7633
+Train Loss: 1.3468, ADE: 34.7673, FDE: 35.0190:  13%|█▎        | 88/673 [18:52<2:05:31, 12.87s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0104, 1.0070]
+Predictions Y range: [-0.5601, 0.5510]
+Ground Truth X range: [-2.5434, 2.0720]
+Ground Truth Y range: [-1.6613, 2.0569]
+
+Coordinate ranges after conversion:
+Predictions X range: [746776.4375, 746847.5000]
+Predictions Y range: [3150518.5000, 3150553.7500]
+Ground Truth X range: [746722.3750, 746885.0000]
+Ground Truth Y range: [3150483.5000, 3150601.2500]
+
+Error statistics:
+ADE range: [1.2514, 121.6273], mean: 34.7673
+FDE range: [0.5039, 123.8778], mean: 35.0190
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5559, max=2.1493, mean=-0.0243, std=0.9107
+Predictions stats: mean=0.0345, std=0.5246, min=-1.0164, max=1.0131
+Targets stats: mean=-0.0243, std=0.9107, min=-2.5559, max=2.1493
+Average distance between predictions and targets: 0.8891
+Train Loss: 1.4783, ADE: 36.7198, FDE: 37.0077:  13%|█▎        | 89/673 [19:05<2:05:37, 12.91s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0164, 1.0131]
+Predictions Y range: [-0.5674, 0.5625]
+Ground Truth X range: [-2.5559, 1.9793]
+Ground Truth Y range: [-1.8861, 2.1493]
+
+Coordinate ranges after conversion:
+Predictions X range: [746776.1875, 746847.6875]
+Predictions Y range: [3150518.2500, 3150554.0000]
+Ground Truth X range: [746721.9375, 746881.7500]
+Ground Truth Y range: [3150476.5000, 3150604.2500]
+
+Error statistics:
+ADE range: [3.3856, 110.3738], mean: 36.7198
+FDE range: [3.3407, 111.6078], mean: 37.0077
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5950, max=2.0848, mean=-0.0383, std=0.9540
+Predictions stats: mean=0.0038, std=0.5499, min=-1.0258, max=1.0142
+Targets stats: mean=-0.0383, std=0.9540, min=-2.5950, max=2.0848
+Average distance between predictions and targets: 0.9278
+Train Loss: 1.3661, ADE: 35.4485, FDE: 35.7437:  13%|█▎        | 90/673 [19:17<2:04:12, 12.78s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0258, 1.0142]
+Predictions Y range: [-0.5706, 0.5710]
+Ground Truth X range: [-2.5950, 2.0848]
+Ground Truth Y range: [-1.8894, 2.0551]
+
+Coordinate ranges after conversion:
+Predictions X range: [746775.8750, 746847.7500]
+Predictions Y range: [3150518.0000, 3150554.2500]
+Ground Truth X range: [746720.5625, 746885.4375]
+Ground Truth Y range: [3150476.2500, 3150601.2500]
+
+Error statistics:
+ADE range: [1.7669, 91.2216], mean: 35.4485
+FDE range: [1.6020, 93.7243], mean: 35.7437
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5008, max=1.9549, mean=-0.0145, std=0.9401
+Ground truth size (71) doesn't match predictions size (74). Adjusting ground truth.
+Agent mask size (74) doesn't match predictions size (74). Adjusting mask.
+Predictions stats: mean=-0.0025, std=0.5133, min=-1.0299, max=1.0117
+Targets stats: mean=-0.0139, std=0.9209, min=-2.5008, max=1.9549
+Average distance between predictions and targets: 0.9079
+Train Loss: 1.4347, ADE: 36.3419, FDE: 36.6595:  14%|█▎        | 91/673 [19:29<2:00:32, 12.43s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0299, 1.0117]
+Predictions Y range: [-0.5744, 0.5807]
+Ground Truth X range: [-2.5008, 1.9549]
+Ground Truth Y range: [-1.8643, 1.9529]
+
+Coordinate ranges after conversion:
+Predictions X range: [746775.7500, 746847.6250]
+Predictions Y range: [3150518.0000, 3150554.5000]
+Ground Truth X range: [746723.8750, 746880.8750]
+Ground Truth Y range: [3150477.2500, 3150598.0000]
+
+Error statistics:
+ADE range: [2.2843, 95.5142], mean: 36.3419
+FDE range: [2.3192, 97.7722], mean: 36.6595
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4501, max=2.0621, mean=0.0004, std=0.9526
+Predictions stats: mean=0.0207, std=0.5338, min=-1.0380, max=1.0254
+Targets stats: mean=0.0004, std=0.9526, min=-2.4501, max=2.0621
+Average distance between predictions and targets: 0.9890
+Train Loss: 1.3783, ADE: 35.8122, FDE: 36.1390:  14%|█▎        | 92/673 [19:40<1:55:31, 11.93s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0380, 1.0254]
+Predictions Y range: [-0.5863, 0.5819]
+Ground Truth X range: [-2.4501, 2.0621]
+Ground Truth Y range: [-1.7298, 1.9792]
+
+Coordinate ranges after conversion:
+Predictions X range: [746775.4375, 746848.1250]
+Predictions Y range: [3150517.5000, 3150554.5000]
+Ground Truth X range: [746725.6875, 746884.6875]
+Ground Truth Y range: [3150481.5000, 3150598.7500]
+
+Error statistics:
+ADE range: [3.2552, 97.1104], mean: 35.8122
+FDE range: [2.8504, 97.5965], mean: 36.1390
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4281, max=2.1889, mean=-0.0031, std=0.9563
+Ground truth size (68) doesn't match predictions size (73). Adjusting ground truth.
+Agent mask size (73) doesn't match predictions size (73). Adjusting mask.
+Predictions stats: mean=0.0286, std=0.5077, min=-1.0325, max=1.0263
+Targets stats: mean=-0.0029, std=0.9230, min=-2.4281, max=2.1889
+Average distance between predictions and targets: 0.8663
+Train Loss: 1.3934, ADE: 35.4940, FDE: 35.7849:  14%|█▍        | 93/673 [19:51<1:53:29, 11.74s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0325, 1.0263]
+Predictions Y range: [-0.5881, 0.5808]
+Ground Truth X range: [-2.4281, 2.0778]
+Ground Truth Y range: [-1.6915, 2.1889]
+
+Coordinate ranges after conversion:
+Predictions X range: [746775.6250, 746848.1875]
+Predictions Y range: [3150517.5000, 3150554.5000]
+Ground Truth X range: [746726.4375, 746885.1875]
+Ground Truth Y range: [3150482.5000, 3150605.5000]
+
+Error statistics:
+ADE range: [3.9491, 122.1755], mean: 35.4940
+FDE range: [4.4163, 122.4041], mean: 35.7849
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6581, max=2.1130, mean=-0.0085, std=0.9262
+Ground truth size (86) doesn't match predictions size (91). Adjusting ground truth.
+Agent mask size (91) doesn't match predictions size (91). Adjusting mask.
+Predictions stats: mean=0.0208, std=0.5009, min=-1.0483, max=1.0298
+Targets stats: mean=-0.0080, std=0.9004, min=-2.6581, max=2.1130
+Average distance between predictions and targets: 0.8056
+Train Loss: 1.2982, ADE: 34.7628, FDE: 35.0818:  14%|█▍        | 94/673 [20:06<2:01:21, 12.58s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0483, 1.0298]
+Predictions Y range: [-0.5940, 0.5811]
+Ground Truth X range: [-2.6581, 2.0552]
+Ground Truth Y range: [-1.7644, 2.1130]
+
+Coordinate ranges after conversion:
+Predictions X range: [746775.0625, 746848.3125]
+Predictions Y range: [3150517.2500, 3150554.5000]
+Ground Truth X range: [746718.3750, 746884.4375]
+Ground Truth Y range: [3150480.2500, 3150603.0000]
+
+Error statistics:
+ADE range: [3.8421, 107.1027], mean: 34.7628
+FDE range: [4.2297, 107.6339], mean: 35.0818
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4063, max=2.1806, mean=-0.0403, std=0.9119
+Ground truth size (86) doesn't match predictions size (89). Adjusting ground truth.
+Agent mask size (89) doesn't match predictions size (89). Adjusting mask.
+Predictions stats: mean=0.0152, std=0.5228, min=-1.0561, max=1.0343
+Targets stats: mean=-0.0389, std=0.8965, min=-2.4063, max=2.1806
+Average distance between predictions and targets: 0.7861
+Train Loss: 1.2898, ADE: 34.7122, FDE: 35.0631:  14%|█▍        | 95/673 [20:19<2:04:51, 12.96s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0561, 1.0343]
+Predictions Y range: [-0.5957, 0.5839]
+Ground Truth X range: [-2.4063, 2.0864]
+Ground Truth Y range: [-1.6217, 2.1806]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.8125, 746848.4375]
+Predictions Y range: [3150517.2500, 3150554.7500]
+Ground Truth X range: [746727.2500, 746885.5000]
+Ground Truth Y range: [3150484.7500, 3150605.2500]
+
+Error statistics:
+ADE range: [4.2344, 83.5158], mean: 34.7122
+FDE range: [2.5195, 81.6408], mean: 35.0631
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6271, max=2.1358, mean=0.0027, std=0.9168
+Ground truth size (83) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=0.0082, std=0.5801, min=-1.0670, max=1.0385
+Targets stats: mean=0.0026, std=0.9059, min=-2.6271, max=2.1358
+Average distance between predictions and targets: 0.8455
+Train Loss: 1.3449, ADE: 34.5795, FDE: 34.8048:  14%|█▍        | 96/673 [20:33<2:07:17, 13.24s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0670, 1.0385]
+Predictions Y range: [-0.6080, 0.5905]
+Ground Truth X range: [-2.6271, 2.0948]
+Ground Truth Y range: [-1.7942, 2.1358]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.4375, 746848.6250]
+Predictions Y range: [3150517.0000, 3150555.0000]
+Ground Truth X range: [746719.4375, 746885.8125]
+Ground Truth Y range: [3150479.2500, 3150603.7500]
+
+Error statistics:
+ADE range: [2.2502, 111.2534], mean: 34.5795
+FDE range: [2.2535, 112.6816], mean: 34.8048
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4693, max=2.0242, mean=-0.0142, std=0.8792
+Ground truth size (83) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=0.0045, std=0.5492, min=-1.0724, max=1.0437
+Targets stats: mean=-0.0139, std=0.8688, min=-2.4693, max=2.0242
+Average distance between predictions and targets: 0.7726
+Train Loss: 1.3323, ADE: 34.9174, FDE: 35.1798:  14%|█▍        | 97/673 [20:46<2:04:15, 12.94s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0724, 1.0437]
+Predictions Y range: [-0.6161, 0.5971]
+Ground Truth X range: [-2.4693, 2.0242]
+Ground Truth Y range: [-1.6953, 1.9363]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.2500, 746848.7500]
+Predictions Y range: [3150516.7500, 3150555.0000]
+Ground Truth X range: [746725.0000, 746883.3125]
+Ground Truth Y range: [3150482.5000, 3150597.5000]
+
+Error statistics:
+ADE range: [3.2856, 111.6931], mean: 34.9174
+FDE range: [3.1431, 111.7568], mean: 35.1798
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5579, max=2.1450, mean=0.0330, std=0.9567
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=-0.0159, std=0.5948, min=-1.0773, max=1.0344
+Targets stats: mean=0.0326, std=0.9510, min=-2.5579, max=2.1450
+Average distance between predictions and targets: 0.9300
+Train Loss: 1.3357, ADE: 35.3353, FDE: 35.6112:  15%|█▍        | 98/673 [21:02<2:14:11, 14.00s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0773, 1.0344]
+Predictions Y range: [-0.6198, 0.5997]
+Ground Truth X range: [-2.5579, 2.0005]
+Ground Truth Y range: [-1.6553, 2.1450]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.0625, 746848.4375]
+Predictions Y range: [3150516.5000, 3150555.2500]
+Ground Truth X range: [746721.8750, 746882.5000]
+Ground Truth Y range: [3150483.7500, 3150604.0000]
+
+Error statistics:
+ADE range: [1.0630, 114.5436], mean: 35.3353
+FDE range: [0.5154, 116.0941], mean: 35.6112
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5120, max=2.0656, mean=0.0170, std=0.8401
 Ground truth size (89) doesn't match predictions size (91). Adjusting ground truth.
-Train Loss: 0.6185, ADE: 28.9711, FDE: 28.4112:   6%|███▉                                                         | 43/673 [18:10<5:40:05, 32.39s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([680, 10, 64])
-After transpose: torch.Size([680, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 10]), out shape = torch.Size([680, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 10]) to match torch.Size([680, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 14]), out shape = torch.Size([680, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 14]) to match torch.Size([680, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([680, 128, 22]), out shape = torch.Size([680, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([680, 128, 22]) to match torch.Size([680, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([680, 128, 38])
-After TCN network: torch.Size([680, 128, 38])
-Final TCN output shape: torch.Size([680, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 85, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 84])
-TRNS WARNING: Agent mask size (84) doesn't match number of agents (85). Adjusting mask.
-TRNS - Adjusted agent mask shape: torch.Size([8, 85])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([680, 10])
-TRNS forward - Input shape: torch.Size([8, 85, 10, 128])
-TRNS forward - After reshape: torch.Size([680, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([680, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([680, 10])
-TRNS forward - After encoder: torch.Size([680, 10, 256])
-TRNS forward - Query shape: torch.Size([680, 10, 256])
-TRNS forward - After decoder: torch.Size([680, 10, 256])
-TRNS forward - Final output: torch.Size([8, 85, 10, 2])
-Agent mask size (84) doesn't match predictions size (85). Adjusting mask.
-Ground truth size (84) doesn't match predictions size (85). Adjusting ground truth.
-Train Loss: 0.6174, ADE: 29.0039, FDE: 28.4861:   7%|███▉                                                         | 44/673 [19:03<6:43:36, 38.50s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([616, 10, 64])
-After transpose: torch.Size([616, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 10]), out shape = torch.Size([616, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 10]) to match torch.Size([616, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 14]), out shape = torch.Size([616, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 14]) to match torch.Size([616, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([616, 128, 22]), out shape = torch.Size([616, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([616, 128, 22]) to match torch.Size([616, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([616, 128, 38])
-After TCN network: torch.Size([616, 128, 38])
-Final TCN output shape: torch.Size([616, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 77])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([616, 10])
-TRNS forward - Input shape: torch.Size([8, 77, 10, 128])
-TRNS forward - After reshape: torch.Size([616, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([616, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([616, 10])
-TRNS forward - After encoder: torch.Size([616, 10, 256])
-TRNS forward - Query shape: torch.Size([616, 10, 256])
-TRNS forward - After decoder: torch.Size([616, 10, 256])
-TRNS forward - Final output: torch.Size([8, 77, 10, 2])
-Train Loss: 0.6955, ADE: 32.4895, FDE: 31.8403:   7%|████                                                         | 45/673 [19:32<6:12:25, 35.58s/it]Frame time tensor shape: torch.Size([8])
-TCN input shape: torch.Size([624, 10, 64])
-After transpose: torch.Size([624, 64, 10])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 10]), out shape = torch.Size([624, 128, 14])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 10]) to match torch.Size([624, 128, 14])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 14])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 14]), out shape = torch.Size([624, 128, 22])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 14]) to match torch.Size([624, 128, 22])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 22])
-DEBUG - Before size check: residual shape = torch.Size([624, 128, 22]), out shape = torch.Size([624, 128, 38])
-DEBUG - Size mismatch detected! Padding residual from torch.Size([624, 128, 22]) to match torch.Size([624, 128, 38])
-DEBUG - After adjustment: residual shape = torch.Size([624, 128, 38])
-After TCN network: torch.Size([624, 128, 38])
-Final TCN output shape: torch.Size([624, 38, 128])
-DEBUG - TCN changed sequence length from 10 to 38
-TRNS forward_with_agent_mask - Input shape: torch.Size([8, 78, 10, 128])
-TRNS forward_with_agent_mask - Agent mask shape: torch.Size([8, 78])
-TRNS forward_with_agent_mask - Created padding mask: torch.Size([624, 10])
-TRNS forward - Input shape: torch.Size([8, 78, 10, 128])
-TRNS forward - After reshape: torch.Size([624, 10, 128])
-TRNS forward - Padding mask original shape: torch.Size([624, 10])
-TRNS forward - WARNING: Padding mask size mismatch. Adjusting mask.
-TRNS forward - Padding mask adjusted shape: torch.Size([624, 10])
-TRNS forward - After encoder: torch.Size([624, 10, 256])
-TRNS forward - Query shape: torch.Size([624, 10, 256])
-TRNS forward - After decoder: torch.Size([624, 10, 256])
-TRNS forward - Final output: torch.Size([8, 78, 10, 2])
-Train Loss: 0.6831, ADE: 31.9494, FDE: 31.3287:   7%|████▏                                                        | 46/673 [19:48<5:12:56, 29.95s/it]
+Agent mask size (91) doesn't match predictions size (91). Adjusting mask.
+Predictions stats: mean=0.0087, std=0.5051, min=-1.0777, max=1.0384
+Targets stats: mean=0.0166, std=0.8308, min=-2.5120, max=2.0656
+Average distance between predictions and targets: 0.7321
+Train Loss: 1.4382, ADE: 36.0059, FDE: 36.2759:  15%|█▍        | 99/673 [21:14<2:07:09, 13.29s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0777, 1.0384]
+Predictions Y range: [-0.6292, 0.5964]
+Ground Truth X range: [-2.5120, 2.0656]
+Ground Truth Y range: [-1.8122, 2.0608]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.0625, 746848.5625]
+Predictions Y range: [3150516.2500, 3150555.0000]
+Ground Truth X range: [746723.5000, 746884.8125]
+Ground Truth Y range: [3150478.7500, 3150601.5000]
+
+Error statistics:
+ADE range: [1.2619, 117.1891], mean: 36.0059
+FDE range: [1.3463, 117.1992], mean: 36.2759
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6024, max=2.1016, mean=0.0352, std=0.9074
+Ground truth size (81) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=0.0132, std=0.5006, min=-1.0737, max=1.0347
+Targets stats: mean=0.0340, std=0.8910, min=-2.6024, max=2.1016
+Average distance between predictions and targets: 0.8268
+Train Loss: 1.2824, ADE: 34.3564, FDE: 34.6832:  15%|█▍        | 100/673 [21:27<2:07:26, 13.35s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0737, 1.0347]
+Predictions Y range: [-0.6235, 0.5989]
+Ground Truth X range: [-2.6024, 2.0220]
+Ground Truth Y range: [-1.6854, 2.1016]
+
+Coordinate ranges after conversion:
+Predictions X range: [746774.1875, 746848.4375]
+Predictions Y range: [3150516.5000, 3150555.2500]
+Ground Truth X range: [746720.3125, 746883.2500]
+Ground Truth Y range: [3150482.7500, 3150602.7500]
+
+Error statistics:
+ADE range: [2.7743, 88.0042], mean: 34.3564
+FDE range: [1.9132, 86.3948], mean: 34.6832
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2843, max=2.1823, mean=0.0248, std=0.9973
+Ground truth size (72) doesn't match predictions size (75). Adjusting ground truth.
+Agent mask size (75) doesn't match predictions size (75). Adjusting mask.
+Predictions stats: mean=0.0207, std=0.5305, min=-1.0820, max=1.0239
+Targets stats: mean=0.0238, std=0.9772, min=-3.2843, max=2.1823
+Average distance between predictions and targets: 0.9666
+Train Loss: 1.3809, ADE: 35.8285, FDE: 36.1447:  15%|█▌        | 101/673 [21:40<2:06:33, 13.28s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0820, 1.0239]
+Predictions Y range: [-0.6213, 0.5989]
+Ground Truth X range: [-3.2843, 1.9437]
+Ground Truth Y range: [-1.8180, 2.1823]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.8750, 746848.0625]
+Predictions Y range: [3150516.5000, 3150555.2500]
+Ground Truth X range: [746696.3125, 746880.5000]
+Ground Truth Y range: [3150478.5000, 3150605.2500]
+
+Error statistics:
+ADE range: [1.9986, 105.1162], mean: 35.8285
+FDE range: [2.5739, 105.9385], mean: 36.1447
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5178, max=2.0364, mean=0.0030, std=1.0240
+Ground truth size (66) doesn't match predictions size (67). Adjusting ground truth.
+Agent mask size (67) doesn't match predictions size (67). Adjusting mask.
+Predictions stats: mean=-0.0014, std=0.5011, min=-1.0854, max=1.0184
+Targets stats: mean=0.0029, std=1.0163, min=-2.5178, max=2.0364
+Average distance between predictions and targets: 1.0281
+Train Loss: 1.4013, ADE: 36.3721, FDE: 36.6996:  15%|█▌        | 102/673 [21:52<2:02:23, 12.86s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0854, 1.0184]
+Predictions Y range: [-0.6070, 0.5972]
+Ground Truth X range: [-2.5178, 2.0018]
+Ground Truth Y range: [-1.8562, 2.0364]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.7500, 746847.8750]
+Predictions Y range: [3150517.0000, 3150555.0000]
+Ground Truth X range: [746723.3125, 746882.5625]
+Ground Truth Y range: [3150477.5000, 3150600.7500]
+
+Error statistics:
+ADE range: [0.5660, 106.9929], mean: 36.3721
+FDE range: [0.7526, 107.8938], mean: 36.6996
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6309, max=2.1548, mean=-0.0834, std=0.9097
+Predictions stats: mean=0.0034, std=0.5119, min=-1.0812, max=1.0358
+Targets stats: mean=-0.0834, std=0.9097, min=-2.6309, max=2.1548
+Average distance between predictions and targets: 0.8312
+Train Loss: 1.3293, ADE: 34.9961, FDE: 35.2964:  15%|█▌        | 103/673 [22:05<2:02:16, 12.87s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0812, 1.0358]
+Predictions Y range: [-0.6325, 0.6029]
+Ground Truth X range: [-2.6309, 2.0324]
+Ground Truth Y range: [-1.7973, 2.1548]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.9375, 746848.5000]
+Predictions Y range: [3150516.2500, 3150555.2500]
+Ground Truth X range: [746719.3125, 746883.6250]
+Ground Truth Y range: [3150479.2500, 3150604.5000]
+
+Error statistics:
+ADE range: [4.4842, 102.3415], mean: 34.9961
+FDE range: [4.3270, 102.5071], mean: 35.2964
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5214, max=2.0783, mean=0.0456, std=0.9276
+Ground truth size (81) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=0.0134, std=0.5515, min=-1.0925, max=1.0469
+Targets stats: mean=0.0435, std=0.9055, min=-2.5214, max=2.0783
+Average distance between predictions and targets: 0.8088
+Train Loss: 1.2594, ADE: 33.6974, FDE: 33.9932:  15%|█▌        | 104/673 [22:19<2:04:42, 13.15s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.0925, 1.0469]
+Predictions Y range: [-0.6509, 0.6129]
+Ground Truth X range: [-2.5214, 2.0783]
+Ground Truth Y range: [-1.8192, 2.0517]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.5000, 746848.8750]
+Predictions Y range: [3150515.5000, 3150555.5000]
+Ground Truth X range: [746723.1875, 746885.2500]
+Ground Truth Y range: [3150478.5000, 3150601.2500]
+
+Error statistics:
+ADE range: [2.2526, 121.6485], mean: 33.6974
+FDE range: [2.4375, 122.6586], mean: 33.9932
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5618, max=2.1071, mean=0.0100, std=0.9661
+Ground truth size (71) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0241, std=0.5972, min=-1.1034, max=1.0600
+Targets stats: mean=0.0093, std=0.9338, min=-2.5618, max=2.1071
+Average distance between predictions and targets: 0.8990
+Train Loss: 1.4138, ADE: 35.6358, FDE: 35.8633:  16%|█▌        | 105/673 [22:31<2:02:05, 12.90s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1034, 1.0600]
+Predictions Y range: [-0.6593, 0.6241]
+Ground Truth X range: [-2.5618, 2.0133]
+Ground Truth Y range: [-1.6387, 2.1071]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.1250, 746849.3750]
+Predictions Y range: [3150515.2500, 3150556.0000]
+Ground Truth X range: [746721.7500, 746882.9375]
+Ground Truth Y range: [3150484.2500, 3150603.0000]
+
+Error statistics:
+ADE range: [1.2492, 107.9057], mean: 35.6358
+FDE range: [0.4507, 108.7862], mean: 35.8633
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0672, max=2.1430, mean=-0.0186, std=0.9487
+Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=-0.0028, std=0.6204, min=-1.1051, max=1.0533
+Targets stats: mean=-0.0183, std=0.9425, min=-3.0672, max=2.1430
+Average distance between predictions and targets: 0.8781
+Train Loss: 1.3005, ADE: 34.5373, FDE: 34.8013:  16%|█▌        | 106/673 [22:44<2:01:12, 12.83s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1051, 1.0533]
+Predictions Y range: [-0.6652, 0.6299]
+Ground Truth X range: [-3.0672, 1.9963]
+Ground Truth Y range: [-1.7406, 2.1430]
+
+Coordinate ranges after conversion:
+Predictions X range: [746773.0625, 746849.1250]
+Predictions Y range: [3150515.0000, 3150556.0000]
+Ground Truth X range: [746703.9375, 746882.3125]
+Ground Truth Y range: [3150481.0000, 3150604.0000]
+
+Error statistics:
+ADE range: [2.6408, 95.8549], mean: 34.5373
+FDE range: [2.3192, 98.8608], mean: 34.8013
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5893, max=2.2248, mean=-0.0032, std=0.9284
+Predictions stats: mean=-0.0047, std=0.5729, min=-1.1088, max=1.0444
+Targets stats: mean=-0.0032, std=0.9284, min=-2.5893, max=2.2248
+Average distance between predictions and targets: 0.8523
+Train Loss: 1.4538, ADE: 36.1037, FDE: 36.3876:  16%|█▌        | 107/673 [22:56<1:59:10, 12.63s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1088, 1.0444]
+Predictions Y range: [-0.6626, 0.6319]
+Ground Truth X range: [-2.5893, 1.9787]
+Ground Truth Y range: [-1.8212, 2.2248]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.9375, 746848.8125]
+Predictions Y range: [3150515.2500, 3150556.2500]
+Ground Truth X range: [746720.7500, 746881.7500]
+Ground Truth Y range: [3150478.5000, 3150606.7500]
+
+Error statistics:
+ADE range: [1.4499, 118.1905], mean: 36.1037
+FDE range: [0.7526, 120.2072], mean: 36.3876
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6643, max=2.2306, mean=-0.0063, std=0.9453
+Predictions stats: mean=-0.0032, std=0.5422, min=-1.1136, max=1.0368
+Targets stats: mean=-0.0063, std=0.9453, min=-2.6643, max=2.2306
+Average distance between predictions and targets: 0.8565
+Train Loss: 1.3663, ADE: 35.4736, FDE: 35.8101:  16%|█▌        | 108/673 [23:09<2:00:43, 12.82s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1136, 1.0368]
+Predictions Y range: [-0.6627, 0.6333]
+Ground Truth X range: [-2.6643, 2.0630]
+Ground Truth Y range: [-1.8153, 2.2306]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.7500, 746848.5625]
+Predictions Y range: [3150515.2500, 3150556.2500]
+Ground Truth X range: [746718.1250, 746884.6875]
+Ground Truth Y range: [3150478.7500, 3150606.7500]
+
+Error statistics:
+ADE range: [0.8437, 102.6854], mean: 35.4736
+FDE range: [0.8385, 102.5003], mean: 35.8101
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2644, max=2.1427, mean=0.0166, std=0.9556
+Ground truth size (77) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=0.0040, std=0.5139, min=-1.1136, max=1.0068
+Targets stats: mean=0.0151, std=0.9095, min=-3.2644, max=2.1427
+Average distance between predictions and targets: 0.8440
+Train Loss: 1.3405, ADE: 35.2213, FDE: 35.5505:  16%|█▌        | 109/673 [23:23<2:02:53, 13.07s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1136, 1.0068]
+Predictions Y range: [-0.6374, 0.6358]
+Ground Truth X range: [-3.2644, 1.9931]
+Ground Truth Y range: [-1.8590, 2.1427]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.7500, 746847.5000]
+Predictions Y range: [3150516.0000, 3150556.2500]
+Ground Truth X range: [746697.0000, 746882.2500]
+Ground Truth Y range: [3150477.2500, 3150604.0000]
+
+Error statistics:
+ADE range: [0.8022, 99.3660], mean: 35.2213
+FDE range: [1.4631, 101.6500], mean: 35.5505
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4791, max=2.1871, mean=-0.0157, std=0.9024
+Predictions stats: mean=0.0127, std=0.4991, min=-1.1170, max=1.0209
+Targets stats: mean=-0.0157, std=0.9024, min=-2.4791, max=2.1871
+Average distance between predictions and targets: 0.7877
+Train Loss: 1.2573, ADE: 33.9950, FDE: 34.3009:  16%|█▋        | 110/673 [23:36<2:01:47, 12.98s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1170, 1.0209]
+Predictions Y range: [-0.6546, 0.6390]
+Ground Truth X range: [-2.4791, 2.0409]
+Ground Truth Y range: [-1.7344, 2.1871]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.6250, 746848.0000]
+Predictions Y range: [3150515.5000, 3150556.5000]
+Ground Truth X range: [746724.6875, 746883.9375]
+Ground Truth Y range: [3150481.2500, 3150605.5000]
+
+Error statistics:
+ADE range: [1.6987, 96.2870], mean: 33.9950
+FDE range: [1.1524, 96.0336], mean: 34.3009
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5323, max=2.1341, mean=0.0127, std=0.9031
+Predictions stats: mean=0.0146, std=0.5225, min=-1.1192, max=1.0058
+Targets stats: mean=0.0127, std=0.9031, min=-2.5323, max=2.1341
+Average distance between predictions and targets: 0.7975
+Train Loss: 1.2819, ADE: 34.5419, FDE: 34.8460:  16%|█▋        | 111/673 [23:50<2:06:03, 13.46s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1192, 1.0058]
+Predictions Y range: [-0.6629, 0.6529]
+Ground Truth X range: [-2.5323, 2.1341]
+Ground Truth Y range: [-1.6870, 2.0808]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.5625, 746847.4375]
+Predictions Y range: [3150515.2500, 3150556.7500]
+Ground Truth X range: [746722.8125, 746887.1875]
+Ground Truth Y range: [3150482.7500, 3150602.0000]
+
+Error statistics:
+ADE range: [2.8138, 98.5194], mean: 34.5419
+FDE range: [2.9182, 98.5010], mean: 34.8460
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3505, max=1.9988, mean=0.0114, std=0.8732
+Predictions stats: mean=-0.0017, std=0.5220, min=-1.1217, max=1.0069
+Targets stats: mean=0.0114, std=0.8732, min=-2.3505, max=1.9988
+Average distance between predictions and targets: 0.7573
+Train Loss: 1.2799, ADE: 34.2895, FDE: 34.5688:  17%|█▋        | 112/673 [24:02<2:01:34, 13.00s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1217, 1.0069]
+Predictions Y range: [-0.6673, 0.6635]
+Ground Truth X range: [-2.3505, 1.9825]
+Ground Truth Y range: [-1.7592, 1.9988]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.5000, 746847.5000]
+Predictions Y range: [3150515.0000, 3150557.2500]
+Ground Truth X range: [746729.1875, 746881.8750]
+Ground Truth Y range: [3150480.5000, 3150599.5000]
+
+Error statistics:
+ADE range: [1.9069, 91.8476], mean: 34.2895
+FDE range: [1.2885, 93.9503], mean: 34.5688
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4699, max=2.1607, mean=0.0489, std=0.9276
+Predictions stats: mean=0.0135, std=0.5697, min=-1.1295, max=1.0341
+Targets stats: mean=0.0489, std=0.9276, min=-2.4699, max=2.1607
+Average distance between predictions and targets: 0.8749
+Train Loss: 1.3298, ADE: 34.9886, FDE: 35.2559:  17%|█▋        | 113/673 [24:14<1:58:41, 12.72s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1295, 1.0341]
+Predictions Y range: [-0.6914, 0.6696]
+Ground Truth X range: [-2.4699, 2.0914]
+Ground Truth Y range: [-1.8633, 2.1607]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.1875, 746848.4375]
+Predictions Y range: [3150514.2500, 3150557.5000]
+Ground Truth X range: [746725.0000, 746885.6875]
+Ground Truth Y range: [3150477.2500, 3150604.5000]
+
+Error statistics:
+ADE range: [2.2823, 90.6249], mean: 34.9886
+FDE range: [2.5195, 92.5554], mean: 35.2559
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4754, max=2.0496, mean=-0.0375, std=0.9444
+Ground truth size (70) doesn't match predictions size (72). Adjusting ground truth.
+Agent mask size (72) doesn't match predictions size (72). Adjusting mask.
+Predictions stats: mean=0.0171, std=0.5684, min=-1.1296, max=1.0453
+Targets stats: mean=-0.0364, std=0.9312, min=-2.4754, max=2.0496
+Average distance between predictions and targets: 0.8413
+Train Loss: 1.2535, ADE: 33.7909, FDE: 34.0478:  17%|█▋        | 114/673 [24:25<1:53:27, 12.18s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1296, 1.0453]
+Predictions Y range: [-0.7059, 0.6786]
+Ground Truth X range: [-2.4754, 2.0496]
+Ground Truth Y range: [-1.8360, 2.0025]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.1875, 746848.8125]
+Predictions Y range: [3150513.7500, 3150557.7500]
+Ground Truth X range: [746724.8125, 746884.2500]
+Ground Truth Y range: [3150478.0000, 3150599.5000]
+
+Error statistics:
+ADE range: [2.7923, 95.7926], mean: 33.7909
+FDE range: [3.6705, 97.7531], mean: 34.0478
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0719, max=2.1474, mean=-0.0079, std=0.8928
+Ground truth size (85) doesn't match predictions size (87). Adjusting ground truth.
+Agent mask size (87) doesn't match predictions size (87). Adjusting mask.
+Predictions stats: mean=0.0241, std=0.5775, min=-1.1378, max=1.0593
+Targets stats: mean=-0.0077, std=0.8825, min=-3.0719, max=2.1474
+Average distance between predictions and targets: 0.7701
+Train Loss: 1.2282, ADE: 33.0892, FDE: 33.4156:  17%|█▋        | 115/673 [24:39<1:57:53, 12.68s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1378, 1.0593]
+Predictions Y range: [-0.7123, 0.6747]
+Ground Truth X range: [-3.0719, 1.9913]
+Ground Truth Y range: [-1.7078, 2.1474]
+
+Coordinate ranges after conversion:
+Predictions X range: [746771.9375, 746849.3125]
+Predictions Y range: [3150513.5000, 3150557.5000]
+Ground Truth X range: [746703.7500, 746882.1875]
+Ground Truth Y range: [3150482.0000, 3150604.2500]
+
+Error statistics:
+ADE range: [3.6549, 137.9195], mean: 33.0892
+FDE range: [3.5800, 140.1644], mean: 33.4156
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1719, max=2.1427, mean=-0.0746, std=0.9995
+Ground truth size (62) doesn't match predictions size (66). Adjusting ground truth.
+Agent mask size (66) doesn't match predictions size (66). Adjusting mask.
+Predictions stats: mean=0.0094, std=0.6014, min=-1.1372, max=1.0494
+Targets stats: mean=-0.0701, std=0.9689, min=-3.1719, max=2.1427
+Average distance between predictions and targets: 0.8897
+Train Loss: 1.2956, ADE: 34.4564, FDE: 34.7338:  17%|█▋        | 116/673 [24:49<1:50:45, 11.93s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1372, 1.0494]
+Predictions Y range: [-0.7146, 0.6833]
+Ground Truth X range: [-3.1719, 1.9632]
+Ground Truth Y range: [-1.8603, 2.1427]
+
+Coordinate ranges after conversion:
+Predictions X range: [746771.9375, 746849.0000]
+Predictions Y range: [3150513.5000, 3150557.7500]
+Ground Truth X range: [746700.2500, 746881.1875]
+Ground Truth Y range: [3150477.2500, 3150604.0000]
+
+Error statistics:
+ADE range: [2.1956, 103.4742], mean: 34.4564
+FDE range: [2.3585, 105.1458], mean: 34.7338
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4062, max=2.1957, mean=0.0344, std=0.8873
+Ground truth size (89) doesn't match predictions size (93). Adjusting ground truth.
+Agent mask size (93) doesn't match predictions size (93). Adjusting mask.
+Predictions stats: mean=0.0025, std=0.5706, min=-1.1484, max=1.0518
+Targets stats: mean=0.0329, std=0.8680, min=-2.4062, max=2.1957
+Average distance between predictions and targets: 0.7757
+Train Loss: 1.2882, ADE: 34.1751, FDE: 34.4317:  17%|█▋        | 117/673 [25:04<1:59:08, 12.86s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1484, 1.0518]
+Predictions Y range: [-0.7180, 0.6858]
+Ground Truth X range: [-2.4062, 2.1072]
+Ground Truth Y range: [-1.8094, 2.1957]
+
+Coordinate ranges after conversion:
+Predictions X range: [746771.5625, 746849.0625]
+Predictions Y range: [3150513.5000, 3150558.0000]
+Ground Truth X range: [746727.2500, 746886.2500]
+Ground Truth Y range: [3150478.7500, 3150605.7500]
+
+Error statistics:
+ADE range: [2.3161, 107.7823], mean: 34.1751
+FDE range: [2.7415, 108.8470], mean: 34.4317
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6157, max=2.1926, mean=-0.0227, std=0.9653
+Predictions stats: mean=-0.0103, std=0.6062, min=-1.1528, max=1.0549
+Targets stats: mean=-0.0227, std=0.9653, min=-2.6157, max=2.1926
+Average distance between predictions and targets: 0.9144
+Train Loss: 1.3006, ADE: 34.6154, FDE: 34.8455:  18%|█▊        | 118/673 [25:18<2:00:17, 13.00s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1528, 1.0549]
+Predictions Y range: [-0.7190, 0.6890]
+Ground Truth X range: [-2.6157, 2.0940]
+Ground Truth Y range: [-1.7670, 2.1926]
+
+Coordinate ranges after conversion:
+Predictions X range: [746771.3750, 746849.1875]
+Predictions Y range: [3150513.5000, 3150558.0000]
+Ground Truth X range: [746719.8750, 746885.8125]
+Ground Truth Y range: [3150480.2500, 3150605.5000]
+
+Error statistics:
+ADE range: [3.2724, 94.3565], mean: 34.6154
+FDE range: [2.1875, 93.6997], mean: 34.8455
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1350, max=2.0820, mean=0.0240, std=0.8787
+Ground truth size (86) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0151, std=0.5445, min=-1.1399, max=1.0624
+Targets stats: mean=0.0225, std=0.8496, min=-3.1350, max=2.0820
+Average distance between predictions and targets: 0.7359
+Train Loss: 1.2345, ADE: 33.7666, FDE: 34.0119:  18%|█▊        | 119/673 [25:31<2:00:35, 13.06s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1399, 1.0624]
+Predictions Y range: [-0.7273, 0.6760]
+Ground Truth X range: [-3.1350, 2.0546]
+Ground Truth Y range: [-1.7050, 2.0820]
+
+Coordinate ranges after conversion:
+Predictions X range: [746771.8750, 746849.4375]
+Predictions Y range: [3150513.2500, 3150557.5000]
+Ground Truth X range: [746701.5625, 746884.3750]
+Ground Truth Y range: [3150482.2500, 3150602.0000]
+
+Error statistics:
+ADE range: [3.5210, 118.0692], mean: 33.7666
+FDE range: [3.9071, 118.9501], mean: 34.0119
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3959, max=2.0373, mean=0.0521, std=0.8949
+Predictions stats: mean=0.0165, std=0.5264, min=-1.1270, max=1.0509
+Targets stats: mean=0.0521, std=0.8949, min=-2.3959, max=2.0373
+Average distance between predictions and targets: 0.8043
+Train Loss: 1.2539, ADE: 34.0697, FDE: 34.3301:  18%|█▊        | 120/673 [25:44<2:00:26, 13.07s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.1270, 1.0509]
+Predictions Y range: [-0.7244, 0.6668]
+Ground Truth X range: [-2.3959, 2.0003]
+Ground Truth Y range: [-1.8711, 2.0373]
+
+Coordinate ranges after conversion:
+Predictions X range: [746772.3125, 746849.0625]
+Predictions Y range: [3150513.2500, 3150557.2500]
+Ground Truth X range: [746727.6250, 746882.5000]
+Ground Truth Y range: [3150477.0000, 3150600.7500]
+
+Error statistics:
+ADE range: [1.4017, 109.4949], mean: 34.0697
+FDE range: [1.8028, 110.4291], mean: 34.3301
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5214, max=2.1680, mean=0.0403, std=0.9546
+Predictions stats: mean=0.0079, std=0.5320, min=-1.1375, max=1.0428
+Targets stats: mean=0.0403, std=0.9546, min=-2.5214, max=2.1680
+Average distance between predictions and targets: 0.8797
+Train Loss: 1.3219, ADE: 34.8343, FDE: 35.1671:  18%|█▊        | 121/673 [25:55<1:55:42, 12.58s/it]
+Coordinate ranges before conversion:
+ 
+
+Coordinate ranges after conversion:
+Predictions X range: [746767.1875, 746852.1875]
+Predictions Y range: [3150503.7500, 3150568.0000]
+Ground Truth X range: [746722.6250, 746885.1875]
+Ground Truth Y range: [3150480.2500, 3150604.7500]
+
+Error statistics:
+ADE range: [1.8465, 112.6637], mean: 30.6116
+FDE range: [2.3485, 113.3165], mean: 30.8224
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3879, max=2.1487, mean=-0.0047, std=0.9534
+Ground truth size (74) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=-0.0233, std=0.6066, min=-1.2725, max=1.1507
+Targets stats: mean=-0.0045, std=0.9347, min=-2.3879, max=2.1487
+Average distance between predictions and targets: 0.7605
+Train Loss: 1.0080, ADE: 30.1319, FDE: 30.4300:  26%|██▌       | 175/673 [37:04<1:46:19, 12.81s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2725, 1.1507]
+Predictions Y range: [-1.0306, 1.0152]
+Ground Truth X range: [-2.3879, 2.0554]
+Ground Truth Y range: [-1.7314, 2.1487]
+
+Coordinate ranges after conversion:
+Predictions X range: [746767.1875, 746852.5625]
+Predictions Y range: [3150503.5000, 3150568.2500]
+Ground Truth X range: [746727.8750, 746884.4375]
+Ground Truth Y range: [3150481.2500, 3150604.2500]
+
+Error statistics:
+ADE range: [2.8623, 84.1372], mean: 30.1319
+FDE range: [1.8200, 84.8865], mean: 30.4300
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4791, max=2.1487, mean=0.0288, std=0.8946
+Ground truth size (92) doesn't match predictions size (93). Adjusting ground truth.
+Agent mask size (93) doesn't match predictions size (93). Adjusting mask.
+Predictions stats: mean=0.0121, std=0.5708, min=-1.2781, max=1.1716
+Targets stats: mean=0.0285, std=0.8898, min=-2.4791, max=2.1487
+Average distance between predictions and targets: 0.6665
+Train Loss: 1.0622, ADE: 30.6625, FDE: 30.9765:  26%|██▌       | 176/673 [37:18<1:47:40, 13.00s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2781, 1.1716]
+Predictions Y range: [-1.0418, 1.0202]
+Ground Truth X range: [-2.4791, 2.1385]
+Ground Truth Y range: [-1.7369, 2.1487]
+
+Coordinate ranges after conversion:
+Predictions X range: [746767.0000, 746853.3125]
+Predictions Y range: [3150503.2500, 3150568.5000]
+Ground Truth X range: [746724.6875, 746887.3750]
+Ground Truth Y range: [3150481.2500, 3150604.2500]
+
+Error statistics:
+ADE range: [1.9795, 91.5149], mean: 30.6625
+FDE range: [1.8802, 90.3359], mean: 30.9765
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4695, max=2.0835, mean=0.0272, std=0.8865
+Predictions stats: mean=0.0893, std=0.5695, min=-1.2800, max=1.2380
+Targets stats: mean=0.0272, std=0.8865, min=-2.4695, max=2.0835
+Average distance between predictions and targets: 0.7208
+Train Loss: 1.1072, ADE: 31.0857, FDE: 31.3688:  26%|██▋       | 177/673 [37:31<1:48:07, 13.08s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2800, 1.2380]
+Predictions Y range: [-1.0473, 1.0329]
+Ground Truth X range: [-2.4695, 2.0835]
+Ground Truth Y range: [-1.8298, 2.0683]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.9375, 746855.6250]
+Predictions Y range: [3150503.0000, 3150569.0000]
+Ground Truth X range: [746725.0000, 746885.4375]
+Ground Truth Y range: [3150478.2500, 3150601.7500]
+
+Error statistics:
+ADE range: [2.8661, 94.9711], mean: 31.0857
+FDE range: [2.9262, 94.4434], mean: 31.3688
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5861, max=2.1924, mean=-0.0046, std=0.9675
+Ground truth size (72) doesn't match predictions size (73). Adjusting ground truth.
+Agent mask size (73) doesn't match predictions size (73). Adjusting mask.
+Predictions stats: mean=0.0353, std=0.6452, min=-1.2886, max=1.2410
+Targets stats: mean=-0.0045, std=0.9608, min=-2.5861, max=2.1924
+Average distance between predictions and targets: 0.7739
+Train Loss: 1.0995, ADE: 30.4159, FDE: 30.6907:  26%|██▋       | 178/673 [37:43<1:44:06, 12.62s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2886, 1.2410]
+Predictions Y range: [-1.0599, 1.0435]
+Ground Truth X range: [-2.5861, 2.0527]
+Ground Truth Y range: [-1.6709, 2.1924]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.6250, 746855.7500]
+Predictions Y range: [3150502.5000, 3150569.2500]
+Ground Truth X range: [746720.8750, 746884.3125]
+Ground Truth Y range: [3150483.2500, 3150605.5000]
+
+Error statistics:
+ADE range: [1.1615, 91.4659], mean: 30.4159
+FDE range: [1.7897, 90.6802], mean: 30.6907
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5829, max=2.1807, mean=-0.0100, std=0.8825
+Predictions stats: mean=-0.0458, std=0.6393, min=-1.3043, max=1.2521
+Targets stats: mean=-0.0100, std=0.8825, min=-2.5829, max=2.1807
+Average distance between predictions and targets: 0.6793
+Train Loss: 1.0744, ADE: 30.2267, FDE: 30.5611:  27%|██▋       | 179/673 [37:56<1:44:50, 12.73s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3043, 1.2521]
+Predictions Y range: [-1.0757, 1.0586]
+Ground Truth X range: [-2.5829, 2.0520]
+Ground Truth Y range: [-1.8122, 2.1807]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.0625, 746856.1250]
+Predictions Y range: [3150502.0000, 3150569.7500]
+Ground Truth X range: [746721.0000, 746884.3125]
+Ground Truth Y range: [3150478.7500, 3150605.2500]
+
+Error statistics:
+ADE range: [2.1659, 113.0107], mean: 30.2267
+FDE range: [1.6406, 113.3716], mean: 30.5611
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5308, max=2.0942, mean=-0.0316, std=0.9401
+Ground truth size (83) doesn't match predictions size (86). Adjusting ground truth.
+Agent mask size (86) doesn't match predictions size (86). Adjusting mask.
+Predictions stats: mean=-0.1054, std=0.6574, min=-1.3073, max=1.2408
+Targets stats: mean=-0.0305, std=0.9236, min=-2.5308, max=2.0942
+Average distance between predictions and targets: 0.7531
+Train Loss: 1.0987, ADE: 30.6653, FDE: 30.9616:  27%|██▋       | 180/673 [38:10<1:49:33, 13.33s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3073, 1.2408]
+Predictions Y range: [-1.0830, 1.0518]
+Ground Truth X range: [-2.5308, 1.9239]
+Ground Truth Y range: [-1.7173, 2.0942]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.9375, 746855.7500]
+Predictions Y range: [3150502.0000, 3150569.5000]
+Ground Truth X range: [746722.8125, 746879.8125]
+Ground Truth Y range: [3150481.7500, 3150602.5000]
+
+Error statistics:
+ADE range: [3.4182, 94.2235], mean: 30.6653
+FDE range: [4.0311, 94.5308], mean: 30.9616
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.1755, max=2.0748, mean=-0.0395, std=0.8602
+Ground truth size (85) doesn't match predictions size (86). Adjusting ground truth.
+Agent mask size (86) doesn't match predictions size (86). Adjusting mask.
+Predictions stats: mean=-0.0546, std=0.6087, min=-1.3075, max=1.2054
+Targets stats: mean=-0.0390, std=0.8552, min=-2.1755, max=2.0748
+Average distance between predictions and targets: 0.6315
+Train Loss: 1.0728, ADE: 30.2683, FDE: 30.6428:  27%|██▋       | 181/673 [38:22<1:44:08, 12.70s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3075, 1.2054]
+Predictions Y range: [-1.0906, 1.0791]
+Ground Truth X range: [-2.1755, 2.0468]
+Ground Truth Y range: [-1.7849, 2.0748]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.9375, 746854.5000]
+Predictions Y range: [3150501.7500, 3150570.2500]
+Ground Truth X range: [746735.3750, 746884.1250]
+Ground Truth Y range: [3150479.7500, 3150602.0000]
+
+Error statistics:
+ADE range: [1.9262, 101.1517], mean: 30.2683
+FDE range: [1.7678, 100.5088], mean: 30.6428
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5016, max=2.1662, mean=0.0153, std=0.8615
+Ground truth size (89) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0084, std=0.6001, min=-1.3101, max=1.2237
+Targets stats: mean=0.0148, std=0.8473, min=-2.5016, max=2.1662
+Average distance between predictions and targets: 0.6286
+Train Loss: 1.1155, ADE: 30.9771, FDE: 31.2774:  27%|██▋       | 182/673 [38:33<1:41:55, 12.46s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3101, 1.2237]
+Predictions Y range: [-1.0919, 1.0871]
+Ground Truth X range: [-2.5016, 1.8217]
+Ground Truth Y range: [-1.8726, 2.1662]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.8750, 746855.1250]
+Predictions Y range: [3150501.5000, 3150570.5000]
+Ground Truth X range: [746723.8750, 746876.1875]
+Ground Truth Y range: [3150476.7500, 3150604.7500]
+
+Error statistics:
+ADE range: [1.4401, 110.4600], mean: 30.9771
+FDE range: [0.5340, 108.4551], mean: 31.2774
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5756, max=2.1118, mean=0.0145, std=0.9224
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0261, std=0.6746, min=-1.3125, max=1.2620
+Targets stats: mean=0.0143, std=0.9163, min=-2.5756, max=2.1118
+Average distance between predictions and targets: 0.7611
+Train Loss: 1.0952, ADE: 30.6129, FDE: 30.9022:  27%|██▋       | 183/673 [38:46<1:40:53, 12.35s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3125, 1.2620]
+Predictions Y range: [-1.1015, 1.0858]
+Ground Truth X range: [-2.5756, 2.0634]
+Ground Truth Y range: [-1.7710, 2.1118]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.7500, 746856.5000]
+Predictions Y range: [3150501.2500, 3150570.5000]
+Ground Truth X range: [746721.2500, 746884.6875]
+Ground Truth Y range: [3150480.0000, 3150603.0000]
+
+Error statistics:
+ADE range: [3.1906, 135.2852], mean: 30.6129
+FDE range: [3.5554, 134.1557], mean: 30.9022
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5531, max=2.1625, mean=-0.0159, std=0.8824
+Ground truth size (78) doesn't match predictions size (80). Adjusting ground truth.
+Agent mask size (80) doesn't match predictions size (80). Adjusting mask.
+Predictions stats: mean=-0.0091, std=0.6343, min=-1.3050, max=1.2210
+Targets stats: mean=-0.0155, std=0.8713, min=-2.5531, max=2.1625
+Average distance between predictions and targets: 0.6493
+Train Loss: 0.9641, ADE: 28.9136, FDE: 29.2931:  27%|██▋       | 184/673 [38:57<1:38:53, 12.13s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3050, 1.2210]
+Predictions Y range: [-1.1122, 1.1021]
+Ground Truth X range: [-2.5531, 2.0833]
+Ground Truth Y range: [-1.7156, 2.1625]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.0000, 746855.0000]
+Predictions Y range: [3150501.0000, 3150571.0000]
+Ground Truth X range: [746722.0625, 746885.3750]
+Ground Truth Y range: [3150481.7500, 3150604.7500]
+
+Error statistics:
+ADE range: [1.1300, 79.9665], mean: 28.9136
+FDE range: [2.0349, 81.8017], mean: 29.2931
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4556, max=1.9997, mean=0.0170, std=0.8835
+Predictions stats: mean=-0.0301, std=0.6124, min=-1.2917, max=1.2448
+Targets stats: mean=0.0170, std=0.8835, min=-2.4556, max=1.9997
+Average distance between predictions and targets: 0.7023
+Train Loss: 1.1137, ADE: 30.5376, FDE: 30.8007:  27%|██▋       | 185/673 [39:09<1:39:12, 12.20s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2917, 1.2448]
+Predictions Y range: [-1.1174, 1.0874]
+Ground Truth X range: [-2.4556, 1.9068]
+Ground Truth Y range: [-1.6564, 1.9997]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.5000, 746855.8750]
+Predictions Y range: [3150500.7500, 3150570.5000]
+Ground Truth X range: [746725.5000, 746879.1875]
+Ground Truth Y range: [3150483.7500, 3150599.5000]
+
+Error statistics:
+ADE range: [1.1902, 104.2825], mean: 30.5376
+FDE range: [0.9014, 105.8380], mean: 30.8007
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4542, max=2.1294, mean=0.0117, std=0.9093
+Ground truth size (89) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0008, std=0.5975, min=-1.2937, max=1.2369
+Targets stats: mean=0.0113, std=0.8943, min=-2.4542, max=2.1294
+Average distance between predictions and targets: 0.6521
+Train Loss: 0.9869, ADE: 29.0535, FDE: 29.2701:  28%|██▊       | 186/673 [39:24<1:44:23, 12.86s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2937, 1.2369]
+Predictions Y range: [-1.1206, 1.1035]
+Ground Truth X range: [-2.4542, 2.1136]
+Ground Truth Y range: [-1.8368, 2.1294]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.4375, 746855.5625]
+Predictions Y range: [3150500.7500, 3150571.0000]
+Ground Truth X range: [746725.5625, 746886.5000]
+Ground Truth Y range: [3150478.0000, 3150603.5000]
+
+Error statistics:
+ADE range: [1.3820, 96.4634], mean: 29.0535
+FDE range: [1.1250, 97.9576], mean: 29.2701
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5837, max=2.1486, mean=0.0212, std=0.9671
+Ground truth size (82) doesn't match predictions size (83). Adjusting ground truth.
+Agent mask size (83) doesn't match predictions size (83). Adjusting mask.
+Predictions stats: mean=0.0649, std=0.6264, min=-1.2752, max=1.2391
+Targets stats: mean=0.0210, std=0.9613, min=-2.5837, max=2.1486
+Average distance between predictions and targets: 0.7596
+Train Loss: 0.9950, ADE: 29.3434, FDE: 29.6671:  28%|██▊       | 187/673 [39:39<1:50:39, 13.66s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2752, 1.2391]
+Predictions Y range: [-1.1248, 1.1094]
+Ground Truth X range: [-2.5837, 2.0420]
+Ground Truth Y range: [-1.7619, 2.1486]
+
+Coordinate ranges after conversion:
+Predictions X range: [746767.0625, 746855.6875]
+Predictions Y range: [3150500.5000, 3150571.2500]
+Ground Truth X range: [746721.0000, 746883.9375]
+Ground Truth Y range: [3150480.5000, 3150604.2500]
+
+Error statistics:
+ADE range: [2.2191, 91.9526], mean: 29.3434
+FDE range: [3.1623, 91.6604], mean: 29.6671
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5699, max=2.1153, mean=0.0274, std=0.9317
+Ground truth size (82) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=0.0243, std=0.5861, min=-1.2895, max=1.1464
+Targets stats: mean=0.0267, std=0.9206, min=-2.5699, max=2.1153
+Average distance between predictions and targets: 0.7005
+Train Loss: 1.0406, ADE: 29.8261, FDE: 30.1282:  28%|██▊       | 188/673 [39:53<1:50:14, 13.64s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.2895, 1.1464]
+Predictions Y range: [-1.1049, 1.1154]
+Ground Truth X range: [-2.5699, 1.9722]
+Ground Truth Y range: [-1.7675, 2.1153]
+
+Coordinate ranges after conversion:
+Predictions X range: [746766.5625, 746852.3750]
+Predictions Y range: [3150501.2500, 3150571.5000]
+Ground Truth X range: [746721.4375, 746881.5000]
+Ground Truth Y range: [3150480.2500, 3150603.2500]
+
+Error statistics:
+ADE range: [3.0997, 105.3927], mean: 29.8261
+FDE range: [2.7846, 106.3974], mean: 30.1282
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4580, max=2.0044, mean=-0.0172, std=0.9450
+Ground truth size (77) doesn't match predictions size (78). Adjusting ground truth.
+Agent mask size (78) doesn't match predictions size (78). Adjusting mask.
+Predictions stats: mean=0.0138, std=0.6048, min=-1.3080, max=1.1524
+Targets stats: mean=-0.0170, std=0.9389, min=-2.4580, max=2.0044
+Average distance between predictions and targets: 0.7345
+Train Loss: 1.0265, ADE: 29.7643, FDE: 30.0331:  28%|██▊       | 189/673 [40:06<1:48:12, 13.41s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3080, 1.1524]
+Predictions Y range: [-1.1249, 1.1198]
+Ground Truth X range: [-2.4580, 1.9914]
+Ground Truth Y range: [-1.7622, 2.0044]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.9375, 746852.6250]
+Predictions Y range: [3150500.5000, 3150571.7500]
+Ground Truth X range: [746725.4375, 746882.1875]
+Ground Truth Y range: [3150480.2500, 3150599.7500]
+
+Error statistics:
+ADE range: [2.8262, 114.8759], mean: 29.7643
+FDE range: [2.3527, 113.5631], mean: 30.0331
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1418, max=2.1449, mean=-0.0359, std=0.9909
+Ground truth size (62) doesn't match predictions size (65). Adjusting ground truth.
+Agent mask size (65) doesn't match predictions size (65). Adjusting mask.
+Predictions stats: mean=-0.0363, std=0.6629, min=-1.3200, max=1.1845
+Targets stats: mean=-0.0343, std=0.9678, min=-3.1418, max=2.1449
+Average distance between predictions and targets: 0.7929
+Train Loss: 1.0124, ADE: 29.4624, FDE: 29.7355:  28%|██▊       | 190/673 [40:17<1:42:36, 12.75s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3200, 1.1845]
+Predictions Y range: [-1.1406, 1.1195]
+Ground Truth X range: [-3.1418, 2.0948]
+Ground Truth Y range: [-1.7981, 2.1449]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.5000, 746853.7500]
+Predictions Y range: [3150500.0000, 3150571.7500]
+Ground Truth X range: [746701.3125, 746885.8125]
+Ground Truth Y range: [3150479.2500, 3150604.0000]
+
+Error statistics:
+ADE range: [1.9497, 91.6908], mean: 29.4624
+FDE range: [2.8504, 90.6571], mean: 29.7355
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2367, max=2.1700, mean=0.0057, std=0.9304
+Predictions stats: mean=-0.1062, std=0.6395, min=-1.3278, max=1.2716
+Targets stats: mean=0.0057, std=0.9304, min=-3.2367, max=2.1700
+Average distance between predictions and targets: 0.7232
+Train Loss: 1.0615, ADE: 29.7580, FDE: 30.0423:  28%|██▊       | 191/673 [40:31<1:45:48, 13.17s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-1.3278, 1.2716]
+Predictions Y range: [-1.1484, 1.1443]
+Ground Truth X range: [-3.2367, 2.0067]
+Ground Truth Y range: [-1.6200, 2.1700]
+
+Coordinate ranges after conversion:
+Predictions X range: [746765.2500, 746856.8125]
+Predictions Y range: [3150499.7500, 3150572.5000]
+Ground Truth X range: [746698.0000, 746882.6875]
+Ground Truth Y range: [3150484.7500, 3150605.0000]
+
+Error statistics:
+ADE range: [1.0985, 97.0460], mean: 29.7580
+FDE range: [0.9540, 98.3744], mean: 30.0423
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3653, max=2.0436, mean=0.0362, std=0.9203
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=-0.0465, std=0.6932, min=-1.3299, max=1.2714
+Targets stats: mean=0.0357, std=0.9148, min=-2.3653, max=2.0436
+Average distance between predictions and targets: 0.6565
+Train Loss: 0.8641, ADE: 26.9356, FDE: 27.2516:  29%|██▊       | 192/673 [40:46<1:48:23, 13.52s/it]
