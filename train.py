@@ -570,6 +570,8 @@ def train_epoch(model, train_loader, optimizer, device, args):
         
         # Ensure agent mask matches the prediction size
         if agent_mask.size(1) != predictions.shape[1]:
+             # Log the adjustment
+            print(f"Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting mask.")
             batch_size = predictions.size(0)
             num_agents = predictions.size(1)
             new_agent_mask = torch.zeros(batch_size, num_agents, dtype=torch.bool, device=device)
@@ -579,9 +581,7 @@ def train_epoch(model, train_loader, optimizer, device, args):
             new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
             agent_mask = new_agent_mask
             
-            # Log the adjustment
-            print(f"Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting mask.")
-        
+            
         # Compute loss
         loss = compute_loss(predictions, gt_trajectories, agent_mask)
         

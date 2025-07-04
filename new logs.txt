@@ -1233,3 +1233,1794 @@ Predictions stats: mean=-0.0465, std=0.6932, min=-1.3299, max=1.2714
 Targets stats: mean=0.0357, std=0.9148, min=-2.3653, max=2.0436
 Average distance between predictions and targets: 0.6565
 Train Loss: 0.8641, ADE: 26.9356, FDE: 27.2516:  29%|██▊       | 192/673 [40:46<1:48:23, 13.52s/it]
+
+
+
+
+
+
+
+**************************************************************
+
+Using device: cuda
+Original distance threshold: 10.0 meters
+Standardized distance threshold: 0.29894503856273774
+/usr/local/lib/python3.11/dist-packages/torch/optim/lr_scheduler.py:62: UserWarning: The verbose parameter is deprecated. Please use get_last_lr() to access the learning rate.
+  warnings.warn(
+
+Epoch 1/50
+Training:   0%|          | 0/673 [00:00<?, ?it/s]Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5182, max=2.2000, mean=-0.0097, std=0.9367
+Predictions stats: mean=0.0011, std=0.0072, min=-0.0284, max=0.0319
+Targets stats: mean=-0.0097, std=0.9367, min=-2.5182, max=2.2000
+Average distance between predictions and targets: 1.1605
+Train Loss: 2.0901, ADE: 0.0221, FDE: 0.0224:   0%|          | 1/673 [00:14<2:39:55, 14.28s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0284, 0.0319]
+Predictions Y range: [-0.0270, 0.0294]
+Ground Truth X range: [-2.5182, 1.9789]
+Ground Truth Y range: [-1.7939, 2.2000]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0603, Y=0.0564
+Ground truth range: X=4.4971, Y=3.9940
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0284, 0.0319]
+Adjusted ground truth Y range: [-0.0270, 0.0294]
+
+Error statistics:
+ADE range: [0.0074, 0.0462], mean: 0.0221
+FDE range: [0.0019, 0.0553], mean: 0.0224
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4631, max=2.1199, mean=-0.0304, std=0.9494
+Ground truth size (74) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=-0.0062, std=0.0535, min=-0.0889, max=0.0781
+Targets stats: mean=-0.0296, std=0.9369, min=-2.4631, max=2.1199
+Average distance between predictions and targets: 1.1583
+Train Loss: 2.1074, ADE: 0.0320, FDE: 0.0313:   0%|          | 2/673 [00:26<2:29:21, 13.36s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0781]
+Predictions Y range: [-0.0889, 0.0000]
+Ground Truth X range: [-2.4631, 1.9945]
+Ground Truth Y range: [-1.7473, 2.1199]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0781, Y=0.0889
+Ground truth range: X=4.4576, Y=3.8672
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0781]
+Adjusted ground truth Y range: [-0.0889, -0.0000]
+
+Error statistics:
+ADE range: [0.0054, 0.0797], mean: 0.0320
+FDE range: [0.0027, 0.0813], mean: 0.0313
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4018, max=2.0850, mean=0.0042, std=0.9370
+Ground truth size (76) doesn't match predictions size (79). Adjusting ground truth.
+Agent mask size (79) doesn't match predictions size (79). Adjusting mask.
+Predictions stats: mean=-0.0188, std=0.0444, min=-0.0940, max=0.0547
+Targets stats: mean=0.0041, std=0.9190, min=-2.4018, max=2.0850
+Average distance between predictions and targets: 1.0959
+Train Loss: 2.1649, ADE: 0.0325, FDE: 0.0311:   0%|          | 3/673 [00:39<2:22:41, 12.78s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0043, 0.0547]
+Predictions Y range: [-0.0940, 0.0000]
+Ground Truth X range: [-2.4018, 2.0850]
+Ground Truth Y range: [-1.6549, 1.9814]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0589, Y=0.0940
+Ground truth range: X=4.4867, Y=3.6363
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0043, 0.0547]
+Adjusted ground truth Y range: [-0.0940, -0.0000]
+
+Error statistics:
+ADE range: [0.0060, 0.0773], mean: 0.0325
+FDE range: [0.0012, 0.0749], mean: 0.0311
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5384, max=2.0573, mean=0.0008, std=0.9137
+Ground truth size (84) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=-0.0134, std=0.0338, min=-0.0741, max=0.0441
+Targets stats: mean=0.0008, std=0.9083, min=-2.5384, max=2.0573
+Average distance between predictions and targets: 1.0869
+Train Loss: 2.1037, ADE: 0.0247, FDE: 0.0248:   1%|          | 4/673 [00:53<2:30:31, 13.50s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0100, 0.0441]
+Predictions Y range: [-0.0741, 0.0000]
+Ground Truth X range: [-2.5384, 2.0188]
+Ground Truth Y range: [-1.6888, 2.0573]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0541, Y=0.0741
+Ground truth range: X=4.5573, Y=3.7460
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0100, 0.0441]
+Adjusted ground truth Y range: [-0.0741, 0.0000]
+
+Error statistics:
+ADE range: [0.0059, 0.0634], mean: 0.0247
+FDE range: [0.0014, 0.0686], mean: 0.0248
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5947, max=2.0485, mean=-0.0529, std=1.0028
+Ground truth size (71) doesn't match predictions size (74). Adjusting ground truth.
+Agent mask size (74) doesn't match predictions size (74). Adjusting mask.
+Predictions stats: mean=-0.0066, std=0.0173, min=-0.0426, max=0.0354
+Targets stats: mean=-0.0508, std=0.9823, min=-2.5947, max=2.0485
+Average distance between predictions and targets: 1.2264
+Train Loss: 2.2374, ADE: 0.0168, FDE: 0.0172:   1%|          | 5/673 [01:06<2:27:33, 13.25s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0133, 0.0354]
+Predictions Y range: [-0.0426, 0.0000]
+Ground Truth X range: [-2.5947, 2.0373]
+Ground Truth Y range: [-1.8328, 2.0485]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0487, Y=0.0426
+Ground truth range: X=4.6320, Y=3.8813
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0133, 0.0354]
+Adjusted ground truth Y range: [-0.0426, 0.0000]
+
+Error statistics:
+ADE range: [0.0059, 0.0369], mean: 0.0168
+FDE range: [0.0017, 0.0433], mean: 0.0172
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4833, max=2.1111, mean=-0.0132, std=0.8699
+Ground truth size (86) doesn't match predictions size (88). Adjusting ground truth.
+Agent mask size (88) doesn't match predictions size (88). Adjusting mask.
+Predictions stats: mean=-0.0048, std=0.0085, min=-0.0341, max=0.0194
+Targets stats: mean=-0.0129, std=0.8599, min=-2.4833, max=2.1111
+Average distance between predictions and targets: 0.9801
+Train Loss: 2.0753, ADE: 0.0139, FDE: 0.0139:   1%|          | 6/673 [01:19<2:25:28, 13.09s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0341, 0.0037]
+Predictions Y range: [-0.0176, 0.0194]
+Ground Truth X range: [-2.4833, 2.0326]
+Ground Truth Y range: [-1.8508, 2.1111]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0378, Y=0.0370
+Ground truth range: X=4.5159, Y=3.9619
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0341, 0.0037]
+Adjusted ground truth Y range: [-0.0176, 0.0194]
+
+Error statistics:
+ADE range: [0.0061, 0.0329], mean: 0.0139
+FDE range: [0.0004, 0.0353], mean: 0.0139
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0770, max=2.1189, mean=0.0058, std=0.9304
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=-0.0072, std=0.0164, min=-0.0461, max=0.0235
+Targets stats: mean=0.0057, std=0.9248, min=-3.0770, max=2.1189
+Average distance between predictions and targets: 1.1105
+Train Loss: 2.1791, ADE: 0.0155, FDE: 0.0148:   1%|          | 7/673 [01:32<2:26:23, 13.19s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0461, 0.0000]
+Predictions Y range: [-0.0112, 0.0235]
+Ground Truth X range: [-3.0770, 2.1074]
+Ground Truth Y range: [-1.8373, 2.1189]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0461, Y=0.0347
+Ground truth range: X=5.1845, Y=3.9562
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0461, 0.0000]
+Adjusted ground truth Y range: [-0.0112, 0.0235]
+
+Error statistics:
+ADE range: [0.0038, 0.0313], mean: 0.0155
+FDE range: [0.0010, 0.0363], mean: 0.0148
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4838, max=1.9741, mean=0.0078, std=0.9300
+Ground truth size (81) doesn't match predictions size (82). Adjusting ground truth.
+Agent mask size (82) doesn't match predictions size (82). Adjusting mask.
+Predictions stats: mean=-0.0054, std=0.0154, min=-0.0408, max=0.0294
+Targets stats: mean=0.0077, std=0.9243, min=-2.4838, max=1.9741
+Average distance between predictions and targets: 1.1258
+Train Loss: 2.1199, ADE: 0.0149, FDE: 0.0152:   1%|          | 8/673 [01:47<2:30:20, 13.56s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0408, 0.0000]
+Predictions Y range: [-0.0072, 0.0294]
+Ground Truth X range: [-2.4838, 1.9533]
+Ground Truth Y range: [-1.7881, 1.9741]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0408, Y=0.0367
+Ground truth range: X=4.4371, Y=3.7622
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0408, 0.0000]
+Adjusted ground truth Y range: [-0.0072, 0.0294]
+
+Error statistics:
+ADE range: [0.0048, 0.0285], mean: 0.0149
+FDE range: [0.0014, 0.0360], mean: 0.0152
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5025, max=2.1021, mean=-0.0163, std=0.8755
+Ground truth size (87) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0002, std=0.0093, min=-0.0293, max=0.0269
+Targets stats: mean=-0.0154, std=0.8514, min=-2.5025, max=2.1021
+Average distance between predictions and targets: 0.9518
+Train Loss: 2.1115, ADE: 0.0136, FDE: 0.0137:   1%|▏         | 9/673 [02:00<2:28:27, 13.42s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0293, 0.0118]
+Predictions Y range: [-0.0057, 0.0269]
+Ground Truth X range: [-2.5025, 2.0339]
+Ground Truth Y range: [-1.6357, 2.1021]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0412, Y=0.0327
+Ground truth range: X=4.5364, Y=3.7378
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0293, 0.0118]
+Adjusted ground truth Y range: [-0.0057, 0.0269]
+
+Error statistics:
+ADE range: [0.0041, 0.0264], mean: 0.0136
+FDE range: [0.0014, 0.0322], mean: 0.0137
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5579, max=2.0748, mean=0.0315, std=0.9042
+Predictions stats: mean=0.0014, std=0.0100, min=-0.0262, max=0.0299
+Targets stats: mean=0.0315, std=0.9042, min=-2.5579, max=2.0748
+Average distance between predictions and targets: 1.0952
+Train Loss: 2.0687, ADE: 0.0134, FDE: 0.0136:   1%|▏         | 10/673 [02:15<2:34:17, 13.96s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0262, 0.0097]
+Predictions Y range: [-0.0047, 0.0299]
+Ground Truth X range: [-2.5579, 2.0748]
+Ground Truth Y range: [-1.5968, 1.9986]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0359, Y=0.0346
+Ground truth range: X=4.6327, Y=3.5954
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0262, 0.0097]
+Adjusted ground truth Y range: [-0.0047, 0.0299]
+
+Error statistics:
+ADE range: [0.0044, 0.0271], mean: 0.0134
+FDE range: [0.0006, 0.0332], mean: 0.0136
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0566, max=2.2747, mean=-0.0120, std=0.9581
+Ground truth size (73) doesn't match predictions size (75). Adjusting ground truth.
+Agent mask size (75) doesn't match predictions size (75). Adjusting mask.
+Predictions stats: mean=0.0049, std=0.0067, min=-0.0180, max=0.0271
+Targets stats: mean=-0.0117, std=0.9453, min=-3.0566, max=2.2747
+Average distance between predictions and targets: 1.1603
+Train Loss: 2.1634, ADE: 0.0125, FDE: 0.0124:   2%|▏         | 11/673 [02:27<2:28:38, 13.47s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0180, 0.0180]
+Predictions Y range: [-0.0049, 0.0271]
+Ground Truth X range: [-3.0566, 1.9005]
+Ground Truth Y range: [-1.8178, 2.2747]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0360, Y=0.0320
+Ground truth range: X=4.9571, Y=4.0924
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0180, 0.0180]
+Adjusted ground truth Y range: [-0.0049, 0.0271]
+
+Error statistics:
+ADE range: [0.0041, 0.0249], mean: 0.0125
+FDE range: [0.0004, 0.0297], mean: 0.0124
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5285, max=2.0669, mean=-0.0086, std=0.8900
+Predictions stats: mean=0.0059, std=0.0064, min=-0.0123, max=0.0317
+Targets stats: mean=-0.0086, std=0.8900, min=-2.5285, max=2.0669
+Average distance between predictions and targets: 1.0534
+Train Loss: 2.0714, ADE: 0.0128, FDE: 0.0129:   2%|▏         | 12/673 [02:39<2:22:31, 12.94s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0079, 0.0317]
+Predictions Y range: [-0.0123, 0.0182]
+Ground Truth X range: [-2.5285, 2.0210]
+Ground Truth Y range: [-1.7059, 2.0669]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0396, Y=0.0305
+Ground truth range: X=4.5495, Y=3.7728
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0079, 0.0317]
+Adjusted ground truth Y range: [-0.0123, 0.0182]
+
+Error statistics:
+ADE range: [0.0046, 0.0246], mean: 0.0128
+FDE range: [0.0002, 0.0324], mean: 0.0129
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4346, max=2.0957, mean=-0.0230, std=0.8961
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=0.0058, std=0.0151, min=-0.0235, max=0.0419
+Targets stats: mean=-0.0227, std=0.8908, min=-2.4346, max=2.0957
+Average distance between predictions and targets: 1.0624
+Train Loss: 2.0309, ADE: 0.0137, FDE: 0.0137:   2%|▏         | 13/673 [02:52<2:22:56, 12.99s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0419]
+Predictions Y range: [-0.0235, 0.0143]
+Ground Truth X range: [-2.4346, 2.0957]
+Ground Truth Y range: [-1.8459, 2.0307]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0419, Y=0.0378
+Ground truth range: X=4.5303, Y=3.8766
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0419]
+Adjusted ground truth Y range: [-0.0235, 0.0143]
+
+Error statistics:
+ADE range: [0.0040, 0.0337], mean: 0.0137
+FDE range: [0.0010, 0.0383], mean: 0.0137
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4324, max=2.1159, mean=-0.0073, std=0.8679
+Ground truth size (88) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=0.0017, std=0.0238, min=-0.0413, max=0.0480
+Targets stats: mean=-0.0070, std=0.8488, min=-2.4324, max=2.1159
+Average distance between predictions and targets: 0.9570
+Train Loss: 2.0433, ADE: 0.0150, FDE: 0.0152:   2%|▏         | 14/673 [03:05<2:23:44, 13.09s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0480]
+Predictions Y range: [-0.0413, 0.0000]
+Ground Truth X range: [-2.4324, 2.1159]
+Ground Truth Y range: [-1.8008, 2.0276]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0480, Y=0.0413
+Ground truth range: X=4.5483, Y=3.8284
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0480]
+Adjusted ground truth Y range: [-0.0413, 0.0000]
+
+Error statistics:
+ADE range: [0.0035, 0.0418], mean: 0.0150
+FDE range: [0.0001, 0.0488], mean: 0.0152
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5241, max=2.0740, mean=-0.0073, std=0.9459
+Ground truth size (80) doesn't match predictions size (82). Adjusting ground truth.
+Agent mask size (82) doesn't match predictions size (82). Adjusting mask.
+Predictions stats: mean=-0.0014, std=0.0379, min=-0.0584, max=0.0600
+Targets stats: mean=-0.0071, std=0.9343, min=-2.5241, max=2.0740
+Average distance between predictions and targets: 1.1200
+Train Loss: 2.2140, ADE: 0.0236, FDE: 0.0234:   2%|▏         | 15/673 [03:18<2:23:10, 13.06s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0600]
+Predictions Y range: [-0.0584, 0.0000]
+Ground Truth X range: [-2.5241, 2.0740]
+Ground Truth Y range: [-1.6169, 2.0001]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0600, Y=0.0584
+Ground truth range: X=4.5980, Y=3.6170
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0600]
+Adjusted ground truth Y range: [-0.0584, 0.0000]
+
+Error statistics:
+ADE range: [0.0042, 0.0590], mean: 0.0236
+FDE range: [0.0009, 0.0602], mean: 0.0234
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4789, max=2.0834, mean=0.0322, std=0.8351
+Ground truth size (86) doesn't match predictions size (89). Adjusting ground truth.
+Agent mask size (89) doesn't match predictions size (89). Adjusting mask.
+Predictions stats: mean=-0.0046, std=0.0406, min=-0.0707, max=0.0634
+Targets stats: mean=0.0312, std=0.8209, min=-2.4789, max=2.0834
+Average distance between predictions and targets: 0.9045
+Train Loss: 2.0356, ADE: 0.0269, FDE: 0.0266:   2%|▏         | 16/673 [03:30<2:17:59, 12.60s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0634]
+Predictions Y range: [-0.0707, 0.0000]
+Ground Truth X range: [-2.4789, 2.0511]
+Ground Truth Y range: [-1.6754, 2.0834]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0634, Y=0.0707
+Ground truth range: X=4.5300, Y=3.7588
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0634]
+Adjusted ground truth Y range: [-0.0707, 0.0000]
+
+Error statistics:
+ADE range: [0.0050, 0.0675], mean: 0.0269
+FDE range: [0.0014, 0.0662], mean: 0.0266
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6060, max=2.2628, mean=-0.0138, std=0.9049
+Ground truth size (84) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=-0.0054, std=0.0477, min=-0.0754, max=0.0654
+Targets stats: mean=-0.0136, std=0.8995, min=-2.6060, max=2.2628
+Average distance between predictions and targets: 1.0650
+Train Loss: 2.0717, ADE: 0.0269, FDE: 0.0271:   3%|▎         | 17/673 [03:43<2:21:08, 12.91s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0654]
+Predictions Y range: [-0.0754, 0.0000]
+Ground Truth X range: [-2.6060, 2.1009]
+Ground Truth Y range: [-1.7669, 2.2628]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0654, Y=0.0754
+Ground truth range: X=4.7069, Y=4.0297
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0654]
+Adjusted ground truth Y range: [-0.0754, -0.0000]
+
+Error statistics:
+ADE range: [0.0044, 0.0730], mean: 0.0269
+FDE range: [0.0005, 0.0755], mean: 0.0271
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1269, max=2.2170, mean=-0.0312, std=0.8919
+Predictions stats: mean=-0.0077, std=0.0481, min=-0.0792, max=0.0665
+Targets stats: mean=-0.0312, std=0.8919, min=-3.1269, max=2.2170
+Average distance between predictions and targets: 1.0450
+Train Loss: 2.1035, ADE: 0.0275, FDE: 0.0272:   3%|▎         | 18/673 [03:56<2:19:31, 12.78s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0665]
+Predictions Y range: [-0.0792, 0.0000]
+Ground Truth X range: [-3.1269, 2.0485]
+Ground Truth Y range: [-1.8052, 2.2170]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0665, Y=0.0792
+Ground truth range: X=5.1754, Y=4.0222
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0665]
+Adjusted ground truth Y range: [-0.0792, 0.0000]
+
+Error statistics:
+ADE range: [0.0035, 0.0746], mean: 0.0275
+FDE range: [0.0008, 0.0750], mean: 0.0272
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5125, max=2.0140, mean=0.0272, std=0.8998
+Predictions stats: mean=-0.0131, std=0.0467, min=-0.0815, max=0.0548
+Targets stats: mean=0.0272, std=0.8998, min=-2.5125, max=2.0140
+Average distance between predictions and targets: 1.0831
+Train Loss: 2.0341, ADE: 0.0310, FDE: 0.0306:   3%|▎         | 19/673 [04:11<2:26:31, 13.44s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0548]
+Predictions Y range: [-0.0815, 0.0000]
+Ground Truth X range: [-2.5125, 2.0140]
+Ground Truth Y range: [-1.7067, 1.9288]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0548, Y=0.0815
+Ground truth range: X=4.5265, Y=3.6355
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0548]
+Adjusted ground truth Y range: [-0.0815, 0.0000]
+
+Error statistics:
+ADE range: [0.0043, 0.0775], mean: 0.0310
+FDE range: [0.0008, 0.0799], mean: 0.0306
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0138, max=2.2135, mean=-0.0098, std=0.9357
+Ground truth size (82) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=-0.0156, std=0.0432, min=-0.0783, max=0.0485
+Targets stats: mean=-0.0096, std=0.9245, min=-3.0138, max=2.2135
+Average distance between predictions and targets: 1.1355
+Train Loss: 2.0559, ADE: 0.0268, FDE: 0.0266:   3%|▎         | 20/673 [04:26<2:31:23, 13.91s/it]
+Coordinate ranges before conversion:
+Predictions X range: [0.0000, 0.0485]
+Predictions Y range: [-0.0783, 0.0000]
+Ground Truth X range: [-3.0138, 2.0501]
+Ground Truth Y range: [-1.8269, 2.2135]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0485, Y=0.0783
+Ground truth range: X=5.0639, Y=4.0405
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [0.0000, 0.0485]
+Adjusted ground truth Y range: [-0.0783, 0.0000]
+
+Error statistics:
+ADE range: [0.0033, 0.0672], mean: 0.0268
+FDE range: [0.0012, 0.0672], mean: 0.0266
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4619, max=2.1846, mean=-0.0163, std=0.9738
+Ground truth size (77) doesn't match predictions size (78). Adjusting ground truth.
+Agent mask size (78) doesn't match predictions size (78). Adjusting mask.
+Predictions stats: mean=-0.0191, std=0.0370, min=-0.0756, max=0.0375
+Targets stats: mean=-0.0161, std=0.9675, min=-2.4619, max=2.1846
+Average distance between predictions and targets: 1.2356
+Train Loss: 2.0797, ADE: 0.0243, FDE: 0.0244:   3%|▎         | 21/673 [04:40<2:31:41, 13.96s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0041, 0.0375]
+Predictions Y range: [-0.0756, 0.0000]
+Ground Truth X range: [-2.4619, 1.8947]
+Ground Truth Y range: [-1.8472, 2.1846]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0417, Y=0.0756
+Ground truth range: X=4.3566, Y=4.0318
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0041, 0.0375]
+Adjusted ground truth Y range: [-0.0756, 0.0000]
+
+Error statistics:
+ADE range: [0.0033, 0.0607], mean: 0.0243
+FDE range: [0.0005, 0.0652], mean: 0.0244
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3542, max=1.9833, mean=0.0517, std=0.9699
+Ground truth size (68) doesn't match predictions size (71). Adjusting ground truth.
+Agent mask size (71) doesn't match predictions size (71). Adjusting mask.
+Predictions stats: mean=-0.0203, std=0.0278, min=-0.0652, max=0.0266
+Targets stats: mean=0.0495, std=0.9492, min=-2.3542, max=1.9833
+Average distance between predictions and targets: 1.1930
+Train Loss: 2.1090, ADE: 0.0253, FDE: 0.0252:   3%|▎         | 22/673 [04:52<2:23:48, 13.25s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0188, 0.0266]
+Predictions Y range: [-0.0652, 0.0000]
+Ground Truth X range: [-2.3542, 1.9833]
+Ground Truth Y range: [-1.8414, 1.9195]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0454, Y=0.0652
+Ground truth range: X=4.3376, Y=3.7610
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0188, 0.0266]
+Adjusted ground truth Y range: [-0.0652, 0.0000]
+
+Error statistics:
+ADE range: [0.0034, 0.0574], mean: 0.0253
+FDE range: [0.0003, 0.0619], mean: 0.0252
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5779, max=2.0978, mean=-0.0206, std=0.9432
+Ground truth size (78) doesn't match predictions size (80). Adjusting ground truth.
+Agent mask size (80) doesn't match predictions size (80). Adjusting mask.
+Predictions stats: mean=-0.0167, std=0.0199, min=-0.0539, max=0.0226
+Targets stats: mean=-0.0200, std=0.9313, min=-2.5779, max=2.0978
+Average distance between predictions and targets: 1.1162
+Train Loss: 2.1991, ADE: 0.0200, FDE: 0.0200:   3%|▎         | 23/673 [05:04<2:20:23, 12.96s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0240, 0.0226]
+Predictions Y range: [-0.0539, 0.0000]
+Ground Truth X range: [-2.5779, 2.0978]
+Ground Truth Y range: [-1.7919, 2.0335]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0466, Y=0.0539
+Ground truth range: X=4.6757, Y=3.8254
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0240, 0.0226]
+Adjusted ground truth Y range: [-0.0539, 0.0000]
+
+Error statistics:
+ADE range: [0.0039, 0.0500], mean: 0.0200
+FDE range: [0.0007, 0.0506], mean: 0.0200
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5273, max=2.1510, mean=0.0321, std=0.9864
+Ground truth size (68) doesn't match predictions size (70). Adjusting ground truth.
+Agent mask size (70) doesn't match predictions size (70). Adjusting mask.
+Predictions stats: mean=-0.0184, std=0.0109, min=-0.0402, max=0.0144
+Targets stats: mean=0.0311, std=0.9722, min=-2.5273, max=2.1510
+Average distance between predictions and targets: 1.2335
+Train Loss: 2.1501, ADE: 0.0170, FDE: 0.0169:   4%|▎         | 24/673 [05:15<2:15:43, 12.55s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0396, 0.0144]
+Predictions Y range: [-0.0402, 0.0000]
+Ground Truth X range: [-2.5273, 2.0757]
+Ground Truth Y range: [-1.7989, 2.1510]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0540, Y=0.0402
+Ground truth range: X=4.6030, Y=3.9499
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0396, 0.0144]
+Adjusted ground truth Y range: [-0.0402, 0.0000]
+
+Error statistics:
+ADE range: [0.0041, 0.0418], mean: 0.0170
+FDE range: [0.0013, 0.0431], mean: 0.0169
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4834, max=2.2133, mean=0.0015, std=0.9253
+Predictions stats: mean=-0.0116, std=0.0077, min=-0.0462, max=0.0141
+Targets stats: mean=0.0015, std=0.9253, min=-2.4834, max=2.2133
+Average distance between predictions and targets: 1.1180
+Train Loss: 2.1264, ADE: 0.0147, FDE: 0.0146:   4%|▎         | 25/673 [05:27<2:12:24, 12.26s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0462, 0.0141]
+Predictions Y range: [-0.0267, 0.0000]
+Ground Truth X range: [-2.4834, 2.0446]
+Ground Truth Y range: [-1.8496, 2.2133]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0603, Y=0.0267
+Ground truth range: X=4.5279, Y=4.0629
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0462, 0.0141]
+Adjusted ground truth Y range: [-0.0267, 0.0000]
+
+Error statistics:
+ADE range: [0.0044, 0.0359], mean: 0.0147
+FDE range: [0.0006, 0.0364], mean: 0.0146
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4533, max=2.0530, mean=-0.0196, std=0.9233
+Ground truth size (85) doesn't match predictions size (87). Adjusting ground truth.
+Agent mask size (87) doesn't match predictions size (87). Adjusting mask.
+Predictions stats: mean=-0.0031, std=0.0072, min=-0.0410, max=0.0327
+Targets stats: mean=-0.0191, std=0.9127, min=-2.4533, max=2.0530
+Average distance between predictions and targets: 1.0960
+Train Loss: 2.1029, ADE: 0.0178, FDE: 0.0178:   4%|▍         | 26/673 [05:41<2:18:40, 12.86s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0410, 0.0327]
+Predictions Y range: [-0.0148, 0.0141]
+Ground Truth X range: [-2.4533, 1.9912]
+Ground Truth Y range: [-1.7047, 2.0530]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0738, Y=0.0289
+Ground truth range: X=4.4445, Y=3.7577
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0410, 0.0327]
+Adjusted ground truth Y range: [-0.0148, 0.0141]
+
+Error statistics:
+ADE range: [0.0045, 0.0537], mean: 0.0178
+FDE range: [0.0010, 0.0582], mean: 0.0178
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4713, max=2.0470, mean=0.0318, std=0.8902
+Ground truth size (86) doesn't match predictions size (87). Adjusting ground truth.
+Agent mask size (87) doesn't match predictions size (87). Adjusting mask.
+Predictions stats: mean=0.0015, std=0.0123, min=-0.0410, max=0.0289
+Targets stats: mean=0.0314, std=0.8851, min=-2.4713, max=2.0470
+Average distance between predictions and targets: 1.0397
+Train Loss: 2.0650, ADE: 0.0165, FDE: 0.0166:   4%|▍         | 27/673 [05:55<2:21:45, 13.17s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0410, 0.0232]
+Predictions Y range: [-0.0014, 0.0289]
+Ground Truth X range: [-2.4713, 2.0470]
+Ground Truth Y range: [-1.7225, 1.9993]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0642, Y=0.0303
+Ground truth range: X=4.5183, Y=3.7218
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0410, 0.0232]
+Adjusted ground truth Y range: [-0.0014, 0.0289]
+
+Error statistics:
+ADE range: [0.0042, 0.0414], mean: 0.0165
+FDE range: [0.0011, 0.0455], mean: 0.0166
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1129, max=2.1680, mean=-0.0196, std=0.9364
+Ground truth size (74) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0091, std=0.0201, min=-0.0488, max=0.0437
+Targets stats: mean=-0.0190, std=0.9240, min=-3.1129, max=2.1680
+Average distance between predictions and targets: 1.1313
+Train Loss: 2.0772, ADE: 0.0247, FDE: 0.0242:   4%|▍         | 28/673 [06:08<2:19:12, 12.95s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0488, 0.0384]
+Predictions Y range: [0.0000, 0.0437]
+Ground Truth X range: [-3.1129, 2.0033]
+Ground Truth Y range: [-1.8774, 2.1680]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.0872, Y=0.0437
+Ground truth range: X=5.1163, Y=4.0454
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0488, 0.0384]
+Adjusted ground truth Y range: [0.0000, 0.0437]
+
+Error statistics:
+ADE range: [0.0049, 0.0646], mean: 0.0247
+FDE range: [0.0015, 0.0704], mean: 0.0242
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4633, max=2.1657, mean=-0.0009, std=0.9067
+Ground truth size (73) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0148, std=0.0226, min=-0.0545, max=0.0570
+Targets stats: mean=-0.0009, std=0.8886, min=-2.4633, max=2.1657
+Average distance between predictions and targets: 1.0534
+Train Loss: 2.0385, ADE: 0.0310, FDE: 0.0306:   4%|▍         | 29/673 [06:19<2:13:50, 12.47s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0545, 0.0570]
+Predictions Y range: [0.0000, 0.0527]
+Ground Truth X range: [-2.4633, 1.9990]
+Ground Truth Y range: [-1.8677, 2.1657]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.1115, Y=0.0527
+Ground truth range: X=4.4623, Y=4.0334
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0545, 0.0570]
+Adjusted ground truth Y range: [0.0000, 0.0527]
+
+Error statistics:
+ADE range: [0.0057, 0.0789], mean: 0.0310
+FDE range: [0.0031, 0.0798], mean: 0.0306
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6010, max=2.0872, mean=0.0133, std=0.9611
+Ground truth size (80) doesn't match predictions size (83). Adjusting ground truth.
+Agent mask size (83) doesn't match predictions size (83). Adjusting mask.
+Predictions stats: mean=0.0243, std=0.0226, min=-0.0575, max=0.0909
+Targets stats: mean=0.0128, std=0.9435, min=-2.6010, max=2.0872
+Average distance between predictions and targets: 1.1345
+Train Loss: 2.1928, ADE: 0.0376, FDE: 0.0371:   4%|▍         | 30/673 [06:32<2:16:54, 12.78s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0575, 0.0909]
+Predictions Y range: [0.0000, 0.0568]
+Ground Truth X range: [-2.6010, 2.0872]
+Ground Truth Y range: [-1.6616, 2.0695]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.1484, Y=0.0568
+Ground truth range: X=4.6882, Y=3.7311
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0575, 0.0909]
+Adjusted ground truth Y range: [0.0000, 0.0568]
+
+Error statistics:
+ADE range: [0.0053, 0.1173], mean: 0.0376
+FDE range: [0.0016, 0.1127], mean: 0.0371
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4711, max=2.0848, mean=0.0026, std=0.8911
+Ground truth size (79) doesn't match predictions size (80). Adjusting ground truth.
+Agent mask size (80) doesn't match predictions size (80). Adjusting mask.
+Predictions stats: mean=0.0377, std=0.0309, min=-0.0342, max=0.1278
+Targets stats: mean=0.0025, std=0.8855, min=-2.4711, max=2.0848
+Average distance between predictions and targets: 1.0382
+Train Loss: 2.0346, ADE: 0.0358, FDE: 0.0359:   5%|▍         | 31/673 [06:44<2:13:39, 12.49s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0342, 0.1278]
+Predictions Y range: [0.0000, 0.0587]
+Ground Truth X range: [-2.4711, 2.0366]
+Ground Truth Y range: [-1.8289, 2.0848]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.1620, Y=0.0587
+Ground truth range: X=4.5077, Y=3.9137
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0342, 0.1278]
+Adjusted ground truth Y range: [0.0000, 0.0587]
+
+Error statistics:
+ADE range: [0.0045, 0.1102], mean: 0.0358
+FDE range: [0.0020, 0.1115], mean: 0.0359
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.1374, max=2.0677, mean=0.0144, std=0.9649
+Predictions stats: mean=0.0514, std=0.0465, min=-0.0780, max=0.1640
+Targets stats: mean=0.0144, std=0.9649, min=-2.1374, max=2.0677
+Average distance between predictions and targets: 1.2353
+Train Loss: 2.0057, ADE: 0.0610, FDE: 0.0606:   5%|▍         | 32/673 [06:56<2:10:54, 12.25s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.0780, 0.1640]
+Predictions Y range: [-0.0047, 0.0528]
+Ground Truth X range: [-2.1374, 2.0677]
+Ground Truth Y range: [-1.7927, 2.0485]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.2420, Y=0.0575
+Ground truth range: X=4.2051, Y=3.8411
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.0780, 0.1640]
+Adjusted ground truth Y range: [-0.0047, 0.0528]
+
+Error statistics:
+ADE range: [0.0062, 0.1938], mean: 0.0610
+FDE range: [0.0019, 0.1957], mean: 0.0606
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6438, max=2.1603, mean=-0.0290, std=0.9460
+Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=0.0142, std=0.0489, min=-0.1491, max=0.1703
+Targets stats: mean=-0.0287, std=0.9398, min=-2.6438, max=2.1603
+Average distance between predictions and targets: 1.1260
+Train Loss: 2.1061, ADE: 0.0720, FDE: 0.0704:   5%|▍         | 33/673 [07:08<2:10:51, 12.27s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.1491, 0.1703]
+Predictions Y range: [-0.0132, 0.0561]
+Ground Truth X range: [-2.6438, 1.9555]
+Ground Truth Y range: [-1.7193, 2.1603]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.3194, Y=0.0693
+Ground truth range: X=4.5993, Y=3.8796
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.1491, 0.1703]
+Adjusted ground truth Y range: [-0.0132, 0.0561]
+
+Error statistics:
+ADE range: [0.0085, 0.2400], mean: 0.0720
+FDE range: [0.0002, 0.2339], mean: 0.0704
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5702, max=2.2491, mean=-0.0076, std=0.9372
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=-0.0255, std=0.0788, min=-0.1915, max=0.1561
+Targets stats: mean=-0.0075, std=0.9310, min=-2.5702, max=2.2491
+Average distance between predictions and targets: 1.1126
+Train Loss: 2.0792, ADE: 0.1205, FDE: 0.1173:   5%|▌         | 34/673 [07:20<2:09:12, 12.13s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.1915, 0.1561]
+Predictions Y range: [-0.0265, 0.0613]
+Ground Truth X range: [-2.5702, 1.8492]
+Ground Truth Y range: [-1.8358, 2.2491]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.3477, Y=0.0878
+Ground truth range: X=4.4194, Y=4.0849
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.1915, 0.1561]
+Adjusted ground truth Y range: [-0.0265, 0.0613]
+
+Error statistics:
+ADE range: [0.0073, 0.3163], mean: 0.1205
+FDE range: [0.0026, 0.3199], mean: 0.1173
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5881, max=2.0785, mean=0.0060, std=0.9370
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=-0.0192, std=0.0834, min=-0.2086, max=0.2087
+Targets stats: mean=0.0059, std=0.9308, min=-2.5881, max=2.0785
+Average distance between predictions and targets: 1.1161
+Train Loss: 2.0872, ADE: 0.1360, FDE: 0.1324:   5%|▌         | 35/673 [07:32<2:08:12, 12.06s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.2086, 0.2087]
+Predictions Y range: [-0.0520, 0.0658]
+Ground Truth X range: [-2.5881, 2.0551]
+Ground Truth Y range: [-1.6252, 2.0785]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.4173, Y=0.1178
+Ground truth range: X=4.6433, Y=3.7037
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.2086, 0.2087]
+Adjusted ground truth Y range: [-0.0520, 0.0658]
+
+Error statistics:
+ADE range: [0.0092, 0.3925], mean: 0.1360
+FDE range: [0.0126, 0.3932], mean: 0.1324
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5446, max=2.0653, mean=0.0001, std=0.9193
+Ground truth size (75) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=0.0320, std=0.1042, min=-0.2100, max=0.2423
+Targets stats: mean=0.0001, std=0.9073, min=-2.5446, max=2.0653
+Average distance between predictions and targets: 1.0541
+Train Loss: 2.0218, ADE: 0.1283, FDE: 0.1265:   5%|▌         | 36/673 [07:44<2:07:23, 12.00s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.2100, 0.2423]
+Predictions Y range: [-0.0721, 0.0659]
+Ground Truth X range: [-2.5446, 2.0653]
+Ground Truth Y range: [-1.6449, 2.0418]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.4523, Y=0.1380
+Ground truth range: X=4.6099, Y=3.6867
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.2100, 0.2423]
+Adjusted ground truth Y range: [-0.0721, 0.0659]
+
+Error statistics:
+ADE range: [0.0102, 0.4354], mean: 0.1283
+FDE range: [0.0052, 0.4272], mean: 0.1265
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1497, max=2.0994, mean=0.0525, std=0.9237
+Predictions stats: mean=0.0395, std=0.1246, min=-0.2406, max=0.2601
+Targets stats: mean=0.0525, std=0.9237, min=-3.1497, max=2.0994
+Average distance between predictions and targets: 1.1072
+Train Loss: 1.9896, ADE: 0.1407, FDE: 0.1373:   5%|▌         | 37/673 [07:58<2:13:52, 12.63s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.2406, 0.2601]
+Predictions Y range: [-0.0877, 0.0775]
+Ground Truth X range: [-3.1497, 2.0533]
+Ground Truth Y range: [-1.6895, 2.0994]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.5007, Y=0.1651
+Ground truth range: X=5.2030, Y=3.7889
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.2406, 0.2601]
+Adjusted ground truth Y range: [-0.0877, 0.0775]
+
+Error statistics:
+ADE range: [0.0118, 0.4028], mean: 0.1407
+FDE range: [0.0058, 0.4006], mean: 0.1373
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0782, max=2.1032, mean=-0.0279, std=0.8810
+Predictions stats: mean=-0.0003, std=0.1272, min=-0.2678, max=0.2756
+Targets stats: mean=-0.0279, std=0.8810, min=-3.0782, max=2.1032
+Average distance between predictions and targets: 1.0049
+Train Loss: 1.8767, ADE: 0.1708, FDE: 0.1651:   6%|▌         | 38/673 [08:11<2:14:38, 12.72s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.2678, 0.2756]
+Predictions Y range: [-0.0975, 0.0887]
+Ground Truth X range: [-3.0782, 2.0630]
+Ground Truth Y range: [-1.7874, 2.1032]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.5434, Y=0.1862
+Ground truth range: X=5.1412, Y=3.8905
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.2678, 0.2756]
+Adjusted ground truth Y range: [-0.0975, 0.0887]
+
+Error statistics:
+ADE range: [0.0133, 0.4691], mean: 0.1708
+FDE range: [0.0028, 0.4625], mean: 0.1651
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.2244, max=2.0613, mean=0.0437, std=0.8950
+Ground truth size (87) doesn't match predictions size (89). Adjusting ground truth.
+Agent mask size (89) doesn't match predictions size (89). Adjusting mask.
+Predictions stats: mean=-0.0428, std=0.1430, min=-0.2963, max=0.2835
+Targets stats: mean=0.0427, std=0.8849, min=-2.2244, max=2.0613
+Average distance between predictions and targets: 1.0135
+Train Loss: 1.9495, ADE: 0.2126, FDE: 0.2061:   6%|▌         | 39/673 [08:25<2:19:45, 13.23s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.2963, 0.2835]
+Predictions Y range: [-0.1041, 0.1025]
+Ground Truth X range: [-2.2244, 2.0613]
+Ground Truth Y range: [-1.7334, 1.9133]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.5798, Y=0.2067
+Ground truth range: X=4.2856, Y=3.6467
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.2963, 0.2835]
+Adjusted ground truth Y range: [-0.1041, 0.1025]
+
+Error statistics:
+ADE range: [0.0083, 0.5704], mean: 0.2126
+FDE range: [0.0028, 0.5711], mean: 0.2061
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5303, max=2.0506, mean=-0.0242, std=0.8716
+Ground truth size (89) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=-0.0314, std=0.1532, min=-0.3144, max=0.3169
+Targets stats: mean=-0.0234, std=0.8573, min=-2.5303, max=2.0506
+Average distance between predictions and targets: 0.9460
+Train Loss: 1.9062, ADE: 0.2394, FDE: 0.2329:   6%|▌         | 40/673 [08:39<2:22:12, 13.48s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.3144, 0.3169]
+Predictions Y range: [-0.1163, 0.1138]
+Ground Truth X range: [-2.5303, 1.9913]
+Ground Truth Y range: [-1.6977, 2.0506]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.6314, Y=0.2301
+Ground truth range: X=4.5216, Y=3.7483
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.3144, 0.3169]
+Adjusted ground truth Y range: [-0.1163, 0.1138]
+
+Error statistics:
+ADE range: [0.0096, 0.5853], mean: 0.2394
+FDE range: [0.0043, 0.5826], mean: 0.2329
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2287, max=2.1915, mean=0.0403, std=0.9542
+Ground truth size (81) doesn't match predictions size (83). Adjusting ground truth.
+Agent mask size (83) doesn't match predictions size (83). Adjusting mask.
+Predictions stats: mean=-0.0043, std=0.1807, min=-0.3314, max=0.3351
+Targets stats: mean=0.0393, std=0.9427, min=-3.2287, max=2.1915
+Average distance between predictions and targets: 1.0880
+Train Loss: 1.8686, ADE: 0.2269, FDE: 0.2185:   6%|▌         | 41/673 [08:54<2:25:37, 13.83s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.3314, 0.3351]
+Predictions Y range: [-0.1289, 0.1236]
+Ground Truth X range: [-3.2287, 2.0362]
+Ground Truth Y range: [-1.8541, 2.1915]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.6665, Y=0.2525
+Ground truth range: X=5.2649, Y=4.0456
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.3314, 0.3351]
+Adjusted ground truth Y range: [-0.1289, 0.1236]
+
+Error statistics:
+ADE range: [0.0147, 0.5839], mean: 0.2269
+FDE range: [0.0066, 0.5896], mean: 0.2185
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2139, max=2.1386, mean=0.0104, std=0.9053
+Ground truth size (79) doesn't match predictions size (80). Adjusting ground truth.
+Agent mask size (80) doesn't match predictions size (80). Adjusting mask.
+Predictions stats: mean=0.0250, std=0.1949, min=-0.3516, max=0.3597
+Targets stats: mean=0.0103, std=0.8996, min=-3.2139, max=2.1386
+Average distance between predictions and targets: 0.9926
+Train Loss: 1.8252, ADE: 0.2268, FDE: 0.2201:   6%|▌         | 42/673 [09:06<2:19:33, 13.27s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.3516, 0.3597]
+Predictions Y range: [-0.1407, 0.1373]
+Ground Truth X range: [-3.2139, 2.0456]
+Ground Truth Y range: [-1.6805, 2.1386]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.7113, Y=0.2780
+Ground truth range: X=5.2595, Y=3.8191
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.3516, 0.3597]
+Adjusted ground truth Y range: [-0.1407, 0.1373]
+
+Error statistics:
+ADE range: [0.0163, 0.6377], mean: 0.2268
+FDE range: [0.0182, 0.6100], mean: 0.2201
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5660, max=2.0780, mean=0.0204, std=0.8766
+Ground truth size (89) doesn't match predictions size (91). Adjusting ground truth.
+Agent mask size (91) doesn't match predictions size (91). Adjusting mask.
+Predictions stats: mean=0.0326, std=0.2084, min=-0.3735, max=0.3809
+Targets stats: mean=0.0200, std=0.8669, min=-2.5660, max=2.0780
+Average distance between predictions and targets: 0.9480
+Train Loss: 1.8196, ADE: 0.2698, FDE: 0.2632:   6%|▋         | 43/673 [09:20<2:22:08, 13.54s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.3735, 0.3809]
+Predictions Y range: [-0.1487, 0.1441]
+Ground Truth X range: [-2.5660, 2.0780]
+Ground Truth Y range: [-1.5929, 2.0090]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.7544, Y=0.2928
+Ground truth range: X=4.6439, Y=3.6019
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.3735, 0.3809]
+Adjusted ground truth Y range: [-0.1487, 0.1441]
+
+Error statistics:
+ADE range: [0.0138, 0.6831], mean: 0.2698
+FDE range: [0.0129, 0.6820], mean: 0.2632
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4778, max=2.1475, mean=-0.0290, std=0.9186
+Ground truth size (84) doesn't match predictions size (85). Adjusting ground truth.
+Agent mask size (85) doesn't match predictions size (85). Adjusting mask.
+Predictions stats: mean=0.0061, std=0.2291, min=-0.3950, max=0.4014
+Targets stats: mean=-0.0287, std=0.9132, min=-2.4778, max=2.1475
+Average distance between predictions and targets: 1.0089
+Train Loss: 1.7790, ADE: 0.2822, FDE: 0.2736:   7%|▋         | 44/673 [09:34<2:24:11, 13.75s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.3950, 0.4014]
+Predictions Y range: [-0.1572, 0.1587]
+Ground Truth X range: [-2.4778, 2.0649]
+Ground Truth Y range: [-1.8824, 2.1475]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.7963, Y=0.3159
+Ground truth range: X=4.5427, Y=4.0299
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.3950, 0.4014]
+Adjusted ground truth Y range: [-0.1572, 0.1587]
+
+Error statistics:
+ADE range: [0.0128, 0.7465], mean: 0.2822
+FDE range: [0.0137, 0.7557], mean: 0.2736
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6349, max=2.0995, mean=0.0020, std=0.9078
+Predictions stats: mean=-0.0088, std=0.2416, min=-0.4176, max=0.4208
+Targets stats: mean=0.0020, std=0.9078, min=-2.6349, max=2.0995
+Average distance between predictions and targets: 1.0191
+Train Loss: 1.8021, ADE: 0.3183, FDE: 0.3102:   7%|▋         | 45/673 [09:46<2:18:43, 13.25s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.4176, 0.4208]
+Predictions Y range: [-0.1661, 0.1699]
+Ground Truth X range: [-2.6349, 2.0445]
+Ground Truth Y range: [-1.8274, 2.0995]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.8384, Y=0.3360
+Ground truth range: X=4.6793, Y=3.9268
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.4176, 0.4208]
+Adjusted ground truth Y range: [-0.1661, 0.1699]
+
+Error statistics:
+ADE range: [0.0159, 0.8147], mean: 0.3183
+FDE range: [0.0093, 0.8109], mean: 0.3102
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3460, max=1.9901, mean=-0.0153, std=0.9286
+Predictions stats: mean=-0.0124, std=0.2566, min=-0.4380, max=0.4410
+Targets stats: mean=-0.0153, std=0.9286, min=-2.3460, max=1.9901
+Average distance between predictions and targets: 1.0442
+Train Loss: 1.8707, ADE: 0.3341, FDE: 0.3266:   7%|▋         | 46/673 [09:58<2:14:02, 12.83s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.4380, 0.4410]
+Predictions Y range: [-0.1791, 0.1806]
+Ground Truth X range: [-2.3460, 1.9901]
+Ground Truth Y range: [-1.6696, 1.9356]
+
+WARNING: Large scale mismatch detected between predictions and ground truth!
+Prediction range: X=0.8790, Y=0.3598
+Ground truth range: X=4.3360, Y=3.6052
+Skipping coordinate conversion to avoid unrealistic metrics.
+Adjusting ground truth scale to match predictions for meaningful metrics...
+Adjusted ground truth X range: [-0.4380, 0.4410]
+Adjusted ground truth Y range: [-0.1791, 0.1806]
+
+Error statistics:
+ADE range: [0.0232, 0.9067], mean: 0.3341
+FDE range: [0.0139, 0.9128], mean: 0.3266
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5744, max=2.0541, mean=-0.0413, std=0.8936
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0051, std=0.2655, min=-0.4578, max=0.4639
+Targets stats: mean=-0.0407, std=0.8877, min=-2.5744, max=2.0541
+Average distance between predictions and targets: 0.9502
+Train Loss: 1.7764, ADE: 41.7696, FDE: 42.1437:   7%|▋         | 47/673 [10:09<2:07:25, 12.21s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.4578, 0.4639]
+Predictions Y range: [-0.1918, 0.1918]
+Ground Truth X range: [-2.5744, 2.0541]
+Ground Truth Y range: [-1.7290, 2.0422]
+
+Coordinate ranges after conversion:
+Predictions X range: [746795.8750, 746828.3750]
+Predictions Y range: [3150530.0000, 3150542.2500]
+Ground Truth X range: [746721.3125, 746884.3750]
+Ground Truth Y range: [3150481.5000, 3150600.7500]
+
+Error statistics:
+ADE range: [12.0549, 101.3588], mean: 41.7696
+FDE range: [12.3339, 101.3458], mean: 42.1437
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4950, max=2.1220, mean=0.0124, std=0.9320
+Ground truth size (66) doesn't match predictions size (67). Adjusting ground truth.
+Agent mask size (67) doesn't match predictions size (67). Adjusting mask.
+Predictions stats: mean=0.0132, std=0.2907, min=-0.4751, max=0.4792
+Targets stats: mean=0.0122, std=0.9250, min=-2.4950, max=2.1220
+Average distance between predictions and targets: 1.0045
+Train Loss: 1.6796, ADE: 40.1729, FDE: 40.5538:   7%|▋         | 48/673 [10:19<2:00:01, 11.52s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.4751, 0.4792]
+Predictions Y range: [-0.2038, 0.2039]
+Ground Truth X range: [-2.4950, 2.0663]
+Ground Truth Y range: [-1.6377, 2.1220]
+
+Coordinate ranges after conversion:
+Predictions X range: [746795.2500, 746828.8750]
+Predictions Y range: [3150529.7500, 3150542.7500]
+Ground Truth X range: [746724.1250, 746884.8125]
+Ground Truth Y range: [3150484.2500, 3150603.5000]
+
+Error statistics:
+ADE range: [9.0945, 95.3068], mean: 40.1729
+FDE range: [9.1147, 97.0676], mean: 40.5538
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5635, max=2.1631, mean=0.0075, std=0.9788
+Predictions stats: mean=0.0114, std=0.3132, min=-0.4964, max=0.4985
+Targets stats: mean=0.0075, std=0.9788, min=-2.5635, max=2.1631
+Average distance between predictions and targets: 1.1095
+Train Loss: 1.7952, ADE: 41.5272, FDE: 41.9019:   7%|▋         | 49/673 [10:31<2:00:34, 11.59s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.4964, 0.4985]
+Predictions Y range: [-0.2154, 0.2183]
+Ground Truth X range: [-2.5635, 2.0464]
+Ground Truth Y range: [-1.8814, 2.1631]
+
+Coordinate ranges after conversion:
+Predictions X range: [746794.5000, 746829.5625]
+Predictions Y range: [3150529.2500, 3150543.0000]
+Ground Truth X range: [746721.6875, 746884.1250]
+Ground Truth Y range: [3150476.5000, 3150604.7500]
+
+Error statistics:
+ADE range: [10.2233, 128.8957], mean: 41.5272
+FDE range: [11.0510, 129.5163], mean: 41.9019
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1593, max=2.0864, mean=0.0236, std=0.9207
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=-0.0025, std=0.3194, min=-0.5174, max=0.5165
+Targets stats: mean=0.0233, std=0.9146, min=-3.1593, max=2.0864
+Average distance between predictions and targets: 1.0042
+Train Loss: 1.6390, ADE: 39.8315, FDE: 40.1599:   7%|▋         | 50/673 [10:43<2:02:06, 11.76s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5174, 0.5165]
+Predictions Y range: [-0.2264, 0.2307]
+Ground Truth X range: [-3.1593, 2.0864]
+Ground Truth Y range: [-1.7231, 2.0309]
+
+Coordinate ranges after conversion:
+Predictions X range: [746793.7500, 746830.1875]
+Predictions Y range: [3150529.0000, 3150543.5000]
+Ground Truth X range: [746700.6875, 746885.5000]
+Ground Truth Y range: [3150481.5000, 3150600.5000]
+
+Error statistics:
+ADE range: [8.7003, 104.4035], mean: 39.8315
+FDE range: [9.1192, 103.3387], mean: 40.1599
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4998, max=2.1126, mean=0.0264, std=0.9465
+Ground truth size (72) doesn't match predictions size (74). Adjusting ground truth.
+Agent mask size (74) doesn't match predictions size (74). Adjusting mask.
+Predictions stats: mean=-0.0241, std=0.3304, min=-0.5318, max=0.5346
+Targets stats: mean=0.0257, std=0.9336, min=-2.4998, max=2.1126
+Average distance between predictions and targets: 1.0476
+Train Loss: 1.8199, ADE: 42.0116, FDE: 42.3482:   8%|▊         | 51/673 [10:55<2:01:34, 11.73s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5318, 0.5346]
+Predictions Y range: [-0.2380, 0.2404]
+Ground Truth X range: [-2.4998, 2.0734]
+Ground Truth Y range: [-1.8253, 2.1126]
+
+Coordinate ranges after conversion:
+Predictions X range: [746793.2500, 746830.8125]
+Predictions Y range: [3150528.7500, 3150543.7500]
+Ground Truth X range: [746723.9375, 746885.0625]
+Ground Truth Y range: [3150478.2500, 3150603.0000]
+
+Error statistics:
+ADE range: [6.1479, 120.9062], mean: 42.0116
+FDE range: [5.9634, 121.6599], mean: 42.3482
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5522, max=2.2194, mean=-0.0201, std=0.9309
+Predictions stats: mean=-0.0090, std=0.3392, min=-0.5476, max=0.5513
+Targets stats: mean=-0.0201, std=0.9309, min=-2.5522, max=2.2194
+Average distance between predictions and targets: 1.0230
+Train Loss: 1.7119, ADE: 40.5440, FDE: 40.8557:   8%|▊         | 52/673 [11:06<2:01:22, 11.73s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5476, 0.5513]
+Predictions Y range: [-0.2498, 0.2539]
+Ground Truth X range: [-2.5522, 2.0135]
+Ground Truth Y range: [-1.7295, 2.2194]
+
+Coordinate ranges after conversion:
+Predictions X range: [746792.6875, 746831.4375]
+Predictions Y range: [3150528.2500, 3150544.2500]
+Ground Truth X range: [746722.0625, 746882.9375]
+Ground Truth Y range: [3150481.5000, 3150606.5000]
+
+Error statistics:
+ADE range: [5.8913, 107.7854], mean: 40.5440
+FDE range: [5.4829, 106.4196], mean: 40.8557
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.1161, max=2.2099, mean=-0.0372, std=0.8906
+Ground truth size (77) doesn't match predictions size (81). Adjusting ground truth.
+Agent mask size (81) doesn't match predictions size (81). Adjusting mask.
+Predictions stats: mean=0.0103, std=0.3139, min=-0.5618, max=0.5674
+Targets stats: mean=-0.0354, std=0.8684, min=-3.1161, max=2.2099
+Average distance between predictions and targets: 0.8687
+Train Loss: 1.7740, ADE: 40.8907, FDE: 41.2366:   8%|▊         | 53/673 [11:17<1:57:05, 11.33s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5618, 0.5674]
+Predictions Y range: [-0.2594, 0.2612]
+Ground Truth X range: [-3.1161, 1.9498]
+Ground Truth Y range: [-1.8592, 2.2099]
+
+Coordinate ranges after conversion:
+Predictions X range: [746792.1875, 746832.0000]
+Predictions Y range: [3150528.0000, 3150544.5000]
+Ground Truth X range: [746702.2500, 746880.6875]
+Ground Truth Y range: [3150477.2500, 3150606.2500]
+
+Error statistics:
+ADE range: [7.7692, 113.4928], mean: 40.8907
+FDE range: [7.9451, 113.2414], mean: 41.2366
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3177, max=2.1924, mean=-0.0205, std=0.8629
+Ground truth size (83) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=0.0121, std=0.3355, min=-0.5781, max=0.5788
+Targets stats: mean=-0.0202, std=0.8578, min=-2.3177, max=2.1924
+Average distance between predictions and targets: 0.8621
+Train Loss: 1.5386, ADE: 38.1457, FDE: 38.5326:   8%|▊         | 54/673 [11:29<2:01:11, 11.75s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5781, 0.5788]
+Predictions Y range: [-0.2701, 0.2719]
+Ground Truth X range: [-2.3177, 2.0902]
+Ground Truth Y range: [-1.6434, 2.1924]
+
+Coordinate ranges after conversion:
+Predictions X range: [746791.6250, 746832.3750]
+Predictions Y range: [3150527.5000, 3150544.7500]
+Ground Truth X range: [746730.3750, 746885.6250]
+Ground Truth Y range: [3150484.2500, 3150605.5000]
+
+Error statistics:
+ADE range: [5.6095, 100.1066], mean: 38.1457
+FDE range: [4.9058, 100.4351], mean: 38.5326
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5258, max=2.1246, mean=0.0267, std=0.9026
+Ground truth size (92) doesn't match predictions size (93). Adjusting ground truth.
+Agent mask size (93) doesn't match predictions size (93). Adjusting mask.
+Predictions stats: mean=0.0043, std=0.3437, min=-0.5907, max=0.5938
+Targets stats: mean=0.0265, std=0.8978, min=-2.5258, max=2.1246
+Average distance between predictions and targets: 0.9108
+Train Loss: 1.6566, ADE: 39.8477, FDE: 40.2475:   8%|▊         | 55/673 [11:44<2:09:54, 12.61s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.5907, 0.5938]
+Predictions Y range: [-0.2765, 0.2799]
+Ground Truth X range: [-2.5258, 2.1246]
+Ground Truth Y range: [-1.8554, 1.9763]
+
+Coordinate ranges after conversion:
+Predictions X range: [746791.1875, 746832.9375]
+Predictions Y range: [3150527.5000, 3150545.0000]
+Ground Truth X range: [746723.0000, 746886.8750]
+Ground Truth Y range: [3150477.5000, 3150598.7500]
+
+Error statistics:
+ADE range: [5.6570, 98.9800], mean: 39.8477
+FDE range: [5.6461, 98.6932], mean: 40.2475
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5541, max=2.1053, mean=-0.0150, std=0.9491
+Ground truth size (82) doesn't match predictions size (84). Adjusting ground truth.
+Agent mask size (84) doesn't match predictions size (84). Adjusting mask.
+Predictions stats: mean=-0.0088, std=0.3562, min=-0.6051, max=0.6081
+Targets stats: mean=-0.0146, std=0.9378, min=-2.5541, max=2.1053
+Average distance between predictions and targets: 0.9914
+Train Loss: 1.6974, ADE: 40.3190, FDE: 40.6693:   8%|▊         | 56/673 [11:58<2:13:07, 12.95s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6051, 0.6081]
+Predictions Y range: [-0.2862, 0.2903]
+Ground Truth X range: [-2.5541, 1.9246]
+Ground Truth Y range: [-1.8111, 2.1053]
+
+Coordinate ranges after conversion:
+Predictions X range: [746790.6875, 746833.4375]
+Predictions Y range: [3150527.0000, 3150545.2500]
+Ground Truth X range: [746722.0000, 746879.8125]
+Ground Truth Y range: [3150478.7500, 3150602.7500]
+
+Error statistics:
+ADE range: [3.3159, 114.2810], mean: 40.3190
+FDE range: [3.3354, 115.3392], mean: 40.6693
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6484, max=2.1010, mean=-0.0100, std=0.9326
+Ground truth size (74) doesn't match predictions size (78). Adjusting ground truth.
+Agent mask size (78) doesn't match predictions size (78). Adjusting mask.
+Predictions stats: mean=0.0046, std=0.3577, min=-0.6221, max=0.6222
+Targets stats: mean=-0.0095, std=0.9084, min=-2.6484, max=2.1010
+Average distance between predictions and targets: 0.9698
+Train Loss: 1.6293, ADE: 39.3188, FDE: 39.6694:   8%|▊         | 57/673 [12:10<2:11:40, 12.82s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6221, 0.6222]
+Predictions Y range: [-0.2931, 0.2959]
+Ground Truth X range: [-2.6484, 1.9912]
+Ground Truth Y range: [-1.7676, 2.1010]
+
+Coordinate ranges after conversion:
+Predictions X range: [746790.0625, 746833.9375]
+Predictions Y range: [3150527.0000, 3150545.5000]
+Ground Truth X range: [746718.6875, 746882.1875]
+Ground Truth Y range: [3150480.2500, 3150602.7500]
+
+Error statistics:
+ADE range: [7.6959, 116.3415], mean: 39.3188
+FDE range: [8.4412, 116.6257], mean: 39.6694
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0060, max=2.1001, mean=-0.0396, std=0.9499
+Predictions stats: mean=0.0130, std=0.3760, min=-0.6323, max=0.6414
+Targets stats: mean=-0.0396, std=0.9499, min=-3.0060, max=2.1001
+Average distance between predictions and targets: 1.0366
+Train Loss: 1.6013, ADE: 38.9980, FDE: 39.3836:   9%|▊         | 58/673 [12:24<2:15:10, 13.19s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6323, 0.6414]
+Predictions Y range: [-0.3011, 0.3035]
+Ground Truth X range: [-3.0060, 1.9913]
+Ground Truth Y range: [-1.7787, 2.1001]
+
+Coordinate ranges after conversion:
+Predictions X range: [746789.7500, 746834.6250]
+Predictions Y range: [3150526.7500, 3150545.7500]
+Ground Truth X range: [746706.1250, 746882.1875]
+Ground Truth Y range: [3150479.7500, 3150602.7500]
+
+Error statistics:
+ADE range: [6.9814, 99.7060], mean: 38.9980
+FDE range: [6.7155, 100.1223], mean: 39.3836
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.9979, max=2.1769, mean=-0.0084, std=0.9073
+Ground truth size (80) doesn't match predictions size (82). Adjusting ground truth.
+Agent mask size (82) doesn't match predictions size (82). Adjusting mask.
+Predictions stats: mean=0.0070, std=0.3454, min=-0.6463, max=0.6527
+Targets stats: mean=-0.0082, std=0.8962, min=-2.9979, max=2.1769
+Average distance between predictions and targets: 0.9113
+Train Loss: 1.6605, ADE: 40.1089, FDE: 40.4887:   9%|▉         | 59/673 [12:36<2:11:24, 12.84s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6463, 0.6527]
+Predictions Y range: [-0.3130, 0.3137]
+Ground Truth X range: [-2.9979, 1.9065]
+Ground Truth Y range: [-1.8524, 2.1769]
+
+Coordinate ranges after conversion:
+Predictions X range: [746789.2500, 746835.0000]
+Predictions Y range: [3150526.2500, 3150546.0000]
+Ground Truth X range: [746706.3750, 746879.1875]
+Ground Truth Y range: [3150477.5000, 3150605.0000]
+
+Error statistics:
+ADE range: [4.3084, 105.7267], mean: 40.1089
+FDE range: [4.5501, 104.1039], mean: 40.4887
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5051, max=2.0794, mean=0.0203, std=0.8960
+Ground truth size (88) doesn't match predictions size (92). Adjusting ground truth.
+Agent mask size (92) doesn't match predictions size (92). Adjusting mask.
+Predictions stats: mean=-0.0073, std=0.3419, min=-0.6573, max=0.6633
+Targets stats: mean=0.0194, std=0.8764, min=-2.5051, max=2.0794
+Average distance between predictions and targets: 0.8955
+Train Loss: 1.6725, ADE: 39.9407, FDE: 40.3237:   9%|▉         | 60/673 [12:51<2:15:12, 13.23s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6573, 0.6633]
+Predictions Y range: [-0.3184, 0.3225]
+Ground Truth X range: [-2.5051, 2.0794]
+Ground Truth Y range: [-1.7881, 1.9981]
+
+Coordinate ranges after conversion:
+Predictions X range: [746788.8750, 746835.3750]
+Predictions Y range: [3150526.0000, 3150546.5000]
+Ground Truth X range: [746723.7500, 746885.2500]
+Ground Truth Y range: [3150479.5000, 3150599.5000]
+
+Error statistics:
+ADE range: [4.7353, 112.7920], mean: 39.9407
+FDE range: [4.6452, 112.9163], mean: 40.3237
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5256, max=2.2025, mean=0.0002, std=0.9164
+Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=0.0148, std=0.3546, min=-0.6654, max=0.6793
+Targets stats: mean=0.0001, std=0.9104, min=-2.5256, max=2.2025
+Average distance between predictions and targets: 0.9590
+Train Loss: 1.6285, ADE: 39.4407, FDE: 39.8002:   9%|▉         | 61/673 [13:02<2:10:52, 12.83s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6654, 0.6793]
+Predictions Y range: [-0.3311, 0.3258]
+Ground Truth X range: [-2.5256, 2.0479]
+Ground Truth Y range: [-1.6094, 2.2025]
+
+Coordinate ranges after conversion:
+Predictions X range: [746788.5625, 746835.9375]
+Predictions Y range: [3150525.7500, 3150546.5000]
+Ground Truth X range: [746723.0000, 746884.1875]
+Ground Truth Y range: [3150485.2500, 3150606.0000]
+
+Error statistics:
+ADE range: [8.1180, 109.5864], mean: 39.4407
+FDE range: [8.6007, 109.7214], mean: 39.8002
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.3696, max=2.1369, mean=0.0570, std=0.9076
+Ground truth size (80) doesn't match predictions size (83). Adjusting ground truth.
+Agent mask size (83) doesn't match predictions size (83). Adjusting mask.
+Predictions stats: mean=0.0088, std=0.3481, min=-0.6816, max=0.6986
+Targets stats: mean=0.0549, std=0.8911, min=-2.3696, max=2.1369
+Average distance between predictions and targets: 0.9030
+Train Loss: 1.6129, ADE: 39.3320, FDE: 39.7479:   9%|▉         | 62/673 [13:14<2:07:49, 12.55s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.6816, 0.6986]
+Predictions Y range: [-0.3408, 0.3357]
+Ground Truth X range: [-2.3696, 1.9909]
+Ground Truth Y range: [-1.8450, 2.1369]
+
+Coordinate ranges after conversion:
+Predictions X range: [746788.0000, 746836.6250]
+Predictions Y range: [3150525.5000, 3150546.7500]
+Ground Truth X range: [746728.5000, 746882.1250]
+Ground Truth Y range: [3150477.7500, 3150603.7500]
+
+Error statistics:
+ADE range: [6.3165, 94.5806], mean: 39.3320
+FDE range: [6.1555, 94.4731], mean: 39.7479
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4335, max=2.2005, mean=-0.0160, std=0.9607
+Predictions stats: mean=-0.0001, std=0.3744, min=-0.7028, max=0.7116
+Targets stats: mean=-0.0160, std=0.9607, min=-2.4335, max=2.2005
+Average distance between predictions and targets: 1.0617
+Train Loss: 1.7593, ADE: 40.9146, FDE: 41.2905:   9%|▉         | 63/673 [13:25<2:02:55, 12.09s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7028, 0.7116]
+Predictions Y range: [-0.3469, 0.3467]
+Ground Truth X range: [-2.4335, 1.9914]
+Ground Truth Y range: [-1.8027, 2.2005]
+
+Coordinate ranges after conversion:
+Predictions X range: [746787.2500, 746837.0625]
+Predictions Y range: [3150525.2500, 3150547.2500]
+Ground Truth X range: [746726.2500, 746882.1875]
+Ground Truth Y range: [3150479.0000, 3150605.7500]
+
+Error statistics:
+ADE range: [9.7209, 120.0384], mean: 40.9146
+FDE range: [9.6536, 119.2454], mean: 41.2905
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4574, max=2.0520, mean=-0.0467, std=0.9413
+Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=0.0060, std=0.3790, min=-0.7095, max=0.7188
+Targets stats: mean=-0.0461, std=0.9352, min=-2.4574, max=2.0520
+Average distance between predictions and targets: 0.9554
+Train Loss: 1.5547, ADE: 38.3653, FDE: 38.7942:  10%|▉         | 64/673 [13:38<2:03:44, 12.19s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7095, 0.7188]
+Predictions Y range: [-0.3550, 0.3553]
+Ground Truth X range: [-2.4574, 2.0379]
+Ground Truth Y range: [-1.7369, 2.0520]
+
+Coordinate ranges after conversion:
+Predictions X range: [746787.0000, 746837.3125]
+Predictions Y range: [3150525.0000, 3150547.5000]
+Ground Truth X range: [746725.4375, 746883.8125]
+Ground Truth Y range: [3150481.2500, 3150601.2500]
+
+Error statistics:
+ADE range: [10.8008, 124.7357], mean: 38.3653
+FDE range: [11.0314, 124.2396], mean: 38.7942
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4142, max=2.0471, mean=0.0119, std=0.9627
+Ground truth size (72) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0037, std=0.3894, min=-0.7309, max=0.7341
+Targets stats: mean=0.0112, std=0.9370, min=-2.4142, max=2.0471
+Average distance between predictions and targets: 0.9782
+Train Loss: 1.6170, ADE: 39.0203, FDE: 39.4450:  10%|▉         | 65/673 [13:50<2:04:04, 12.24s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7309, 0.7341]
+Predictions Y range: [-0.3693, 0.3650]
+Ground Truth X range: [-2.4142, 1.7987]
+Ground Truth Y range: [-1.8627, 2.0471]
+
+Coordinate ranges after conversion:
+Predictions X range: [746786.2500, 746837.8750]
+Predictions Y range: [3150524.5000, 3150547.7500]
+Ground Truth X range: [746726.9375, 746875.3750]
+Ground Truth Y range: [3150477.2500, 3150601.0000]
+
+Error statistics:
+ADE range: [4.7757, 118.9415], mean: 39.0203
+FDE range: [5.3444, 119.4527], mean: 39.4450
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4120, max=2.1489, mean=-0.0348, std=0.9034
+Predictions stats: mean=0.0231, std=0.3939, min=-0.7415, max=0.7571
+Targets stats: mean=-0.0348, std=0.9034, min=-2.4120, max=2.1489
+Average distance between predictions and targets: 0.8968
+Train Loss: 1.5092, ADE: 37.7069, FDE: 38.1424:  10%|▉         | 66/673 [14:03<2:06:06, 12.47s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7415, 0.7571]
+Predictions Y range: [-0.3822, 0.3734]
+Ground Truth X range: [-2.4120, 1.9803]
+Ground Truth Y range: [-1.7516, 2.1489]
+
+Coordinate ranges after conversion:
+Predictions X range: [746785.8750, 746838.6875]
+Predictions Y range: [3150524.0000, 3150548.0000]
+Ground Truth X range: [746727.0000, 746881.7500]
+Ground Truth Y range: [3150480.7500, 3150604.2500]
+
+Error statistics:
+ADE range: [2.3612, 126.1014], mean: 37.7069
+FDE range: [1.9039, 126.3683], mean: 38.1424
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5385, max=2.1498, mean=-0.0343, std=0.9247
+Predictions stats: mean=-0.0006, std=0.4063, min=-0.7678, max=0.7748
+Targets stats: mean=-0.0343, std=0.9247, min=-2.5385, max=2.1498
+Average distance between predictions and targets: 0.9537
+Train Loss: 1.6513, ADE: 39.5151, FDE: 39.8368:  10%|▉         | 67/673 [14:16<2:06:53, 12.56s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7678, 0.7748]
+Predictions Y range: [-0.3883, 0.3862]
+Ground Truth X range: [-2.5385, 2.0200]
+Ground Truth Y range: [-1.7484, 2.1498]
+
+Coordinate ranges after conversion:
+Predictions X range: [746784.9375, 746839.3125]
+Predictions Y range: [3150524.0000, 3150548.5000]
+Ground Truth X range: [746722.5625, 746883.1875]
+Ground Truth Y range: [3150480.7500, 3150604.2500]
+
+Error statistics:
+ADE range: [4.2079, 103.2661], mean: 39.5151
+FDE range: [4.0020, 103.0711], mean: 39.8368
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4087, max=2.1618, mean=0.0382, std=0.9459
+Ground truth size (75) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0013, std=0.4201, min=-0.7920, max=0.7940
+Targets stats: mean=0.0377, std=0.9397, min=-2.4087, max=2.1618
+Average distance between predictions and targets: 0.9762
+Train Loss: 1.5350, ADE: 38.5480, FDE: 38.9338:  10%|█         | 68/673 [14:28<2:06:39, 12.56s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.7920, 0.7940]
+Predictions Y range: [-0.4030, 0.3938]
+Ground Truth X range: [-2.4087, 2.0619]
+Ground Truth Y range: [-1.8030, 2.1618]
+
+Coordinate ranges after conversion:
+Predictions X range: [746784.1250, 746840.0000]
+Predictions Y range: [3150523.5000, 3150548.7500]
+Ground Truth X range: [746727.1250, 746884.6250]
+Ground Truth Y range: [3150479.0000, 3150604.7500]
+
+Error statistics:
+ADE range: [4.2662, 95.4146], mean: 38.5480
+FDE range: [4.6237, 95.0972], mean: 38.9338
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.4769, max=2.0746, mean=-0.0230, std=0.9341
+Ground truth size (74) doesn't match predictions size (76). Adjusting ground truth.
+Agent mask size (76) doesn't match predictions size (76). Adjusting mask.
+Predictions stats: mean=0.0052, std=0.4391, min=-0.8057, max=0.8024
+Targets stats: mean=-0.0224, std=0.9218, min=-2.4769, max=2.0746
+Average distance between predictions and targets: 0.9649
+Train Loss: 1.5333, ADE: 38.1333, FDE: 38.4751:  10%|█         | 69/673 [14:41<2:05:44, 12.49s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8057, 0.8024]
+Predictions Y range: [-0.4064, 0.4041]
+Ground Truth X range: [-2.4769, 2.0746]
+Ground Truth Y range: [-1.6311, 1.9754]
+
+Coordinate ranges after conversion:
+Predictions X range: [746783.6250, 746840.2500]
+Predictions Y range: [3150523.2500, 3150549.0000]
+Ground Truth X range: [746724.7500, 746885.1250]
+Ground Truth Y range: [3150484.5000, 3150598.7500]
+
+Error statistics:
+ADE range: [0.8691, 97.1410], mean: 38.1333
+FDE range: [1.2516, 97.8935], mean: 38.4751
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5540, max=2.0679, mean=-0.0335, std=0.8840
+Predictions stats: mean=0.0301, std=0.4350, min=-0.8229, max=0.8255
+Targets stats: mean=-0.0335, std=0.8840, min=-2.5540, max=2.0679
+Average distance between predictions and targets: 0.8419
+Train Loss: 1.4955, ADE: 36.9870, FDE: 37.3294:  10%|█         | 70/673 [14:53<2:05:36, 12.50s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8229, 0.8255]
+Predictions Y range: [-0.4203, 0.4093]
+Ground Truth X range: [-2.5540, 2.0679]
+Ground Truth Y range: [-1.6955, 2.0237]
+
+Coordinate ranges after conversion:
+Predictions X range: [746783.0000, 746841.0625]
+Predictions Y range: [3150522.7500, 3150549.2500]
+Ground Truth X range: [746722.0000, 746884.8750]
+Ground Truth Y range: [3150482.5000, 3150600.2500]
+
+Error statistics:
+ADE range: [2.2847, 138.4139], mean: 36.9870
+FDE range: [1.7002, 138.9933], mean: 37.3294
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5155, max=2.0616, mean=0.0305, std=0.9305
+Ground truth size (78) doesn't match predictions size (79). Adjusting ground truth.
+Agent mask size (79) doesn't match predictions size (79). Adjusting mask.
+Predictions stats: mean=0.0240, std=0.4509, min=-0.8317, max=0.8361
+Targets stats: mean=0.0301, std=0.9246, min=-2.5155, max=2.0616
+Average distance between predictions and targets: 0.9721
+Train Loss: 1.5459, ADE: 38.0194, FDE: 38.3409:  11%|█         | 71/673 [15:07<2:09:05, 12.87s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8317, 0.8361]
+Predictions Y range: [-0.4298, 0.4159]
+Ground Truth X range: [-2.5155, 2.0616]
+Ground Truth Y range: [-1.8785, 1.9207]
+
+Coordinate ranges after conversion:
+Predictions X range: [746782.6875, 746841.4375]
+Predictions Y range: [3150522.5000, 3150549.2500]
+Ground Truth X range: [746723.3750, 746884.6250]
+Ground Truth Y range: [3150476.7500, 3150597.0000]
+
+Error statistics:
+ADE range: [1.4527, 107.2898], mean: 38.0194
+FDE range: [1.5052, 107.4388], mean: 38.3409
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.5580, max=2.0675, mean=0.0447, std=0.9659
+Ground truth size (76) doesn't match predictions size (77). Adjusting ground truth.
+Agent mask size (77) doesn't match predictions size (77). Adjusting mask.
+Predictions stats: mean=-0.0171, std=0.4628, min=-0.8525, max=0.8511
+Targets stats: mean=0.0442, std=0.9596, min=-2.5580, max=2.0675
+Average distance between predictions and targets: 1.0040
+Train Loss: 1.5947, ADE: 38.4172, FDE: 38.7421:  11%|█         | 72/673 [15:21<2:12:00, 13.18s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8525, 0.8511]
+Predictions Y range: [-0.4358, 0.4245]
+Ground Truth X range: [-2.5580, 2.0675]
+Ground Truth Y range: [-1.7869, 2.0551]
+
+Coordinate ranges after conversion:
+Predictions X range: [746782.0000, 746842.0000]
+Predictions Y range: [3150522.2500, 3150549.5000]
+Ground Truth X range: [746721.8750, 746884.8750]
+Ground Truth Y range: [3150479.5000, 3150601.2500]
+
+Error statistics:
+ADE range: [1.2265, 125.4844], mean: 38.4172
+FDE range: [1.5052, 126.1173], mean: 38.7421
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-2.6163, max=2.1406, mean=-0.0134, std=0.9113
+Ground truth size (81) doesn't match predictions size (82). Adjusting ground truth.
+Agent mask size (82) doesn't match predictions size (82). Adjusting mask.
+Predictions stats: mean=-0.0118, std=0.4352, min=-0.8665, max=0.8507
+Targets stats: mean=-0.0132, std=0.9057, min=-2.6163, max=2.1406
+Average distance between predictions and targets: 0.9031
+Train Loss: 1.5552, ADE: 37.9582, FDE: 38.2929:  11%|█         | 73/673 [15:34<2:11:07, 13.11s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8665, 0.8507]
+Predictions Y range: [-0.4394, 0.4299]
+Ground Truth X range: [-2.6163, 2.0361]
+Ground Truth Y range: [-1.8094, 2.1406]
+
+Coordinate ranges after conversion:
+Predictions X range: [746781.5000, 746842.0000]
+Predictions Y range: [3150522.2500, 3150549.7500]
+Ground Truth X range: [746719.8125, 746883.7500]
+Ground Truth Y range: [3150478.7500, 3150604.0000]
+
+Error statistics:
+ADE range: [2.0130, 127.8579], mean: 37.9582
+FDE range: [2.2535, 127.2392], mean: 38.2929
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.2390, max=2.1693, mean=0.0190, std=0.9492
+Predictions stats: mean=0.0224, std=0.4293, min=-0.8723, max=0.8605
+Targets stats: mean=0.0190, std=0.9492, min=-3.2390, max=2.1693
+Average distance between predictions and targets: 0.9614
+Train Loss: 1.5343, ADE: 38.0892, FDE: 38.4817:  11%|█         | 74/673 [15:47<2:09:25, 12.96s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8723, 0.8605]
+Predictions Y range: [-0.4405, 0.4307]
+Ground Truth X range: [-3.2390, 2.0822]
+Ground Truth Y range: [-1.8964, 2.1693]
+
+Coordinate ranges after conversion:
+Predictions X range: [746781.2500, 746842.3125]
+Predictions Y range: [3150522.2500, 3150549.7500]
+Ground Truth X range: [746697.8750, 746885.3750]
+Ground Truth Y range: [3150476.0000, 3150605.0000]
+
+Error statistics:
+ADE range: [1.9098, 98.9228], mean: 38.0892
+FDE range: [2.3527, 98.6471], mean: 38.4817
+Frame time tensor shape: torch.Size([8])
+Generated ground truth with scale: min=-3.0987, max=2.1350, mean=-0.0323, std=0.9751
+Ground truth size (67) doesn't match predictions size (68). Adjusting ground truth.
+Agent mask size (68) doesn't match predictions size (68). Adjusting mask.
+Predictions stats: mean=0.0283, std=0.4508, min=-0.8849, max=0.8664
+Targets stats: mean=-0.0318, std=0.9679, min=-3.0987, max=2.1350
+Average distance between predictions and targets: 1.0320
+Train Loss: 1.5229, ADE: 37.8878, FDE: 38.2090:  11%|█         | 75/673 [15:58<2:06:10, 12.66s/it]
+Coordinate ranges before conversion:
+Predictions X range: [-0.8849, 0.8664]
+Predictions Y range: [-0.4477, 0.4368]
+Ground Truth X range: [-3.0987, 2.1089]
+Ground Truth Y range: [-1.8283, 2.1350]
+
+Coordinate ranges after conversion:
+Predictions X range: [746780.8125, 746842.5625]
+Predictions Y range: [3150522.0000, 3150550.0000]
+Ground Truth X range: [746702.8125, 746886.3125]
+Ground Truth Y range: [3150478.2500, 3150603.7500]
