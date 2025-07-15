@@ -86,8 +86,8 @@ def load_and_test_model(model_path, data_path, batch_size=4):
 
 if __name__ == "__main__":
     # Paths - adapt these to your saved model and data locations
-    model_path = os.path.join('models', 'final_model.pt')
-    data_path = 'final_surajpur_proper_reduced_2000.csv'
+    model_path = os.path.join('models', 'best_model.pt')
+    data_path = 'final_surajpur_proper.csv'
     
     # Load and test the model
     load_and_test_model(model_path, data_path) 

@@ -234,67 +234,10 @@ def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordi
     if predictions.shape != ground_truth.shape:
         raise ValueError(f"Shape mismatch: predictions {predictions.shape}, ground truth {ground_truth.shape}")
     
-    # Print coordinate range information for debugging
-    pred_min_x = predictions[..., 0].min().item()
-    pred_max_x = predictions[..., 0].max().item()
-    pred_min_y = predictions[..., 1].min().item()
-    pred_max_y = predictions[..., 1].max().item()
-    gt_min_x = ground_truth[..., 0].min().item()
-    gt_max_x = ground_truth[..., 0].max().item()
-    gt_min_y = ground_truth[..., 1].min().item()
-    gt_max_y = ground_truth[..., 1].max().item()
-    
-    print(f"\nCoordinate ranges before conversion:")
-    print(f"Predictions X range: [{pred_min_x:.4f}, {pred_max_x:.4f}]")
-    print(f"Predictions Y range: [{pred_min_y:.4f}, {pred_max_y:.4f}]")
-    print(f"Ground Truth X range: [{gt_min_x:.4f}, {gt_max_x:.4f}]")
-    print(f"Ground Truth Y range: [{gt_min_y:.4f}, {gt_max_y:.4f}]")
-    
-    # Check if we have a scale mismatch before applying coordinate conversion
-    pred_x_range = abs(pred_max_x - pred_min_x)
-    pred_y_range = abs(pred_max_y - pred_min_y)
-    gt_x_range = abs(gt_max_x - gt_min_x)
-    gt_y_range = abs(gt_max_y - gt_min_y)
-    
-    # If we have a major scale mismatch (100x+), skip conversion
-    scale_mismatch = (gt_x_range > 10 * pred_x_range) or (gt_y_range > 10 * pred_y_range)
-    
-    # Apply coordinate conversion if provided and no scale mismatch detected
-    if convert_coordinates is not None and not scale_mismatch:
-        predictions_orig = convert_coordinates(predictions)
-        ground_truth_orig = convert_coordinates(ground_truth)
-        
-        print(f"\nCoordinate ranges after conversion:")
-        print(f"Predictions X range: [{predictions_orig[..., 0].min().item():.4f}, {predictions_orig[..., 0].max().item():.4f}]")
-        print(f"Predictions Y range: [{predictions_orig[..., 1].min().item():.4f}, {predictions_orig[..., 1].max().item():.4f}]")
-        print(f"Ground Truth X range: [{ground_truth_orig[..., 0].min().item():.4f}, {ground_truth_orig[..., 0].max().item():.4f}]")
-        print(f"Ground Truth Y range: [{ground_truth_orig[..., 1].min().item():.4f}, {ground_truth_orig[..., 1].max().item():.4f}]")
-        
-        # Use the converted coordinates for metrics
-        predictions = predictions_orig
-        ground_truth = ground_truth_orig
-    elif scale_mismatch:
-        print(f"\nWARNING: Large scale mismatch detected between predictions and ground truth!")
-        print(f"Prediction range: X={pred_x_range:.4f}, Y={pred_y_range:.4f}")
-        print(f"Ground truth range: X={gt_x_range:.4f}, Y={gt_y_range:.4f}")
-        print(f"Skipping coordinate conversion to avoid unrealistic metrics.")
-        
-        # Adjust ground truth scale to match predictions for reasonable metrics
-        print(f"Adjusting ground truth scale to match predictions for meaningful metrics...")
-        
-        # Calculate scale ratios
-        x_scale = pred_x_range / (gt_x_range if gt_x_range > 1e-6 else 1.0)
-        y_scale = pred_y_range / (gt_y_range if gt_y_range > 1e-6 else 1.0)
-        
-        # Apply scale to ground truth
-        scaled_gt = ground_truth.clone()
-        scaled_gt[..., 0] = (ground_truth[..., 0] - gt_min_x) * x_scale + pred_min_x
-        scaled_gt[..., 1] = (ground_truth[..., 1] - gt_min_y) * y_scale + pred_min_y
-        
-        print(f"Adjusted ground truth X range: [{scaled_gt[..., 0].min().item():.4f}, {scaled_gt[..., 0].max().item():.4f}]")
-        print(f"Adjusted ground truth Y range: [{scaled_gt[..., 1].min().item():.4f}, {scaled_gt[..., 1].max().item():.4f}]")
-        
-        ground_truth = scaled_gt
+    # Apply coordinate conversion if provided
+    if convert_coordinates is not None:
+        predictions = convert_coordinates(predictions)
+        ground_truth = convert_coordinates(ground_truth)
     
     # Get dimensions
     batch_size, num_agents, pred_len, _ = predictions.shape
@@ -348,10 +291,12 @@ def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordi
         miss_threshold = 2.0  # meters, adjust based on your application
         miss_rate = (all_fdes > miss_threshold).float().mean().item()
         
-        # Debug: Print range of errors
-        print(f"\nError statistics:")
-        print(f"ADE range: [{all_ades.min().item():.4f}, {all_ades.max().item():.4f}], mean: {mean_ade:.4f}")
-        print(f"FDE range: [{all_fdes.min().item():.4f}, {all_fdes.max().item():.4f}], mean: {mean_fde:.4f}")
+        # Debug: Print range of errors (only occasionally)
+        verbose = False  # Set to False to disable detailed printing
+        if verbose:
+            print(f"\nError statistics:")
+            print(f"ADE range: [{all_ades.min().item():.4f}, {all_ades.max().item():.4f}], mean: {mean_ade:.4f}")
+            print(f"FDE range: [{all_fdes.min().item():.4f}, {all_fdes.max().item():.4f}], mean: {mean_fde:.4f}")
     else:
         # Handle edge case of no valid agents
         mean_ade = float('nan')
@@ -368,148 +313,7 @@ def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordi
         'MissRate': miss_rate
     }
 
-def extract_future_data(batch_graphs, future_steps, dataloader):
-    """
-    Extract ground truth future trajectory data from batch_graphs
-    
-    Args:
-        batch_graphs: List of PyG Data objects for observation frames
-        future_steps: Number of future steps to predict
-        dataloader: The dataset object containing all trajectory data
-    
-    Returns:
-        Tensor of shape [batch_size, max_agents, future_steps, 2] with future (x,y) coordinates
-    """
-    # Safety check for empty batch
-    if not batch_graphs:
-        return torch.zeros(0, 0, 0, 2)
-    
-    # Get batch assignment for each node from the last timestep
-    last_batch = batch_graphs[-1]
-    batch_tensor = last_batch.batch
-    device = batch_tensor.device
-    
-    # Safety check for empty batch tensor
-    if batch_tensor.numel() == 0:
-        return torch.zeros(0, 0, future_steps, 2, device=device)
-    
-    # Count nodes per graph
-    unique_batches, counts = torch.unique(batch_tensor, return_counts=True)
-    batch_size = len(unique_batches)
-    max_agents = counts.max().item() if counts.numel() > 0 else 0
-    
-    # Create tensor to hold the future trajectory data
-    gt = torch.zeros(batch_size, max_agents, future_steps, 2, device=device)
-    
-    # Debug info
-    if hasattr(last_batch, 'frame_time'):
-        print(f"Frame time tensor shape: {last_batch.frame_time.shape}")
-    
-    try:
-        # Try to find real future trajectories if available in the dataset
-        if hasattr(dataloader, 'data'):
-            # This is a simplified approach - in a real implementation, you'd use actual future data
-            pass
-        
-        # If we can't find real future trajectories, generate them based on current state
-        # We'll use the last two frames to estimate velocity if available
-        if len(batch_graphs) >= 2:
-            second_last_batch = batch_graphs[-2]
-            
-            # For each batch item
-            for b_idx in range(batch_size):
-                # Get node indices for this batch item in last frame
-                batch_mask_last = (batch_tensor == b_idx)
-                num_agents = batch_mask_last.sum().item()
-                
-                # For each agent in this batch item
-                for a_idx in range(num_agents):
-                    if a_idx < max_agents:  # Safety check
-                        # Get the agent's last position
-                        nodes_in_last_batch = torch.where(batch_mask_last)[0]
-                        if a_idx < len(nodes_in_last_batch):
-                            last_node_idx = nodes_in_last_batch[a_idx]
-                            
-                            # Get positions and velocities from last batch
-                            if hasattr(last_batch, 'x') and last_batch.x.shape[1] >= 2:
-                                last_pos = last_batch.x[last_node_idx, :2].clone()
-                                
-                                # Try to get velocity if available
-                                if hasattr(last_batch, 'x') and last_batch.x.shape[1] >= 3:
-                                    # If speed is available in features
-                                    speed = last_batch.x[last_node_idx, 2].item()
-                                    
-                                    # Try to estimate direction from historical data
-                                    # Check if we can match this agent in the previous frame
-                                    if hasattr(second_last_batch, 'batch'):
-                                        second_last_batch_tensor = second_last_batch.batch
-                                        batch_mask_prev = (second_last_batch_tensor == b_idx)
-                                        nodes_in_prev_batch = torch.where(batch_mask_prev)[0]
-                                        
-                                        if a_idx < len(nodes_in_prev_batch):
-                                            prev_node_idx = nodes_in_prev_batch[a_idx]
-                                            
-                                            if hasattr(second_last_batch, 'x') and second_last_batch.x.shape[1] >= 2:
-                                                prev_pos = second_last_batch.x[prev_node_idx, :2].clone()
-                                                # Calculate direction vector
-                                                direction = last_pos - prev_pos
-                                                direction_norm = torch.norm(direction)
-                                                
-                                                if direction_norm > 1e-6:  # Avoid division by very small values
-                                                    direction = direction / direction_norm
-                                                else:
-                                                    # If movement is too small, assume random direction
-                                                    direction = torch.randn(2, device=device)
-                                                    direction = direction / torch.norm(direction)
-                                                
-                                                # Create future trajectory considering current speed and using SMALL values
-                                                # similar to model output scale
-                                                for t in range(future_steps):
-                                                    # Linear extrapolation with slight deceleration
-                                                    decay_factor = 0.9 ** t  # Slow down over time
-                                                    
-                                                    # Use small normalized values (0.01-0.1 scale) matching model output
-                                                    step_size = min(0.02, speed * 0.01) * decay_factor
-                                                    gt[b_idx, a_idx, t, :] = last_pos + direction * (t+1) * step_size
-                                                continue  # Skip the default below if we successfully extrapolated
-                                
-                                # Default: Create simple linear extrapolation with SMALL values
-                                # Use tiny movements (0.01-0.05) similar to the scale of model outputs
-                                for t in range(future_steps):
-                                    # Small increment matching model's output scale
-                                    random_direction = torch.randn(2, device=device)
-                                    random_direction = random_direction / torch.norm(random_direction)
-                                    gt[b_idx, a_idx, t, :] = last_pos + random_direction * (t+1) * 0.01
-                    
-        else:
-            # Fallback for single frame
-            for b_idx in range(batch_size):
-                batch_mask = (batch_tensor == b_idx)
-                num_agents = batch_mask.sum().item()
-                
-                for a_idx in range(num_agents):
-                    if a_idx < max_agents:
-                        nodes_in_batch = torch.where(batch_mask)[0]
-                        if a_idx < len(nodes_in_batch):
-                            node_idx = nodes_in_batch[a_idx]
-                            if hasattr(last_batch, 'x') and last_batch.x.shape[1] >= 2:
-                                last_pos = last_batch.x[node_idx, :2].clone()
-                                
-                                # Create simple trajectory with small movements matching model's scale
-                                for t in range(future_steps):
-                                    random_direction = torch.randn(2, device=device)
-                                    random_direction = random_direction / torch.norm(random_direction)
-                                    gt[b_idx, a_idx, t, :] = last_pos + random_direction * (t+1) * 0.01
-        
-        # Print information about the generated ground truth
-        print(f"Generated ground truth with scale: min={gt.min().item():.4f}, max={gt.max().item():.4f}, " 
-              f"mean={gt.mean().item():.4f}, std={gt.std().item():.4f}")
-                    
-    except Exception as e:
-        print(f"Error extracting future data: {e}")
-        # Return zeros if extraction fails
-    
-    return gt
+# Removed extract_future_data function - now using real ground truth from data loader
 
 def train_epoch(model, train_loader, optimizer, device, args):
     """
@@ -533,9 +337,10 @@ def train_epoch(model, train_loader, optimizer, device, args):
     # Use tqdm for progress bar
     progress_bar = tqdm(train_loader, desc='Training')
     
-    for batch_idx, batch_graphs in enumerate(progress_bar):
+    for batch_idx, (batch_graphs, gt_trajectories) in enumerate(progress_bar):
         # Move data to device
         batch_graphs = [frame.to(device) for frame in batch_graphs]
+        gt_trajectories = gt_trajectories.to(device)
         
         # Zero the gradients
         optimizer.zero_grad()
@@ -545,10 +350,6 @@ def train_epoch(model, train_loader, optimizer, device, args):
         
         # Forward pass - use our model to process trajectories
         predictions = model(batch_graphs, agent_mask)
-        
-        # Extract ground truth future trajectories
-        future_steps = args.pred_len  # Number of future steps to predict
-        gt_trajectories = extract_future_data(batch_graphs, future_steps, train_loader.dataset)
         
         # Handle potential shape mismatches between predictions and ground truth
         if gt_trajectories.shape[1] != predictions.shape[1]:
@@ -565,15 +366,16 @@ def train_epoch(model, train_loader, optimizer, device, args):
             
             gt_trajectories = new_gt
             
-            # Log the adjustment for debugging
-            print(f"Ground truth size ({gt_agents}) doesn't match predictions size ({pred_agents}). Adjusting ground truth.")
+            # Log the adjustment for debugging (only occasionally)
+            if batch_idx % 50 == 0:
+                print(f"Ground truth size ({gt_agents}) doesn't match predictions size ({pred_agents}). Adjusting ground truth.")
         
         # Ensure agent mask matches the prediction size
         if agent_mask.size(1) != predictions.shape[1]:
-             # Log the adjustment
-            print(f"Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting mask.")
+             # Log the adjustment (only occasionally)
             batch_size = predictions.size(0)
             num_agents = predictions.size(1)
+            
             new_agent_mask = torch.zeros(batch_size, num_agents, dtype=torch.bool, device=device)
             
             # Copy over values from original mask if possible
@@ -581,6 +383,8 @@ def train_epoch(model, train_loader, optimizer, device, args):
             new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
             agent_mask = new_agent_mask
             
+            if batch_idx % 50 == 0:
+                print(f"Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting mask.")
             
         # Compute loss
         loss = compute_loss(predictions, gt_trajectories, agent_mask)
@@ -611,10 +415,13 @@ def train_epoch(model, train_loader, optimizer, device, args):
             ade_total += metrics['ADE']
             fde_total += metrics['FDE']
             
-            # Update the progress bar
-            progress_bar.set_description(
-                f"Train Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
-            )
+            # Update the progress bar (with less frequent detailed updates)
+            if batch_idx % 10 == 0:
+                progress_bar.set_description(
+                    f"Train Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
+                )
+            else:
+                progress_bar.set_description(f"Training")
     
     # Compute mean metrics
     num_batches = len(train_loader)
@@ -649,32 +456,7 @@ def compute_loss(predictions, targets, agent_mask=None):
     if agent_mask is None:
         agent_mask = torch.ones(batch_size, num_agents, dtype=torch.bool, device=device)
     
-    # DEBUG: Print some statistics about predictions and targets to diagnose high error
-    with torch.no_grad():
-        # Check for any NaN or inf values
-        if torch.isnan(predictions).any() or torch.isinf(predictions).any():
-            print("WARNING: NaN or inf values detected in predictions!")
-            
-        if torch.isnan(targets).any() or torch.isinf(targets).any():
-            print("WARNING: NaN or inf values detected in targets!")
-        
-        # Check the magnitude of values
-        pred_mean = predictions.mean().item()
-        pred_std = predictions.std().item()
-        pred_min = predictions.min().item()
-        pred_max = predictions.max().item()
-        
-        target_mean = targets.mean().item()
-        target_std = targets.std().item()
-        target_min = targets.min().item()
-        target_max = targets.max().item()
-        
-        print(f"Predictions stats: mean={pred_mean:.4f}, std={pred_std:.4f}, min={pred_min:.4f}, max={pred_max:.4f}")
-        print(f"Targets stats: mean={target_mean:.4f}, std={target_std:.4f}, min={target_min:.4f}, max={target_max:.4f}")
-        
-        # Check average distance between predictions and targets
-        avg_dist = torch.sqrt(((predictions - targets) ** 2).sum(dim=-1)).mean().item()
-        print(f"Average distance between predictions and targets: {avg_dist:.4f}")
+    # Simple loss computation without excessive debugging
     
     # MSE loss with masking 
     squared_error = torch.pow(predictions - targets, 2)  # [batch, agents, steps, 2]
@@ -824,19 +606,16 @@ def validate(model, val_loader, device, args):
         # Use tqdm for progress bar
         progress_bar = tqdm(val_loader, desc='Validating')
         
-        for batch_idx, batch_graphs in enumerate(progress_bar):
+        for batch_idx, (batch_graphs, gt_trajectories) in enumerate(progress_bar):
             # Move data to device
             batch_graphs = [frame.to(device) for frame in batch_graphs]
+            gt_trajectories = gt_trajectories.to(device)
             
             # Create agent mask for this batch
             agent_mask = create_agent_mask(batch_graphs, device)
             
             # Forward pass - use our model to process trajectories
             predictions = model(batch_graphs, agent_mask)
-            
-            # Extract ground truth future trajectories
-            future_steps = args.pred_len  # Number of future steps to predict
-            gt_trajectories = extract_future_data(batch_graphs, future_steps, val_loader.dataset)
             
             # Handle potential shape mismatches between predictions and ground truth
             if gt_trajectories.shape[1] != predictions.shape[1]:
@@ -852,6 +631,10 @@ def validate(model, val_loader, device, args):
                 new_gt[:, :min_agents, :, :] = gt_trajectories[:, :min_agents, :, :]
                 
                 gt_trajectories = new_gt
+                
+                # Only log occasionally
+                if batch_idx % 50 == 0:
+                    print(f"Val: Ground truth size ({gt_agents}) doesn't match predictions size ({pred_agents}). Adjusting.")
             
             # Ensure agent mask matches the prediction size
             if agent_mask.size(1) != predictions.shape[1]:
@@ -863,6 +646,10 @@ def validate(model, val_loader, device, args):
                 min_agents = min(agent_mask.size(1), num_agents)
                 new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
                 agent_mask = new_agent_mask
+                
+                # Only log occasionally
+                if batch_idx % 50 == 0:
+                    print(f"Val: Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting.")
             
             # Compute loss
             loss = compute_loss(predictions, gt_trajectories, agent_mask)
@@ -884,10 +671,13 @@ def validate(model, val_loader, device, args):
             worst_fde_total += metrics.get('worstFDE', 0)
             miss_rate_total += metrics.get('MissRate', 0)
             
-            # Update progress bar
-            progress_bar.set_description(
-                f"Val Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
-            )
+            # Update progress bar (less frequently)
+            if batch_idx % 10 == 0:
+                progress_bar.set_description(
+                    f"Val Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
+                )
+            else:
+                progress_bar.set_description("Validating")
     
     # Compute mean metrics
     num_batches = len(val_loader)
@@ -974,8 +764,8 @@ def main():
     
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     
-    train_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=True, num_workers=0)
-    val_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=False, num_workers=0)
+    train_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=True, num_workers=4)
+    val_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=False, num_workers=4)
     
     # Create model
     model = TrajectoryPredictionModel(args).to(device)

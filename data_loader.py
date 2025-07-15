@@ -7,9 +7,39 @@ from sklearn.preprocessing import StandardScaler
 
 
 def collate_graph_sequences(batch):
-    transposed = list(zip(*batch))  
-    batched = [Batch.from_data_list(frame_graphs) for frame_graphs in transposed]
-    return batched  
+    # Separate observation graphs and future trajectories
+    obs_graphs = []
+    future_trajectories = []
+    
+    for obs_seq, future_seq in batch:
+        obs_graphs.append(obs_seq)
+        future_trajectories.append(future_seq)
+    
+    # Batch the observation graphs
+    transposed = list(zip(*obs_graphs))  
+    batched_graphs = [Batch.from_data_list(frame_graphs) for frame_graphs in transposed]
+    
+    # Find max number of agents across all batch items
+    max_agents = max(traj.size(0) for traj in future_trajectories)
+    pred_len = future_trajectories[0].size(1)
+    
+    # Pad each trajectory tensor to have the same number of agents
+    padded_trajectories = []
+    for traj in future_trajectories:
+        num_agents = traj.size(0)
+        if num_agents < max_agents:
+            # Create padding tensor
+            padding = torch.zeros(max_agents - num_agents, pred_len, 2, dtype=traj.dtype, device=traj.device)
+            # Concatenate with original tensor
+            padded_traj = torch.cat([traj, padding], dim=0)
+            padded_trajectories.append(padded_traj)
+        else:
+            padded_trajectories.append(traj)
+    
+    # Stack the padded trajectories
+    batched_futures = torch.stack(padded_trajectories)
+    
+    return batched_graphs, batched_futures
 
 class RoundaboutTrajectoryDataLoader(Dataset):
     def __init__(self, csv_path, obs_len=10, pred_len=10, dist_threshold=10.0, standardize_xy=True):
@@ -17,7 +47,7 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         Args:
             csv_path (str): Path to trajectory CSV file
             obs_len (int): Number of observation frames (e.g. 10)
-            pred_len (int): Number of prediction frames (can be ignored if just encoding)
+            pred_len (int): Number of prediction frames (e.g. 10)
             dist_threshold (float): Distance threshold for edge creation (in meters)
             standardize_xy (bool): Whether to standardize the x and y coordinates
         """
@@ -59,7 +89,8 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         sequences = []
         for i in range(len(frames) - self.obs_len - self.pred_len):
             obs_frames = frames[i:i+self.obs_len]
-            sequences.append(obs_frames)
+            future_frames = frames[i+self.obs_len:i+self.obs_len+self.pred_len]
+            sequences.append((obs_frames, future_frames))
         return sequences
 
     def __len__(self):
@@ -68,12 +99,15 @@ class RoundaboutTrajectoryDataLoader(Dataset):
     def __getitem__(self, idx):
         """
         Returns:
-            A list of PyG Data objects for each observation frame (length = obs_len)
+            A tuple of (observation_graphs, future_trajectories)
+            - observation_graphs: List of PyG Data objects for observation frames (length = obs_len)
+            - future_trajectories: Tensor of future (x,y) coordinates [num_agents, pred_len, 2]
         """
-        frame_sequence = self.sequences[idx]
-        graph_seq = []
-
-        for t in frame_sequence:
+        obs_frames, future_frames = self.sequences[idx]
+        
+        # Process observation frames
+        obs_graph_seq = []
+        for t in obs_frames:
             frame_data = self.data[self.data['Time'] == t]
             positions = torch.tensor(frame_data[['x [m]', 'y [m]']].values, dtype=torch.float32)
             speed = torch.tensor(frame_data['Speed [km/h]'].values, dtype=torch.float32).unsqueeze(-1)
@@ -88,9 +122,49 @@ class RoundaboutTrajectoryDataLoader(Dataset):
             data.type_ids = type_ids  # store type IDs for embedding
             data.frame_time = torch.tensor([t])  # optional: for debug
 
-            graph_seq.append(data)
+            obs_graph_seq.append(data)
+        
+        # Process future frames to extract ground truth trajectories
+        future_trajectories = self._extract_future_trajectories(future_frames)
+        
+        return obs_graph_seq, future_trajectories
 
-        return graph_seq
+    def _extract_future_trajectories(self, future_frames):
+        """
+        Extract future trajectory data from the specified frames
+        
+        Args:
+            future_frames: List of future frame timestamps
+            
+        Returns:
+            Tensor of shape [num_agents, pred_len, 2] with future (x,y) coordinates
+        """
+        # Get all unique agents from the future frames
+        future_data = self.data[self.data['Time'].isin(future_frames)]
+        unique_agents = future_data['Type'].unique()  # Using Type as agent identifier for now
+        
+        # Create tensor to hold future trajectories
+        future_trajectories = torch.zeros(len(unique_agents), len(future_frames), 2, dtype=torch.float32)
+        
+        # For each agent, extract their trajectory across future frames
+        for agent_idx, agent_type in enumerate(unique_agents):
+            agent_data = future_data[future_data['Type'] == agent_type]
+            
+            # Sort by time to ensure correct temporal order
+            agent_data = agent_data.sort_values('Time')
+            
+            # Extract positions for each future frame
+            for frame_idx, frame_time in enumerate(future_frames):
+                frame_agent_data = agent_data[agent_data['Time'] == frame_time]
+                
+                if len(frame_agent_data) > 0:
+                    # Take the first occurrence if multiple (should be unique)
+                    x_pos = frame_agent_data['x [m]'].iloc[0]
+                    y_pos = frame_agent_data['y [m]'].iloc[0]
+                    future_trajectories[agent_idx, frame_idx, 0] = x_pos
+                    future_trajectories[agent_idx, frame_idx, 1] = y_pos
+        
+        return future_trajectories
 
     def build_edge_index(self, positions):
         """
