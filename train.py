@@ -56,7 +56,7 @@ class TrajectoryPredictionModel(nn.Module):
     
     def forward(self, batch_graphs, agent_mask=None):
         """
-        Process each scene (batch item) independently to avoid size mismatches
+        Process batch data efficiently with proper shape handling
         
         Args:
             batch_graphs: List of graph objects from dataloader
@@ -72,105 +72,59 @@ class TrajectoryPredictionModel(nn.Module):
         batch_size, seq_len, max_agents, gat_dim = gat_output.shape
         device = gat_output.device
         
-        # Create list to store predictions for each scene
-        all_predictions = []
+        # Create or validate agent mask
+        if agent_mask is None:
+            # If no mask provided, assume all agents are valid
+            agent_mask = torch.ones(batch_size, max_agents, dtype=torch.bool, device=device)
+        elif agent_mask.shape[1] != max_agents:
+            # Ensure mask has correct shape
+            new_mask = torch.zeros(batch_size, max_agents, dtype=torch.bool, device=device)
+            min_agents = min(agent_mask.shape[1], max_agents)
+            new_mask[:, :min_agents] = agent_mask[:, :min_agents]
+            agent_mask = new_mask
+            
+        # Reshape for batch processing: [batch_size * max_agents, seq_len, gat_dim]
+        # First transpose to get [batch_size, max_agents, seq_len, gat_dim]
+        reshaped_data = gat_output.permute(0, 2, 1, 3)
+        # Then reshape to [batch_size * max_agents, seq_len, gat_dim]
+        flat_batch_data = reshaped_data.reshape(-1, seq_len, gat_dim)
         
-        # Process each scene independently
-        for scene_idx in range(batch_size):
-            # Extract single scene data [seq_len, num_agents, gat_dim]
-            scene_data = gat_output[scene_idx]
+        # Create a mask for valid agents in flattened form
+        flat_agent_mask = agent_mask.reshape(-1)
+        
+        # Only process valid agents with TCN to save computation
+        valid_indices = torch.where(flat_agent_mask)[0]
+        valid_data = flat_batch_data[valid_indices]
+        
+        # Process with TCN in a single batch
+        if len(valid_indices) > 0:
+            tcn_output = self.tcn(valid_data)  # [num_valid_agents, tcn_seq_len, tcn_dim]
             
-            # Get actual number of agents for this scene
-            if agent_mask is not None:
-                # Check if agent_mask has the correct shape
-                if scene_idx >= agent_mask.shape[0]:
-                    print(f"Warning: agent_mask batch dimension {agent_mask.shape[0]} is smaller than current scene index {scene_idx}.")
-                    # Create a default mask with all agents valid
-                    scene_agent_mask = torch.ones(max_agents, dtype=torch.bool, device=device)
-                else:
-                    scene_agent_mask = agent_mask[scene_idx]
+            # Ensure sequence length is the original
+            if tcn_output.shape[1] > seq_len:
+                tcn_output = tcn_output[:, -seq_len:, :]
                 
-                # Ensure the mask matches the number of agents in the scene
-                if scene_agent_mask.shape[0] != scene_data.shape[1]:
-                    # Resize the mask to match the number of agents
-                    new_mask = torch.zeros(scene_data.shape[1], dtype=torch.bool, device=device)
-                    # Copy values where possible
-                    min_size = min(scene_agent_mask.shape[0], scene_data.shape[1])
-                    new_mask[:min_size] = scene_agent_mask[:min_size]
-                    scene_agent_mask = new_mask
-                
-                # Count valid agents
-                num_agents = scene_agent_mask.sum().item()
-                
-                # Only keep data for valid agents
-                # Need to use boolean indexing in the correct dimension
-                valid_agent_indices = torch.where(scene_agent_mask)[0]
-                scene_data = scene_data[:, valid_agent_indices, :]
-            else:
-                # If no mask, assume all agents are valid
-                num_agents = scene_data.shape[1]
-                scene_agent_mask = torch.ones(scene_data.shape[1], dtype=torch.bool, device=device)
+            # Create a tensor to hold all TCN outputs (including invalid agents as zeros)
+            tcn_dim = tcn_output.shape[2]
+            all_tcn_output = torch.zeros(batch_size * max_agents, seq_len, tcn_dim, device=device)
             
-            # Process agents independently with TCN
-            # Reshape to [num_agents, seq_len, gat_dim]
-            agents_data = scene_data.permute(1, 0, 2)
+            # Place valid outputs in the correct positions
+            all_tcn_output[valid_indices] = tcn_output
             
-            # Process each agent independently with TCN
-            tcn_outputs = []
-            for agent_idx in range(agents_data.shape[0]):
-                # Extract single agent data [seq_len, gat_dim]
-                agent_data = agents_data[agent_idx]
-                
-                # Unsqueeze to add batch dimension for TCN [1, seq_len, gat_dim]
-                agent_data = agent_data.unsqueeze(0)
-                
-                # Process with TCN
-                tcn_output = self.tcn(agent_data)  # [1, tcn_seq_len, tcn_dim]
-                
-                # Ensure sequence length is the original (take last seq_len frames if needed)
-                if tcn_output.shape[1] > seq_len:
-                    tcn_output = tcn_output[:, -seq_len:, :]
-                
-                # Append to list
-                tcn_outputs.append(tcn_output.squeeze(0))  # Remove batch dim
+            # Reshape back to [batch_size, max_agents, seq_len, tcn_dim]
+            batch_tcn_output = all_tcn_output.reshape(batch_size, max_agents, seq_len, tcn_dim)
             
-            # Stack TCN outputs for all agents [num_agents, seq_len, tcn_dim]
-            if tcn_outputs:
-                scene_tcn_output = torch.stack(tcn_outputs)
-                
-                # Create padding mask for transformer (all positions are valid)
-                padding_mask = torch.zeros(scene_tcn_output.shape[0], seq_len, dtype=torch.bool, device=device)
-                
-                # Unsqueeze for transformer (add batch dimension)
-                scene_tcn_output = scene_tcn_output.unsqueeze(0)  # [1, num_agents, seq_len, tcn_dim]
-                
-                # Process with transformer
-                scene_predictions = self.transformer(scene_tcn_output)  # [1, num_agents, pred_len, 2]
-                
-                # If we had agent masking, we need to expand back to max_agents
-                full_predictions = torch.zeros(1, max_agents, 
-                                             scene_predictions.shape[2], 
-                                             scene_predictions.shape[3], 
-                                             device=device)
-                
-                # Place predictions for valid agents
-                valid_indices = torch.where(scene_agent_mask)[0]
-                for i, idx in enumerate(valid_indices):
-                    if i < scene_predictions.shape[1]:
-                        full_predictions[0, idx] = scene_predictions[0, i]
-                
-                scene_predictions = full_predictions
-            else:
-                # Handle the case of no valid agents
-                scene_predictions = torch.zeros(1, max_agents, 
-                                              self.transformer.pred_len, 
-                                              2, device=device)
+            # Process with transformer
+            # The transformer expects [batch_size, num_agents, seq_len, tcn_dim]
+            transformer_output = self.transformer(batch_tcn_output)  # [batch_size, max_agents, pred_len, 2]
             
-            # Append to list
-            all_predictions.append(scene_predictions.squeeze(0))  # Remove batch dim
-            
-        # Stack all scene predictions
-        predictions = torch.stack(all_predictions)  # [batch_size, num_agents, pred_len, 2]
+            # Apply agent mask to zero out invalid agents' predictions
+            # Expand mask to match prediction dimensions
+            expanded_mask = agent_mask.unsqueeze(-1).unsqueeze(-1).expand(-1, -1, transformer_output.shape[2], transformer_output.shape[3])
+            predictions = transformer_output * expanded_mask.float()
+        else:
+            # Handle the case of no valid agents
+            predictions = torch.zeros(batch_size, max_agents, self.transformer.pred_len, 2, device=device)
         
         return predictions
 
@@ -695,7 +649,7 @@ def main():
     # Configuration settings (hardcoded instead of command line arguments)
     class Args:
         # Data parameters
-        data_path = 'final_surajpur_proper.csv'
+        data_path = 'data/final_surajpur_proper.csv'  # Use forward slashes for cross-platform compatibility
         obs_len = 10
         pred_len = 10
         dist_threshold = 10.0
@@ -764,8 +718,9 @@ def main():
     
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     
-    train_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=True, num_workers=4)
-    val_loader = dataset.get_loader(batch_size=args.batch_size, shuffle=False, num_workers=4)
+    # Create data loaders from the split datasets
+    train_loader = dataset.get_loader(dataset=train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=4)
+    val_loader = dataset.get_loader(dataset=val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=4)
     
     # Create model
     model = TrajectoryPredictionModel(args).to(device)
