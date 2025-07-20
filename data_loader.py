@@ -10,10 +10,12 @@ def collate_graph_sequences(batch):
     # Separate observation graphs and future trajectories
     obs_graphs = []
     future_trajectories = []
+    valid_mask=[]
     
-    for obs_seq, future_seq in batch:
+    for obs_seq, future_seq ,valid_mask in batch:
         obs_graphs.append(obs_seq)
         future_trajectories.append(future_seq)
+        valid_mask.append(valid_mask)
     
     # Batch the observation graphs
     transposed = list(zip(*obs_graphs))  
@@ -55,7 +57,7 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         self.obs_len = obs_len
         self.pred_len = pred_len
         self.dist_threshold = dist_threshold
-        self.standardized_dist_threshold = dist_threshold  # Default value, will be updated if standardizing
+        self.standardized_dist_threshold = dist_threshold   
 
         self.type_list = sorted(self.data['Type'].unique())
         self.num_types = len(self.type_list)
@@ -63,7 +65,7 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         # Standardize x and y coordinates if requested
         self.standardize_xy = standardize_xy
         if self.standardize_xy:
-            # Use scikit-learn's StandardScaler
+ 
             self.xy_scaler = StandardScaler()
             xy_columns = ['x [m]', 'y [m]']
             xy_values = self.data[xy_columns].values
@@ -88,9 +90,10 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         frames = sorted(self.data['Time'].unique())
         sequences = []
         for i in range(len(frames) - self.obs_len - self.pred_len):
-            obs_frames = frames[i:i+self.obs_len]
-            future_frames = frames[i+self.obs_len:i+self.obs_len+self.pred_len]
-            sequences.append((obs_frames, future_frames))
+            obs_frames = frames[i:i+self.obs_len] # it iwll have the list like [0,0.1,0,3,2,2.3,2.9...]
+            future_frames = frames[i+self.obs_len:i+self.obs_len+self.pred_len] # it has the frame like [10.2,10.3,13.4......]
+            sequences.append((obs_frames, future_frames)) # finally it has like something [([],[])] # the first list consists of the observation frame and the second have the prediction frame
+            
         return sequences
 
     def __len__(self):
@@ -129,7 +132,7 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         
         return obs_graph_seq, future_trajectories
 
-    def _extract_future_trajectories(self, future_frames):
+    def _extract_future_trajectories(self, future_frames):  # this function is responsible to get the ground truth from the csv 
         """
         Extract future trajectory data from the specified frames
         
@@ -141,14 +144,15 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         """
         # Get all unique agents from the future frames
         future_data = self.data[self.data['Time'].isin(future_frames)]
-        unique_agents = future_data['Type'].unique()  # Using Type as agent identifier for now
+        unique_agents = future_data['Track ID'].unique()  # Using track id as agent identifier for now
         
         # Create tensor to hold future trajectories
         future_trajectories = torch.zeros(len(unique_agents), len(future_frames), 2, dtype=torch.float32)
+        valid_mask=torch.zeros(len(unique_agents),len(future_frames),dtype=torch.bool)
         
         # For each agent, extract their trajectory across future frames
-        for agent_idx, agent_type in enumerate(unique_agents):
-            agent_data = future_data[future_data['Type'] == agent_type]
+        for agent_idx, agent_track_id in enumerate(unique_agents):
+            agent_data = future_data[future_data['Track ID'] == agent_track_id]
             
             # Sort by time to ensure correct temporal order
             agent_data = agent_data.sort_values('Time')
@@ -163,8 +167,9 @@ class RoundaboutTrajectoryDataLoader(Dataset):
                     y_pos = frame_agent_data['y [m]'].iloc[0]
                     future_trajectories[agent_idx, frame_idx, 0] = x_pos
                     future_trajectories[agent_idx, frame_idx, 1] = y_pos
+                    valid_mask[agent_idx, frame_idx] = True
         
-        return future_trajectories
+        return future_trajectories,valid_mask
 
     def build_edge_index(self, positions):
         """
