@@ -20,6 +20,8 @@ class TCNBlock(nn.Module):
         self.downsample = nn.Conv1d(in_channels, out_channels, 1) if in_channels != out_channels else None
         self.relu = nn.ReLU()
         self.init_weights()
+        self.kernel_size=kernel_size
+        self.dilation = dilation
         
     def init_weights(self):
         """Initialize weights using Kaiming initialization"""
@@ -41,9 +43,12 @@ class TCNBlock(nn.Module):
         Returns:
             Output tensor of shape [N, C', L']
         """
-        # Save original for residual connection
+ 
+        print(f"TCNBlock input shape: {x.shape}, conv1 weight shape: {self.conv1.weight.shape}")
+        assert x.shape[1] == self.conv1.in_channels, f"Input channels {x.shape[1]} != expected {self.conv1.in_channels}"
+        assert x.shape[2] >= self.kernel_size, f"Sequence length {x.shape[2]} too short for kernel {self.kernel_size} with dilation {self.dilation}"
         residual = x
-        
+ 
         # First convolution block
         out = self.conv1(x)
         out = self.bn1(out)
@@ -142,8 +147,12 @@ class TCN(nn.Module):
             Ready to be used as input to a transformer or other modules
         """
         # Convert from [batch, seq_len, features] to [batch, features, seq_len]
+        print(f"The input shape of the tcn is {x.shape}")
+        assert x.dim()==3 , f"Input should be equla to 3 dimension,got {x.shape}"
+        batch_size,seq_len,input_dim = x.shape
+        assert input_dim == self.network[0].conv1.in_channels, f"Input dim {input_dim} != expected {self.network[0].conv1.in_channels}"
         x = x.transpose(1, 2)
-        
+        print(f"TCN transposed shape: {x.shape}")
         # Apply TCN blocks
         x = self.network(x)
         

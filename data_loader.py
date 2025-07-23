@@ -7,83 +7,69 @@ from sklearn.preprocessing import StandardScaler
 
 
 def collate_graph_sequences(batch):
-    # Separate observation graphs and future trajectories
+    # Separate observation graphs, future trajectories, and validity masks
     obs_graphs = []
     future_trajectories = []
-    valid_mask=[]
+    valid_masks = []  # Correct: Use plural for list
     
-    for obs_seq, future_seq ,valid_mask in batch:
+    for obs_seq, future_seq, mask in batch:
         obs_graphs.append(obs_seq)
         future_trajectories.append(future_seq)
-        valid_mask.append(valid_mask)
+        valid_masks.append(mask)  # Correct: Append to valid_masks
     
     # Batch the observation graphs
     transposed = list(zip(*obs_graphs))  
     batched_graphs = [Batch.from_data_list(frame_graphs) for frame_graphs in transposed]
     
     # Find max number of agents across all batch items
-    max_agents = max(traj.size(0) for traj in future_trajectories)
+    max_agents = 89
     pred_len = future_trajectories[0].size(1)
     
-    # Pad each trajectory tensor to have the same number of agents
+    # Pad each trajectory tensor and mask to have the same number of agents
     padded_trajectories = []
-    for traj in future_trajectories:
+    padded_masks = []  # Correct: Use plural for list
+    for traj, mask in zip(future_trajectories, valid_masks):  # Correct: Iterate over both lists
         num_agents = traj.size(0)
         if num_agents < max_agents:
-            # Create padding tensor
+            # Pad trajectories
             padding = torch.zeros(max_agents - num_agents, pred_len, 2, dtype=traj.dtype, device=traj.device)
-            # Concatenate with original tensor
             padded_traj = torch.cat([traj, padding], dim=0)
-            padded_trajectories.append(padded_traj)
+            # Pad masks
+            mask_padding = torch.zeros(max_agents - num_agents, pred_len, dtype=torch.bool, device=mask.device)  # Correct: 2D shape
+            padded_mask = torch.cat([mask, mask_padding], dim=0)
         else:
-            padded_trajectories.append(traj)
+            padded_traj = traj[:max_agents]
+            padded_mask = mask[:max_agents]
+        padded_trajectories.append(padded_traj)
+        padded_masks.append(padded_mask)  # Correct: Append to padded_masks
     
-    # Stack the padded trajectories
+    # Stack the padded trajectories and masks
     batched_futures = torch.stack(padded_trajectories)
+    batched_masks = torch.stack(padded_masks)
     
-    return batched_graphs, batched_futures
+    return batched_graphs, batched_futures, batched_masks
 
 class RoundaboutTrajectoryDataLoader(Dataset):
     def __init__(self, csv_path, obs_len=10, pred_len=10, dist_threshold=10.0, standardize_xy=True):
-        """
-        Args:
-            csv_path (str): Path to trajectory CSV file
-            obs_len (int): Number of observation frames (e.g. 10)
-            pred_len (int): Number of prediction frames (e.g. 10)
-            dist_threshold (float): Distance threshold for edge creation (in meters)
-            standardize_xy (bool): Whether to standardize the x and y coordinates
-        """
+
         self.data = pd.read_csv(csv_path)
         self.obs_len = obs_len
         self.pred_len = pred_len
         self.dist_threshold = dist_threshold
         self.standardized_dist_threshold = dist_threshold   
-
         self.type_list = sorted(self.data['Type'].unique())
         self.num_types = len(self.type_list)
-        
-        # Standardize x and y coordinates if requested
         self.standardize_xy = standardize_xy
+        self.num_features =5
         if self.standardize_xy:
  
-            self.xy_scaler = StandardScaler()
-            xy_columns = ['x [m]', 'y [m]']
-            xy_values = self.data[xy_columns].values
-            
-            # Fit the scaler and transform the data
-            xy_scaled = self.xy_scaler.fit_transform(xy_values)
-            
-            # Update the dataframe with standardized values
-            self.data['x [m]'] = xy_scaled[:, 0]
-            self.data['y [m]'] = xy_scaled[:, 1]
-            
-            # Update the distance threshold for standardized space
-            # Using average of x and y scales for distance calculation
-            avg_scale = (self.xy_scaler.scale_[0] + self.xy_scaler.scale_[1]) / 2
-            self.standardized_dist_threshold = self.dist_threshold / avg_scale
-            print(f"Original distance threshold: {self.dist_threshold} meters")
-            print(f"Standardized distance threshold: {self.standardized_dist_threshold}")
-        
+            self.feature_scaler = StandardScaler()
+            feature_columns = ['x [m]', 'y [m]', 'Speed [km/h]', 'Tan. Acc. [ms-2]', 'Lat. Acc. [ms-2]']
+            feature_values = self.data[feature_columns].values
+            feature_scaled = self.feature_scaler.fit_transform(feature_values)
+            self.data[feature_columns] = feature_scaled
+            avg_scale = self.feature_scaler.scale_[0:2].mean()
+            self.standardized_dist_threshold = self.dist_threshold / avg_scale        
         self.sequences = self._build_sequences()
 
     def _build_sequences(self):
@@ -100,14 +86,8 @@ class RoundaboutTrajectoryDataLoader(Dataset):
         return len(self.sequences)
 
     def __getitem__(self, idx):
-        """
-        Returns:
-            A tuple of (observation_graphs, future_trajectories)
-            - observation_graphs: List of PyG Data objects for observation frames (length = obs_len)
-            - future_trajectories: Tensor of future (x,y) coordinates [num_agents, pred_len, 2]
-        """
+ 
         obs_frames, future_frames = self.sequences[idx]
-        
         # Process observation frames
         obs_graph_seq = []
         for t in obs_frames:
@@ -124,13 +104,12 @@ class RoundaboutTrajectoryDataLoader(Dataset):
             data = Data(x=x, edge_index=edge_index)
             data.type_ids = type_ids  # store type IDs for embedding
             data.frame_time = torch.tensor([t])  # optional: for debug
-
             obs_graph_seq.append(data)
         
         # Process future frames to extract ground truth trajectories
-        future_trajectories = self._extract_future_trajectories(future_frames)
+        future_trajectories,valid_mask = self._extract_future_trajectories(future_frames)
         
-        return obs_graph_seq, future_trajectories
+        return obs_graph_seq, future_trajectories,valid_mask
 
     def _extract_future_trajectories(self, future_frames):  # this function is responsible to get the ground truth from the csv 
         """
@@ -211,38 +190,23 @@ class RoundaboutTrajectoryDataLoader(Dataset):
             num_workers=num_workers
         )
         
-    def inverse_transform_coordinates(self, positions_normalized):
-        """
-        Convert standardized coordinates back to original scale
-        
-        Args:
-            positions_normalized: Tensor or array of shape (..., 2) with normalized x,y coordinates
-            
-        Returns:
-            Original scale coordinates
-        """
+    def inverse_transform_features(self, features_normalized):
         if not self.standardize_xy:
-            return positions_normalized
-            
-        # Convert to numpy if it's a tensor
-        is_tensor = torch.is_tensor(positions_normalized)
+            return features_normalized
+        is_tensor = torch.is_tensor(features_normalized)
         if is_tensor:
-            positions_np = positions_normalized.detach().cpu().numpy()
+            features_np = features_normalized.detach().cpu().numpy()
         else:
-            positions_np = positions_normalized
-            
-        # Reshape if needed to ensure it's 2D for the scaler
-        original_shape = positions_np.shape
-        positions_np = positions_np.reshape(-1, 2)
-        
-        # Inverse transform
-        positions_original = self.xy_scaler.inverse_transform(positions_np)
-        
-        # Reshape back to original shape
-        positions_original = positions_original.reshape(original_shape)
-        
-        # Convert back to tensor if input was a tensor
+            features_np = features_normalized
+        original_shape = features_np.shape
+        features_np = features_np.reshape(-1, 5)
+        features_original = self.feature_scaler.inverse_transform(features_np)
+        features_original = features_original.reshape(original_shape)
         if is_tensor:
-            return torch.tensor(positions_original, dtype=positions_normalized.dtype, 
-                               device=positions_normalized.device)
-        return positions_original
+            return torch.tensor(features_original, dtype=features_normalized.dtype, 
+                            device=features_normalized.device)
+        return features_original
+
+
+
+ 

@@ -7,20 +7,26 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
+import platform
+from torch.utils.data import DataLoader
+ 
 
-# Import your model components
-from data_loader import RoundaboutTrajectoryDataLoader
-from GAT_layer import SpatialGAT
-from TCN_layer import TCN
-from TRNS_layer import TrajectoryTransformer
+ 
+try:
+    from data_loader import RoundaboutTrajectoryDataLoader
+    from data_loader import collate_graph_sequences
+    from GAT_layer import SpatialGAT
+    from TCN_layer import TCN
+    from TRNS_layer import TrajectoryTransformer
+except ImportError as e:
+    raise ImportError(f"Failed to import required modules: {e}")
 
+ 
 class TrajectoryPredictionModel(nn.Module):
     def __init__(self, args):
         super(TrajectoryPredictionModel, self).__init__()
-        
-        # GAT component
         self.gat = SpatialGAT(
-            input_dim=5,  # x, y, speed, tan_acc, lat_acc
+            input_dim=args.input_dim,
             hidden_dim=args.gat_hidden_dim,
             output_dim=args.gat_output_dim,
             num_heads=args.gat_heads,
@@ -29,8 +35,6 @@ class TrajectoryPredictionModel(nn.Module):
             num_types=args.num_types,
             type_embed_dim=args.type_embed_dim
         )
-        
-        # TCN component
         self.tcn = TCN(
             input_dim=args.gat_output_dim,
             hidden_dim=args.tcn_hidden_dim,
@@ -39,8 +43,6 @@ class TrajectoryPredictionModel(nn.Module):
             kernel_size=args.tcn_kernel_size,
             dropout=args.dropout
         )
-        
-        # Transformer component
         self.transformer = TrajectoryTransformer(
             input_dim=args.tcn_output_dim,
             d_model=args.transformer_dim,
@@ -49,215 +51,170 @@ class TrajectoryPredictionModel(nn.Module):
             num_decoder_layers=args.transformer_decoder_layers,
             dim_feedforward=args.transformer_ffn_dim,
             dropout=args.dropout,
-            output_dim=2,  # x, y coordinates
+            output_dim=2,
             max_seq_len=args.obs_len,
             pred_len=args.pred_len
         )
     
-    def forward(self, batch_graphs, agent_mask=None):
+    def forward(self, batch_graphs, batched_masks):
         """
-        Process batch data efficiently with proper shape handling
-        
         Args:
             batch_graphs: List of graph objects from dataloader
-            agent_mask: Boolean mask for valid agents [batch_size, num_agents]
-        
+            batched_masks: Boolean mask for valid agents [batch_size, num_agents, pred_len]
         Returns:
             predictions: Trajectory predictions [batch_size, num_agents, pred_len, 2]
         """
-        # Process with GAT to get scene embeddings
         gat_output = self.gat.process_batch(batch_graphs)
-        
-        # Get shapes
         batch_size, seq_len, max_agents, gat_dim = gat_output.shape
         device = gat_output.device
+        gat_output = torch.clamp(gat_output, -1e6, 1e6)
         
-        # Create or validate agent mask
-        if agent_mask is None:
-            # If no mask provided, assume all agents are valid
-            agent_mask = torch.ones(batch_size, max_agents, dtype=torch.bool, device=device)
-        elif agent_mask.shape[1] != max_agents:
-            # Ensure mask has correct shape
-            new_mask = torch.zeros(batch_size, max_agents, dtype=torch.bool, device=device)
-            min_agents = min(agent_mask.shape[1], max_agents)
-            new_mask[:, :min_agents] = agent_mask[:, :min_agents]
-            agent_mask = new_mask
-            
-        # Reshape for batch processing: [batch_size * max_agents, seq_len, gat_dim]
-        # First transpose to get [batch_size, max_agents, seq_len, gat_dim]
-        reshaped_data = gat_output.permute(0, 2, 1, 3)
-        # Then reshape to [batch_size * max_agents, seq_len, gat_dim]
+        # Use natural agent mask
+        agent_mask = batched_masks.any(dim=-1)  # [batch_size, max_agents from collate, e.g., 89]
+        print(f"agent_mask shape before reshape: {agent_mask.shape}")
+        
+        # Reshape for TCN
+        reshaped_data = gat_output.permute(0, 2, 1, 3)  # [batch_size, max_agents, seq_len, gat_dim]
+        print(f"reshaped data shape {reshaped_data.shape}")
+        
         flat_batch_data = reshaped_data.reshape(-1, seq_len, gat_dim)
+        print(f"flat data shape type and the shape {flat_batch_data.dtype} {flat_batch_data.shape}")
+        max_indices = flat_batch_data.size(0) - 1  # e.g., 735 for 736 elements
         
-        # Create a mask for valid agents in flattened form
-        flat_agent_mask = agent_mask.reshape(-1)
+        # Adjust flat_agent_mask to current total agents
+        current_total_agents = batch_size * max_agents
+        flat_agent_mask = agent_mask.reshape(-1)[:current_total_agents]
+        print(f"flat_agent_mask shape: {flat_agent_mask.shape}, sum: {flat_agent_mask.sum().item()}")
+        print(f"flat_agent_mask shape {flat_agent_mask.shape} {flat_agent_mask.dtype} sum : {flat_agent_mask.sum().item()}")
         
-        # Only process valid agents with TCN to save computation
         valid_indices = torch.where(flat_agent_mask)[0]
-        valid_data = flat_batch_data[valid_indices]
+        if (valid_indices > max_indices).any() or (valid_indices < 0).any():
+            raise ValueError(f"Invalid indices: {valid_indices}, max_indices: {max_indices}")
         
-        # Process with TCN in a single batch
+        print(f"flat_batch_data : {flat_batch_data.dtype} , flat_batch_data size : {flat_batch_data.shape} flat_batch_data : {flat_batch_data.device}")
+        valid_data = flat_batch_data[valid_indices]
+        print(f"Valid data min/max: {valid_data.min().item()}, {valid_data.max().item()}, has NaN: {torch.isnan(valid_data).any().item()}")
+        print(f"Valid data shape {valid_data.shape},valid data type {valid_data.dtype},valid data device {valid_data.device}")
+        
         if len(valid_indices) > 0:
-            tcn_output = self.tcn(valid_data)  # [num_valid_agents, tcn_seq_len, tcn_dim]
-            
-            # Ensure sequence length is the original
-            if tcn_output.shape[1] > seq_len:
-                tcn_output = tcn_output[:, -seq_len:, :]
-                
-            # Create a tensor to hold all TCN outputs (including invalid agents as zeros)
+            tcn_output = self.tcn(valid_data)
+            tcn_seq_len = tcn_output.shape[1]
+            if tcn_seq_len != seq_len:
+                if tcn_seq_len > seq_len:
+                    tcn_output = tcn_output[:, -seq_len:, :]
+                else:
+                    padding = torch.zeros(len(valid_indices), seq_len - tcn_seq_len, tcn_output.shape[2], device=device)
+                    tcn_output = torch.cat([tcn_output, padding], dim=1)
+            tcn_output = torch.clamp(tcn_output, -1e6, 1e6)
             tcn_dim = tcn_output.shape[2]
             all_tcn_output = torch.zeros(batch_size * max_agents, seq_len, tcn_dim, device=device)
-            
-            # Place valid outputs in the correct positions
             all_tcn_output[valid_indices] = tcn_output
-            
-            # Reshape back to [batch_size, max_agents, seq_len, tcn_dim]
             batch_tcn_output = all_tcn_output.reshape(batch_size, max_agents, seq_len, tcn_dim)
             
             # Process with transformer
-            # The transformer expects [batch_size, num_agents, seq_len, tcn_dim]
-            transformer_output = self.transformer(batch_tcn_output)  # [batch_size, max_agents, pred_len, 2]
+            transformer_output = self.transformer(batch_tcn_output)
+            print(f"Transformer output shape: {transformer_output.shape}")
             
-            # Apply agent mask to zero out invalid agents' predictions
-            # Expand mask to match prediction dimensions
-            expanded_mask = agent_mask.unsqueeze(-1).unsqueeze(-1).expand(-1, -1, transformer_output.shape[2], transformer_output.shape[3])
-            predictions = transformer_output * expanded_mask.float()
+            # Use max_agents for predictions (match transformer_output)
+            predictions = transformer_output[:, :max_agents, :, :]  # Ensure it matches max_agents
+            print(f"Predictions shape before mask: {predictions.shape}")
+            
+            # Adjust agent_mask to match max_agents by padding if needed
+            if agent_mask.size(1) < max_agents:
+                padding = torch.zeros(batch_size, max_agents - agent_mask.size(1), device=device, dtype=torch.bool)
+                agent_mask = torch.cat([agent_mask, padding], dim=1)
+            elif agent_mask.size(1) > max_agents:
+                agent_mask = agent_mask[:, :max_agents]
+            
+            # Expand mask to match predictions
+            expanded_mask = agent_mask.unsqueeze(-1).unsqueeze(-1).expand(-1, max_agents, seq_len, 2)
+            print(f"Expanded mask shape: {expanded_mask.shape}")
+            
+            # Apply mask to predictions
+            predictions = predictions * expanded_mask.float()
+            print(f"Final predictions shape: {predictions.shape}")
         else:
-            # Handle the case of no valid agents
             predictions = torch.zeros(batch_size, max_agents, self.transformer.pred_len, 2, device=device)
         
         return predictions
+    
+ 
 
-def create_agent_mask(batch_graphs, device):
+def calculate_metrics(predictions, ground_truth, batched_masks=None, convert_coordinates=None):
     """
-    Create a mask for valid agents from batch graphs
+    Calculate trajectory prediction metrics (e.g., ADE, FDE, worst FDE, Miss Rate).
     
     Args:
-        batch_graphs: List of graph objects from dataloader
-        device: The device to place the mask on
-        
-    Returns:
-        Boolean mask of shape [batch_size, max_agents] where True indicates a valid agent
-    """
-    # Get number of graphs and use the last timestep to determine valid agents
-    if not batch_graphs:
-        return torch.zeros(0, 0, dtype=torch.bool, device=device)
-        
-    seq_len = len(batch_graphs)
-    last_batch = batch_graphs[-1]  # Use the last timestep
-    
-    # Get batch assignment for each node
-    batch_tensor = last_batch.batch
-    
-    if batch_tensor.numel() == 0:
-        # Handle empty batch
-        return torch.zeros(0, 0, dtype=torch.bool, device=device)
-    
-    # Count nodes per graph
-    unique_batches, counts = torch.unique(batch_tensor, return_counts=True)
-    
-    # Determine the maximum number of agents and batch size
-    batch_size = len(unique_batches)
-    max_agents = counts.max().item() if counts.numel() > 0 else 0
-    
-    # Create mask (initialized as False/0)
-    mask = torch.zeros(batch_size, max_agents, dtype=torch.bool, device=device)
-    
-    # Fill in mask for valid agents (with safety checks)
-    for i, count in enumerate(counts):
-        if i < batch_size:  # Safety check
-            count_val = min(count.item(), max_agents)  # Safety check
-            mask[i, :count_val] = True
-    
-    return mask
-
-def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordinates=None):
-    """
-    Calculate trajectory prediction metrics with careful shape matching
-    
-    Args:
-        predictions: Model predictions [batch_size, num_agents, pred_len, 2]
-        ground_truth: Ground truth future trajectories [batch_size, num_agents, pred_len, 2]
-        agent_mask: Boolean mask for valid agents [batch_size, num_agents]
-        convert_coordinates: Optional function to convert back to original coordinate system
+        predictions: Predicted trajectories [batch_size, num_agents, pred_len, 2]
+        ground_truth: Ground truth trajectories [batch_size, num_agents, pred_len, 2]
+        batched_masks: Boolean mask for valid agents [batch_size, num_agents, pred_len] (optional)
+        convert_coordinates: Function to convert coordinates (optional)
     
     Returns:
-        Dictionary of metrics
+        metrics: Dictionary containing ADE, FDE, worstFDE, and MissRate
     """
-    # First, verify we have matching shapes for predictions and ground truth
+    print(f"predictions shape: {predictions.shape}, ground_truth shape: {ground_truth.shape}")
+    
+    # Get agent dimensions
+    batch_size_pred, pred_agents, pred_len, dim = predictions.shape
+    batch_size_gt, gt_agents, _, _ = ground_truth.shape
+    
+    # Verify batch size consistency
+    if batch_size_pred != batch_size_gt:
+        raise ValueError(f"Batch size mismatch: predictions {batch_size_pred}, ground_truth {batch_size_gt}")
+    
+    # Truncate to minimum agent count
+    min_agents = min(pred_agents, gt_agents)
+    predictions = predictions[:, :min_agents, :, :]
+    ground_truth = ground_truth[:, :min_agents, :, :]
+    if batched_masks is not None:
+        batched_masks = batched_masks[:, :min_agents, :]
+    
+    print(f"Adjusted predictions shape: {predictions.shape}, ground_truth shape: {ground_truth.shape}")
+    
+    # Verify shapes match after truncation
     if predictions.shape != ground_truth.shape:
-        raise ValueError(f"Shape mismatch: predictions {predictions.shape}, ground truth {ground_truth.shape}")
+        raise ValueError(f"Shape mismatch after truncation: predictions {predictions.shape}, ground_truth {ground_truth.shape}")
     
-    # Apply coordinate conversion if provided
     if convert_coordinates is not None:
         predictions = convert_coordinates(predictions)
         ground_truth = convert_coordinates(ground_truth)
     
-    # Get dimensions
     batch_size, num_agents, pred_len, _ = predictions.shape
     device = predictions.device
     
-    # If no agent mask was provided, create one that includes all agents
-    if agent_mask is None:
-        agent_mask = torch.ones(batch_size, num_agents, dtype=torch.bool, device=device)
+    if batched_masks is None:
+        batched_masks = torch.ones(batch_size, num_agents, pred_len, dtype=torch.bool, device=device)
+    agent_mask = batched_masks.any(dim=-1)  # [batch_size, num_agents]
     
-    # Initialize arrays for per-agent metrics
     all_ades = []
     all_fdes = []
-    
-    # Process each scene (batch) independently
     for b in range(batch_size):
-        # Get valid agents for this scene
         scene_mask = agent_mask[b]
         valid_agents = torch.where(scene_mask)[0]
-        
-        # Skip if no valid agents in this scene
         if len(valid_agents) == 0:
             continue
-            
-        # Extract predictions and ground truth for valid agents only
-        scene_pred = predictions[b, scene_mask]
-        scene_gt = ground_truth[b, scene_mask]
-        
-        # Calculate Euclidean distance error at each timestep
-        # Shape: [num_valid_agents, pred_len]
+        scene_pred = predictions[b, valid_agents]
+        scene_gt = ground_truth[b, valid_agents]
         error = torch.sqrt(((scene_pred - scene_gt) ** 2).sum(dim=-1) + 1e-10)
-        
-        # Final Displacement Error (FDE) - error at final predicted position
-        scene_fde = error[:, -1]  # [num_valid_agents]
-        
-        # Average Displacement Error (ADE) - mean error across all timesteps
-        scene_ade = error.mean(dim=1)  # [num_valid_agents]
-        
-        # Append to lists
+        scene_fde = error[:, -1]
+        scene_ade = error.mean(dim=1)
         all_ades.append(scene_ade)
         all_fdes.append(scene_fde)
     
-    # Concatenate metrics from all scenes
     if all_ades and all_fdes:
         all_ades = torch.cat(all_ades)
         all_fdes = torch.cat(all_fdes)
-        
-        # Calculate final metrics
         mean_ade = all_ades.mean().item()
         mean_fde = all_fdes.mean().item()
         worst_fde = torch.quantile(all_fdes, 0.95).item()
-        miss_threshold = 2.0  # meters, adjust based on your application
+        miss_threshold = 2.0
         miss_rate = (all_fdes > miss_threshold).float().mean().item()
-        
-        # Debug: Print range of errors (only occasionally)
-        verbose = False  # Set to False to disable detailed printing
-        if verbose:
-            print(f"\nError statistics:")
-            print(f"ADE range: [{all_ades.min().item():.4f}, {all_ades.max().item():.4f}], mean: {mean_ade:.4f}")
-            print(f"FDE range: [{all_fdes.min().item():.4f}, {all_fdes.max().item():.4f}], mean: {mean_fde:.4f}")
     else:
-        # Handle edge case of no valid agents
         mean_ade = float('nan')
         mean_fde = float('nan')
         worst_fde = float('nan')
         miss_rate = float('nan')
-        
         print("No valid agents found for metric calculation!")
     
     return {
@@ -267,8 +224,7 @@ def calculate_metrics(predictions, ground_truth, agent_mask=None, convert_coordi
         'MissRate': miss_rate
     }
 
-# Removed extract_future_data function - now using real ground truth from data loader
-
+ 
 def train_epoch(model, train_loader, optimizer, device, args):
     """
     Train for one epoch
@@ -283,65 +239,35 @@ def train_epoch(model, train_loader, optimizer, device, args):
     Returns:
         Dictionary of training metrics for this epoch
     """
+    if not train_loader:
+        raise ValueError("train_loader is empty")
+    if args.grad_clip < 0:
+        raise ValueError("grad_clip must be non-negative")
+    
     model.train()
     total_loss = 0
     ade_total = 0
     fde_total = 0
+    num_valid_batches = 0
     
     # Use tqdm for progress bar
+ 
     progress_bar = tqdm(train_loader, desc='Training')
     
-    for batch_idx, (batch_graphs, gt_trajectories) in enumerate(progress_bar):
+    for batch_idx, (batch_graphs, gt_trajectories, batched_masks) in enumerate(progress_bar):
         # Move data to device
         batch_graphs = [frame.to(device) for frame in batch_graphs]
         gt_trajectories = gt_trajectories.to(device)
+        batched_masks = batched_masks.to(device)
         
         # Zero the gradients
         optimizer.zero_grad()
         
-        # Create agent mask for this batch
-        agent_mask = create_agent_mask(batch_graphs, device)
+        # Forward pass
+        predictions = model(batch_graphs, batched_masks)
         
-        # Forward pass - use our model to process trajectories
-        predictions = model(batch_graphs, agent_mask)
-        
-        # Handle potential shape mismatches between predictions and ground truth
-        if gt_trajectories.shape[1] != predictions.shape[1]:
-            # Create proper sized ground truth with same shape as predictions
-            batch_size, pred_agents, pred_len, dim = predictions.shape
-            gt_batch, gt_agents, gt_len, gt_dim = gt_trajectories.shape
-            
-            # Create new ground truth with matching shape
-            new_gt = torch.zeros_like(predictions)
-            
-            # Copy over data for agents that exist in both
-            min_agents = min(gt_agents, pred_agents)
-            new_gt[:, :min_agents, :, :] = gt_trajectories[:, :min_agents, :, :]
-            
-            gt_trajectories = new_gt
-            
-            # Log the adjustment for debugging (only occasionally)
-            if batch_idx % 50 == 0:
-                print(f"Ground truth size ({gt_agents}) doesn't match predictions size ({pred_agents}). Adjusting ground truth.")
-        
-        # Ensure agent mask matches the prediction size
-        if agent_mask.size(1) != predictions.shape[1]:
-             # Log the adjustment (only occasionally)
-            batch_size = predictions.size(0)
-            num_agents = predictions.size(1)
-            
-            new_agent_mask = torch.zeros(batch_size, num_agents, dtype=torch.bool, device=device)
-            
-            # Copy over values from original mask if possible
-            min_agents = min(agent_mask.size(1), num_agents)
-            new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
-            agent_mask = new_agent_mask
-            
-            if batch_idx % 50 == 0:
-                print(f"Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting mask.")
-            
         # Compute loss
-        loss = compute_loss(predictions, gt_trajectories, agent_mask)
+        loss = compute_loss(predictions, gt_trajectories, batched_masks)
         
         # Backpropagation
         loss.backward()
@@ -349,7 +275,7 @@ def train_epoch(model, train_loader, optimizer, device, args):
         # Gradient clipping
         if args.grad_clip > 0:
             torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
-            
+        
         # Optimizer step
         optimizer.step()
         
@@ -359,17 +285,20 @@ def train_epoch(model, train_loader, optimizer, device, args):
         # Calculate metrics for this batch
         with torch.no_grad():
             metrics = calculate_metrics(
-                predictions, 
+                predictions,
                 gt_trajectories,
-                agent_mask=agent_mask,
-                convert_coordinates=train_loader.dataset.inverse_transform_coordinates
-                if hasattr(train_loader.dataset, 'inverse_transform_coordinates') else None
+                batched_masks=batched_masks,
+                convert_coordinates=train_loader.dataset.inverse_transform_features
+                if hasattr(train_loader.dataset, 'inverse_transform_features') else None
             )
             
-            ade_total += metrics['ADE']
-            fde_total += metrics['FDE']
+            # Accumulate only valid metrics
+            if not np.isnan(metrics['ADE']) and not np.isnan(metrics['FDE']):
+                ade_total += metrics['ADE']
+                fde_total += metrics['FDE']
+                num_valid_batches += 1
             
-            # Update the progress bar (with less frequent detailed updates)
+            # Update the progress bar
             if batch_idx % 10 == 0:
                 progress_bar.set_description(
                     f"Train Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
@@ -379,57 +308,79 @@ def train_epoch(model, train_loader, optimizer, device, args):
     
     # Compute mean metrics
     num_batches = len(train_loader)
-    metrics = {
-        'loss': total_loss / num_batches,
-        'ADE': ade_total / num_batches,
-        'FDE': fde_total / num_batches
-    }
+    if num_valid_batches == 0:
+        metrics = {
+            'loss': total_loss / num_batches if num_batches > 0 else float('nan'),
+            'ADE': float('nan'),
+            'FDE': float('nan')
+        }
+    else:
+        metrics = {
+            'loss': total_loss / num_batches,
+            'ADE': ade_total / num_valid_batches,
+            'FDE': fde_total / num_valid_batches
+        }
     
     return metrics
 
-def compute_loss(predictions, targets, agent_mask=None):
+def compute_loss(predictions, targets, batched_masks=None):
     """
     Custom loss function for trajectory prediction with agent masking
     
     Args:
         predictions: Model predictions [batch_size, num_agents, pred_len, 2]
         targets: Ground truth future trajectories [batch_size, num_agents, pred_len, 2]
-        agent_mask: Boolean mask for valid agents [batch_size, num_agents]
+        batched_masks: Boolean mask for valid agents [batch_size, num_agents, pred_len]
         
     Returns:
         Loss value
     """
-    # Ensure inputs have the same shape
-    if predictions.shape != targets.shape:
-        raise ValueError(f"Shape mismatch in compute_loss: predictions {predictions.shape}, targets {targets.shape}")
+    print(f"predictions shape: {predictions.shape}, targets shape: {targets.shape}")
     
-    batch_size, num_agents, pred_len, dim = predictions.shape
+    # Get agent dimensions
+    batch_size_pred, pred_agents, pred_len, dim = predictions.shape
+    batch_size_target, target_agents, _, _ = targets.shape
+    
+    # Verify batch size consistency
+    if batch_size_pred != batch_size_target:
+        raise ValueError(f"Batch size mismatch: predictions {batch_size_pred}, targets {batch_size_target}")
+    
+    # Truncate to minimum agent count
+    min_agents = min(pred_agents, target_agents)
+    predictions = predictions[:, :min_agents, :, :]
+    targets = targets[:, :min_agents, :, :]
+    if batched_masks is not None:
+        batched_masks = batched_masks[:, :min_agents, :]
+    
+    print(f"Adjusted predictions shape: {predictions.shape}, targets shape: {targets.shape}")
+    
+    # Verify shapes match after truncation
+    if predictions.shape != targets.shape:
+        raise ValueError(f"Shape mismatch after truncation: predictions {predictions.shape}, targets {targets.shape}")
+    
     device = predictions.device
     
-    # If no agent mask provided, all agents are valid
-    if agent_mask is None:
-        agent_mask = torch.ones(batch_size, num_agents, dtype=torch.bool, device=device)
+    if batched_masks is None:
+        batched_masks = torch.ones(batch_size_pred, min_agents, pred_len, dtype=torch.bool, device=device)
+    elif batched_masks.shape != (batch_size_pred, min_agents, pred_len):
+        raise ValueError(f"batched_masks shape {batched_masks.shape} does not match expected {(batch_size_pred, min_agents, pred_len)}")
     
-    # Simple loss computation without excessive debugging
+    # Clip predictions and targets for numerical stability
+    predictions = torch.clamp(predictions, -1e6, 1e6)
+    targets = torch.clamp(targets, -1e6, 1e6)
     
-    # MSE loss with masking 
-    squared_error = torch.pow(predictions - targets, 2)  # [batch, agents, steps, 2]
-    
-    # Sum over x,y dimensions
-    squared_error = squared_error.sum(dim=-1)  # [batch, agents, steps]
-    
-    # Create 3D mask from 2D agent mask
-    mask_3d = agent_mask.unsqueeze(-1).expand(-1, -1, pred_len)
+    # MSE loss with masking
+    squared_error = torch.pow(predictions - targets, 2).sum(dim=-1)  # [batch_size, num_agents, pred_len]
     
     # Apply mask
-    masked_squared_error = squared_error * mask_3d
+    masked_squared_error = squared_error * batched_masks.float()
     
     # Count number of valid elements for averaging
-    num_valid = mask_3d.sum().item()
+    num_valid = batched_masks.sum().item()
     
     # If no valid elements, return 0 loss
     if num_valid == 0:
-        return torch.tensor(0.0, device=device)
+        return torch.tensor(0.0, device=device, requires_grad=True)
     
     # Average over valid elements
     loss = masked_squared_error.sum() / (num_valid + 1e-10)
@@ -450,10 +401,24 @@ def save_model(model, optimizer, scheduler, args, metrics, epoch, is_best=False,
         is_best: Whether this is the best model so far
         final: Whether this is the final model after training
     """
-    # Create a dictionary with all information needed to resume training or evaluate
+    if not hasattr(args, 'save_dir') or not args.save_dir:
+        raise ValueError("args.save_dir must be a non-empty string")
+    if not isinstance(model, torch.nn.Module):
+        raise ValueError("model must be a PyTorch Module")
+    if not isinstance(optimizer, torch.optim.Optimizer):
+        raise ValueError("optimizer must be a PyTorch Optimizer")
+    if scheduler is not None and not isinstance(scheduler, torch.optim.lr_scheduler._LRScheduler):
+        raise ValueError("scheduler must be a PyTorch LRScheduler or None")
+    if not isinstance(metrics, dict):
+        raise ValueError("metrics must be a dictionary")
+    if epoch < 0:
+        raise ValueError("epoch must be non-negative")
+    
+    os.makedirs(args.save_dir, exist_ok=True)
+    
     save_dict = {
-        # Model configuration
         'model_config': {
+            'input_dim': args.input_dim,
             'num_types': args.num_types,
             'type_embed_dim': args.type_embed_dim,
             'gat_hidden_dim': args.gat_hidden_dim,
@@ -472,39 +437,35 @@ def save_model(model, optimizer, scheduler, args, metrics, epoch, is_best=False,
             'obs_len': args.obs_len,
             'pred_len': args.pred_len,
         },
-        # Training state
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
         'scheduler_state_dict': scheduler.state_dict() if scheduler else None,
-        # Performance metrics
         'metrics': metrics,
     }
     
-    # Save the checkpoint
     if final:
-        # Final model after training completed
         save_path = os.path.join(args.save_dir, 'final_model.pt')
         torch.save(save_dict, save_path)
         print(f"Saved final model to {save_path}")
-    elif is_best:
-        # Best model based on validation metric
+    if is_best:
         save_path = os.path.join(args.save_dir, 'best_model.pt')
         torch.save(save_dict, save_path)
         print(f"Saved best model with metrics: {metrics}")
     
-    # Periodic checkpoint for resuming training
     save_path = os.path.join(args.save_dir, f'checkpoint_epoch_{epoch}.pt')
     torch.save(save_dict, save_path)
+    print(f"Saved checkpoint to {save_path}")
     
-    # Also save just the model weights in PyTorch's standard format for easy loading
     if is_best:
         weights_path = os.path.join(args.save_dir, 'best_weights.pth')
         torch.save(model.state_dict(), weights_path)
+        print(f"Saved best weights to {weights_path}")
     
     if final:
         weights_path = os.path.join(args.save_dir, 'final_weights.pth')
         torch.save(model.state_dict(), weights_path)
+        print(f"Saved final weights to {weights_path}")
 
 def load_model(model_path, device=None):
     """
@@ -519,21 +480,34 @@ def load_model(model_path, device=None):
         config: Model configuration
         training_state: Dictionary with training state information
     """
+     
+    if not os.path.isfile(model_path):
+        raise FileNotFoundError(f"Model path {model_path} does not exist")
+    
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    elif isinstance(device, str):
+        device = torch.device(device)
+    if device.type == 'cuda' and not torch.cuda.is_available():
+        raise ValueError("CUDA device specified but not available")
     
-    # Load the saved dictionary
     checkpoint = torch.load(model_path, map_location=device)
     
-    # Extract configuration
+    if 'model_config' not in checkpoint or 'model_state_dict' not in checkpoint:
+        raise KeyError("Checkpoint missing required keys: 'model_config' or 'model_state_dict'")
+    
     model_config = checkpoint.get('model_config', {})
     
-    # Create model using saved configuration
-    model = TrajectoryPredictionModel(model_config)
+    class Args:
+        pass
+    args = Args()
+    for key, value in model_config.items():
+        setattr(args, key, value)
+    
+    model = TrajectoryPredictionModel(args)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.to(device)
     
-    # Return model and other saved information
     return model, model_config, checkpoint
 
 def validate(model, val_loader, device, args):
@@ -549,83 +523,49 @@ def validate(model, val_loader, device, args):
     Returns:
         Dictionary of validation metrics
     """
+ 
+    
+    if not val_loader:
+        raise ValueError("val_loader is empty")
+    if not isinstance(model, torch.nn.Module):
+        raise ValueError("model must be a PyTorch Module")
+    
     model.eval()
     total_loss = 0
     ade_total = 0
     fde_total = 0
     worst_fde_total = 0
     miss_rate_total = 0
+    num_valid_batches = 0
     
     with torch.no_grad():
-        # Use tqdm for progress bar
         progress_bar = tqdm(val_loader, desc='Validating')
         
-        for batch_idx, (batch_graphs, gt_trajectories) in enumerate(progress_bar):
-            # Move data to device
+        for batch_idx, (batch_graphs, gt_trajectories, batched_masks) in enumerate(progress_bar):
             batch_graphs = [frame.to(device) for frame in batch_graphs]
             gt_trajectories = gt_trajectories.to(device)
+            batched_masks = batched_masks.to(device)
             
-            # Create agent mask for this batch
-            agent_mask = create_agent_mask(batch_graphs, device)
+            predictions = model(batch_graphs, batched_masks)
             
-            # Forward pass - use our model to process trajectories
-            predictions = model(batch_graphs, agent_mask)
-            
-            # Handle potential shape mismatches between predictions and ground truth
-            if gt_trajectories.shape[1] != predictions.shape[1]:
-                # Create proper sized ground truth with same shape as predictions
-                batch_size, pred_agents, pred_len, dim = predictions.shape
-                gt_batch, gt_agents, gt_len, gt_dim = gt_trajectories.shape
-                
-                # Create new ground truth with matching shape
-                new_gt = torch.zeros_like(predictions)
-                
-                # Copy over data for agents that exist in both
-                min_agents = min(gt_agents, pred_agents)
-                new_gt[:, :min_agents, :, :] = gt_trajectories[:, :min_agents, :, :]
-                
-                gt_trajectories = new_gt
-                
-                # Only log occasionally
-                if batch_idx % 50 == 0:
-                    print(f"Val: Ground truth size ({gt_agents}) doesn't match predictions size ({pred_agents}). Adjusting.")
-            
-            # Ensure agent mask matches the prediction size
-            if agent_mask.size(1) != predictions.shape[1]:
-                batch_size = predictions.size(0)
-                num_agents = predictions.size(1)
-                new_agent_mask = torch.zeros(batch_size, num_agents, dtype=torch.bool, device=device)
-                
-                # Copy over values from original mask if possible
-                min_agents = min(agent_mask.size(1), num_agents)
-                new_agent_mask[:, :min_agents] = agent_mask[:, :min_agents]
-                agent_mask = new_agent_mask
-                
-                # Only log occasionally
-                if batch_idx % 50 == 0:
-                    print(f"Val: Agent mask size ({agent_mask.size(1)}) doesn't match predictions size ({num_agents}). Adjusting.")
-            
-            # Compute loss
-            loss = compute_loss(predictions, gt_trajectories, agent_mask)
-            
-            # Accumulate loss
+            loss = compute_loss(predictions, gt_trajectories, batched_masks)
             total_loss += loss.item()
             
-            # Calculate metrics for this batch
             metrics = calculate_metrics(
-                predictions, 
+                predictions,
                 gt_trajectories,
-                agent_mask=agent_mask,
-                convert_coordinates=val_loader.dataset.inverse_transform_coordinates
-                if hasattr(val_loader.dataset, 'inverse_transform_coordinates') else None
+                batched_masks=batched_masks,
+                convert_coordinates=val_loader.dataset.inverse_transform_features
+                if hasattr(val_loader.dataset, 'inverse_transform_features') else None
             )
             
-            ade_total += metrics['ADE']
-            fde_total += metrics['FDE']
-            worst_fde_total += metrics.get('worstFDE', 0)
-            miss_rate_total += metrics.get('MissRate', 0)
+            if not np.isnan(metrics['ADE']) and not np.isnan(metrics['FDE']):
+                ade_total += metrics['ADE']
+                fde_total += metrics['FDE']
+                worst_fde_total += metrics.get('worstFDE', 0)
+                miss_rate_total += metrics.get('MissRate', 0)
+                num_valid_batches += 1
             
-            # Update progress bar (less frequently)
             if batch_idx % 10 == 0:
                 progress_bar.set_description(
                     f"Val Loss: {loss.item():.4f}, ADE: {metrics['ADE']:.4f}, FDE: {metrics['FDE']:.4f}"
@@ -633,64 +573,72 @@ def validate(model, val_loader, device, args):
             else:
                 progress_bar.set_description("Validating")
     
-    # Compute mean metrics
     num_batches = len(val_loader)
-    metrics = {
-        'loss': total_loss / num_batches,
-        'ADE': ade_total / num_batches,
-        'FDE': fde_total / num_batches,
-        'worstFDE': worst_fde_total / num_batches,
-        'MissRate': miss_rate_total / num_batches
-    }
+    if num_valid_batches == 0:
+        metrics = {
+            'loss': total_loss / num_batches if num_batches > 0 else float('nan'),
+            'ADE': float('nan'),
+            'FDE': float('nan'),
+            'worstFDE': float('nan'),
+            'MissRate': float('nan')
+        }
+    else:
+        metrics = {
+            'loss': total_loss / num_batches,
+            'ADE': ade_total / num_valid_batches,
+            'FDE': fde_total / num_valid_batches,
+            'worstFDE': worst_fde_total / num_valid_batches,
+            'MissRate': miss_rate_total / num_valid_batches
+        }
     
     return metrics
 
 def main():
-    # Configuration settings (hardcoded instead of command line arguments)
+ 
+
+    # Configuration settings
     class Args:
-        # Data parameters
-        data_path = 'data/final_surajpur_proper.csv'  # Use forward slashes for cross-platform compatibility
+        data_path = 'data/final_surajpur_proper.csv'
         obs_len = 10
         pred_len = 10
         dist_threshold = 10.0
         batch_size = 8
-        
-        # Model parameters
         num_types = 9
         type_embed_dim = 16
-        
         gat_hidden_dim = 64
         gat_output_dim = 64
         gat_heads = 2
-        
         tcn_hidden_dim = 128
         tcn_output_dim = 128
         tcn_layers = 3
         tcn_kernel_size = 3
-        
         transformer_dim = 256
         transformer_heads = 8
         transformer_encoder_layers = 4
         transformer_decoder_layers = 4
         transformer_ffn_dim = 1024
-        
         dropout = 0.1
-        
-        # Training parameters
         epochs = 50
         lr = 0.0001
         weight_decay = 1e-4
         grad_clip = 1.0
         lr_decay = 0.5
         patience = 5
-        
-        # Other parameters
         seed = 42
         cuda = True
         log_dir = 'logs'
         save_dir = 'models'
+        num_workers = 0 if platform.system() == 'Windows' else 4
     
     args = Args()
+    
+    # Validate inputs
+    if not os.path.isfile(args.data_path):
+        raise FileNotFoundError(f"Data file {args.data_path} does not exist")
+    if not args.save_dir or not args.log_dir:
+        raise ValueError("save_dir and log_dir must be non-empty strings")
+    if args.num_workers < 0:
+        raise ValueError("num_workers must be non-negative")
     
     # Set random seed
     torch.manual_seed(args.seed)
@@ -702,25 +650,47 @@ def main():
     device = torch.device('cuda' if args.cuda and torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
     
-    # Create data loaders
-    dataset = RoundaboutTrajectoryDataLoader(
-        csv_path=args.data_path,
-        obs_len=args.obs_len,
-        pred_len=args.pred_len,
-        dist_threshold=args.dist_threshold,
-        standardize_xy=True
-    )
+    # Create data loaders with error handling
+    try:
+        dataset = RoundaboutTrajectoryDataLoader(
+            csv_path=args.data_path,
+            obs_len=args.obs_len,
+            pred_len=args.pred_len,
+            dist_threshold=args.dist_threshold,
+            standardize_xy=True
+        )
+    except Exception as e:
+        raise RuntimeError(f"Failed to initialize dataset: {e}")
+    
+    if len(dataset) == 0:
+        raise ValueError("Dataset is empty")
+    
+    # Set input_dim dynamically based on dataset
+    args.input_dim = dataset.num_features  # Assumes DataLoader provides num_features
     
     # Split into train and validation sets (80/20)
     dataset_size = len(dataset)
     train_size = int(dataset_size * 0.8)
     val_size = dataset_size - train_size
+    if train_size == 0 or val_size == 0:
+        raise ValueError(f"Invalid split: train_size={train_size}, val_size={val_size}")
     
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     
-    # Create data loaders from the split datasets
-    train_loader = dataset.get_loader(dataset=train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=4)
-    val_loader = dataset.get_loader(dataset=val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=4)
+    train_loader = DataLoader(
+    train_dataset,
+    batch_size=args.batch_size,
+    shuffle=True,
+    collate_fn=collate_graph_sequences,
+    num_workers=args.num_workers
+)
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=args.batch_size,
+        shuffle=False,
+        collate_fn=collate_graph_sequences,
+        num_workers=args.num_workers
+    )
     
     # Create model
     model = TrajectoryPredictionModel(args).to(device)
@@ -730,7 +700,7 @@ def main():
     
     # Learning rate scheduler
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='min', factor=args.lr_decay, patience=args.patience, verbose=True
+        optimizer, mode='min', factor=args.lr_decay, patience=args.patience
     )
     
     # Create logging directories
@@ -780,11 +750,11 @@ def main():
         }
         
         # Check if this is the best model
-        is_best = val_metrics['FDE'] < best_val_fde
+        is_best = not np.isnan(val_metrics['FDE']) and val_metrics['FDE'] < best_val_fde
         if is_best:
             best_val_fde = val_metrics['FDE']
-            
-        # Save model using our comprehensive save function
+        
+        # Save model
         save_model(
             model=model,
             optimizer=optimizer,
@@ -794,19 +764,8 @@ def main():
             epoch=epoch,
             is_best=is_best
         )
-        
-        # Save checkpoint for backward compatibility
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'train_loss': train_metrics['loss'],
-            'val_loss': val_metrics['loss'],
-            'train_metrics': train_metrics,
-            'val_metrics': val_metrics,
-        }, os.path.join(args.save_dir, 'checkpoint.pt'))
     
-    # Save final model with all components
+    # Save final model
     save_model(
         model=model,
         optimizer=optimizer,
