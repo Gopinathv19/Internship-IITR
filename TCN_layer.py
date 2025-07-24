@@ -60,22 +60,22 @@ class TCNBlock(nn.Module):
         out = self.bn2(out)
         out = self.dropout2(out)
         
-        # Downsample if needed
+         
         if self.downsample is not None:
             residual = self.downsample(residual)
         
-        # Handle residual connection size mismatch (due to dilation)
+         
         if residual.size(2) != out.size(2):
-            # Pad residual to match output size
+             
             padding_size = out.size(2) - residual.size(2)
             if padding_size > 0:
-                # Zero pad the residual from the right
+                
                 residual = F.pad(residual, (0, padding_size), "constant", 0)
             else:
-                # Crop the residual from the right
+                 
                 residual = residual[:, :, :out.size(2)]
             
-        # Add residual connection
+         
         out += residual
         out = self.relu(out)
         
@@ -101,15 +101,15 @@ class TCN(nn.Module):
         """
         super(TCN, self).__init__()
         
-        # If output_dim not specified, use hidden_dim
+         
         if output_dim is None:
             output_dim = hidden_dim
             
-        # Create list of TCN blocks with increasing dilation
+        
         blocks = []
         for i in range(num_layers):
             dilation = dilation_base ** i
-            padding = (kernel_size - 1) * dilation  # Causal padding
+            padding = (kernel_size - 1) * dilation   
             
             in_channels = input_dim if i == 0 else hidden_dim
             out_channels = hidden_dim
@@ -128,10 +128,10 @@ class TCN(nn.Module):
             
         self.network = nn.Sequential(*blocks)
         
-        # Final output layer if dimensions differ
+        
         self.output_layer = nn.Conv1d(hidden_dim, output_dim, 1) if hidden_dim != output_dim else None
         
-        # Layer norm for compatibility with transformer
+         
         self.layer_norm = nn.LayerNorm(output_dim)
         
     def forward(self, x):
@@ -146,24 +146,24 @@ class TCN(nn.Module):
             Processed tensor [batch_size, seq_len, output_dim]
             Ready to be used as input to a transformer or other modules
         """
-        # Convert from [batch, seq_len, features] to [batch, features, seq_len]
+        
         print(f"The input shape of the tcn is {x.shape}")
         assert x.dim()==3 , f"Input should be equla to 3 dimension,got {x.shape}"
         batch_size,seq_len,input_dim = x.shape
         assert input_dim == self.network[0].conv1.in_channels, f"Input dim {input_dim} != expected {self.network[0].conv1.in_channels}"
         x = x.transpose(1, 2)
         print(f"TCN transposed shape: {x.shape}")
-        # Apply TCN blocks
+         
         x = self.network(x)
         
-        # Apply output layer if needed
+        
         if self.output_layer is not None:
             x = self.output_layer(x)
             
-        # Convert back to [batch, seq_len, features]
+ 
         x = x.transpose(1, 2)
         
-        # Apply layer normalization
+        
         x = self.layer_norm(x)
         
         return x

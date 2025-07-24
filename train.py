@@ -665,10 +665,10 @@ def main():
     if len(dataset) == 0:
         raise ValueError("Dataset is empty")
     
-    # Set input_dim dynamically based on dataset
-    args.input_dim = dataset.num_features  # Assumes DataLoader provides num_features
+     
+    args.input_dim = dataset.num_features   
     
-    # Split into train and validation sets (80/20)
+    
     dataset_size = len(dataset)
     train_size = int(dataset_size * 0.8)
     val_size = dataset_size - train_size
@@ -692,22 +692,22 @@ def main():
         num_workers=args.num_workers
     )
     
-    # Create model
+    
     model = TrajectoryPredictionModel(args).to(device)
     
-    # Create optimizer
+    
     optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     
-    # Learning rate scheduler
+     
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode='min', factor=args.lr_decay, patience=args.patience
     )
     
-    # Create logging directories
+     
     os.makedirs(args.log_dir, exist_ok=True)
     os.makedirs(args.save_dir, exist_ok=True)
     
-    # TensorBoard writer
+    
     writer = SummaryWriter(log_dir=args.log_dir)
     
     # Training loop
@@ -724,10 +724,10 @@ def main():
         # Validate
         val_metrics = validate(model, val_loader, device, args)
         
-        # Update learning rate
+         
         scheduler.step(val_metrics['loss'])
         
-        # Log metrics
+        
         writer.add_scalar('Loss/train', train_metrics['loss'], epoch)
         writer.add_scalar('Loss/val', val_metrics['loss'], epoch)
         
@@ -735,13 +735,13 @@ def main():
             writer.add_scalar(f'Metrics/train_{k}', train_metrics[k], epoch)
             writer.add_scalar(f'Metrics/val_{k}', val_metrics[k], epoch)
         
-        # Print metrics
+         
         print(f"Train Loss: {train_metrics['loss']:.4f}, Val Loss: {val_metrics['loss']:.4f}")
         print(f"Train ADE: {train_metrics['ADE']:.4f}, Val ADE: {val_metrics['ADE']:.4f}")
         print(f"Train FDE: {train_metrics['FDE']:.4f}, Val FDE: {val_metrics['FDE']:.4f}")
         print(f"Time: {train_time:.2f}s")
         
-        # Combine metrics for saving
+         
         combined_metrics = {
             'train': train_metrics,
             'val': val_metrics,
@@ -749,12 +749,12 @@ def main():
             'time': train_time
         }
         
-        # Check if this is the best model
+         
         is_best = not np.isnan(val_metrics['FDE']) and val_metrics['FDE'] < best_val_fde
         if is_best:
             best_val_fde = val_metrics['FDE']
         
-        # Save model
+        
         save_model(
             model=model,
             optimizer=optimizer,
@@ -765,7 +765,7 @@ def main():
             is_best=is_best
         )
     
-    # Save final model
+    
     save_model(
         model=model,
         optimizer=optimizer,
@@ -781,7 +781,7 @@ def main():
         final=True
     )
     
-    # Close TensorBoard writer
+    
     writer.close()
     
     print("Training completed!")
