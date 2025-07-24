@@ -1,7 +1,7 @@
 logs/
 models/
 data/
-__pycache__
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -19,4 +19,7 @@ __pycache__
 *.ptv
 *.ptu
 *.ptt
-*.txt
+logs/
+*.log
+new logs.txt
+reviewlog.txt
